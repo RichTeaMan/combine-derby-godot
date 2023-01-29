@@ -13,3 +13,4 @@ func _physics_process(delta):
 	var right_rpm = $back_right_wheel.get_rpm()
 	$back_right_wheel.engine_force = acceleration * max_torque * (1 - right_rpm / max_rpm)
 	
+

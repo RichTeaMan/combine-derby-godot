@@ -1,12 +1,16 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://combine.gd" type="Script" id=1]
+[ext_resource path="res://assets/textures/ground_texture.png" type="Texture" id=2]
+[ext_resource path="res://cow.tscn" type="PackedScene" id=3]
 
 [sub_resource type="CubeMesh" id=1]
 size = Vector3( 500, 1, 500 )
 
 [sub_resource type="SpatialMaterial" id=2]
-albedo_color = Color( 0.545098, 0.380392, 0.0627451, 1 )
+flags_world_triplanar = true
+albedo_texture = ExtResource( 2 )
+uv1_triplanar = true
 
 [sub_resource type="ConcavePolygonShape" id=3]
 data = PoolVector3Array( -250, 0.5, 250, 250, 0.5, 250, -250, -0.5, 250, 250, 0.5, 250, 250, -0.5, 250, -250, -0.5, 250, 250, 0.5, -250, -250, 0.5, -250, 250, -0.5, -250, -250, 0.5, -250, -250, -0.5, -250, 250, -0.5, -250, 250, 0.5, 250, 250, 0.5, -250, 250, -0.5, 250, 250, 0.5, -250, 250, -0.5, -250, 250, -0.5, 250, -250, 0.5, -250, -250, 0.5, 250, -250, -0.5, -250, -250, 0.5, 250, -250, -0.5, 250, -250, -0.5, -250, 250, 0.5, 250, -250, 0.5, 250, 250, 0.5, -250, -250, 0.5, 250, -250, 0.5, -250, 250, 0.5, -250, -250, -0.5, 250, 250, -0.5, 250, -250, -0.5, -250, 250, -0.5, 250, 250, -0.5, -250, -250, -0.5, -250 )
@@ -101,3 +105,10 @@ mesh = SubResource( 7 )
 
 [node name="Camera" type="Camera" parent="combine"]
 transform = Transform( -1, 1.77636e-15, -8.74228e-08, -1.55533e-08, 0.984047, 0.177909, 8.60281e-08, 0.177909, -0.984047, 0, 5.60643, -9.13112 )
+
+[node name="DirectionalLight" type="DirectionalLight" parent="."]
+transform = Transform( 1, 0, 0, 0, 0.318794, 0.947824, 0, -0.947824, 0.318794, 0, 12.4467, 0 )
+shadow_enabled = true
+
+[node name="cow" parent="." instance=ExtResource( 3 )]
+transform = Transform( 0.217513, 0, 0.976057, 0, 1, 0, -0.976057, 0, 0.217513, -4.27771, 21.5285, 43.5022 )
