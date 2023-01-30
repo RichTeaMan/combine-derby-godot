@@ -8,6 +8,6 @@ func _enter_tree():
 	$MeshInstance.scale.z = width
 	pass
 
-func _process(delta):
+func _process(_delta):
 	if Engine.editor_hint:
 		$MeshInstance.scale.z = width
