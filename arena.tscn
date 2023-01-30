@@ -114,7 +114,7 @@ transform = Transform( 1, 0, 0, 0, 0.318794, 0.947824, 0, -0.947824, 0.318794, 0
 shadow_enabled = true
 
 [node name="cow" parent="." instance=ExtResource( 3 )]
-transform = Transform( 0.217513, 0, 0.976057, 0, 1, 0, -0.976057, 0, 0.217513, -4.27771, 3.753, 43.5022 )
+transform = Transform( 0.217513, 0, 0.976057, 0, 1, 0, -0.976057, 0, 0.217513, -4.278, 1.41282, 43.502 )
 
 [node name="west_wall" parent="." instance=ExtResource( 5 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 50, 0, 0 )
