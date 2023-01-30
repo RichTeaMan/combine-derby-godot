@@ -14,3 +14,6 @@ func _physics_process(delta):
 	$back_right_wheel.engine_force = acceleration * max_torque * (1 - right_rpm / max_rpm)
 	
 
+func _input(ev):
+	if Input.is_action_just_pressed("reset"):
+		rotation = Vector3.UP
