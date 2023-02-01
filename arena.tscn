@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=2]
+[gd_scene load_steps=42 format=2]
 
 [ext_resource path="res://combine.gd" type="Script" id=1]
 [ext_resource path="res://materials/mudCracked/mud.tres" type="Material" id=2]
@@ -31,10 +31,6 @@ bottom_radius = 0.6
 height = 0.25
 radial_segments = 12
 
-[sub_resource type="CubeMesh" id=9]
-material = ExtResource( 8 )
-size = Vector3( 30, 0.5, 200 )
-
 [sub_resource type="CubeMesh" id=8]
 material = ExtResource( 8 )
 size = Vector3( 40, 0.5, 90 )
@@ -56,11 +52,11 @@ data = PoolVector3Array( -10, 0.25, 10, 10, 0.25, 10, -10, -0.25, 10, 10, 0.25, 
 material = ExtResource( 8 )
 size = Vector3( 10, 10, 60 )
 
-[sub_resource type="ConcavePolygonShape" id=15]
-data = PoolVector3Array( -5, 5, 25, 5, 5, 25, -5, -5, 25, 5, 5, 25, 5, -5, 25, -5, -5, 25, 5, 5, -25, -5, 5, -25, 5, -5, -25, -5, 5, -25, -5, -5, -25, 5, -5, -25, 5, 5, 25, 5, 5, -25, 5, -5, 25, 5, 5, -25, 5, -5, -25, 5, -5, 25, -5, 5, -25, -5, 5, 25, -5, -5, -25, -5, 5, 25, -5, -5, 25, -5, -5, -25, 5, 5, 25, -5, 5, 25, 5, 5, -25, -5, 5, 25, -5, 5, -25, 5, 5, -25, -5, -5, 25, 5, -5, 25, -5, -5, -25, 5, -5, 25, 5, -5, -25, -5, -5, -25 )
+[sub_resource type="ConcavePolygonShape" id=34]
+data = PoolVector3Array( -5, 5, 30, 5, 5, 30, -5, -5, 30, 5, 5, 30, 5, -5, 30, -5, -5, 30, 5, 5, -30, -5, 5, -30, 5, -5, -30, -5, 5, -30, -5, -5, -30, 5, -5, -30, 5, 5, 30, 5, 5, -30, 5, -5, 30, 5, 5, -30, 5, -5, -30, 5, -5, 30, -5, 5, -30, -5, 5, 30, -5, -5, -30, -5, 5, 30, -5, -5, 30, -5, -5, -30, 5, 5, 30, -5, 5, 30, 5, 5, -30, -5, 5, 30, -5, 5, -30, 5, 5, -30, -5, -5, 30, 5, -5, 30, -5, -5, -30, 5, -5, 30, 5, -5, -30, -5, -5, -30 )
 
-[sub_resource type="ConcavePolygonShape" id=16]
-data = PoolVector3Array( -5, 5, 25, 5, 5, 25, -5, -5, 25, 5, 5, 25, 5, -5, 25, -5, -5, 25, 5, 5, -25, -5, 5, -25, 5, -5, -25, -5, 5, -25, -5, -5, -25, 5, -5, -25, 5, 5, 25, 5, 5, -25, 5, -5, 25, 5, 5, -25, 5, -5, -25, 5, -5, 25, -5, 5, -25, -5, 5, 25, -5, -5, -25, -5, 5, 25, -5, -5, 25, -5, -5, -25, 5, 5, 25, -5, 5, 25, 5, 5, -25, -5, 5, 25, -5, 5, -25, 5, 5, -25, -5, -5, 25, 5, -5, 25, -5, -5, -25, 5, -5, 25, 5, -5, -25, -5, -5, -25 )
+[sub_resource type="ConcavePolygonShape" id=35]
+data = PoolVector3Array( -5, 5, 30, 5, 5, 30, -5, -5, 30, 5, 5, 30, 5, -5, 30, -5, -5, 30, 5, 5, -30, -5, 5, -30, 5, -5, -30, -5, 5, -30, -5, -5, -30, 5, -5, -30, 5, 5, 30, 5, 5, -30, 5, -5, 30, 5, 5, -30, 5, -5, -30, 5, -5, 30, -5, 5, -30, -5, 5, 30, -5, -5, -30, -5, 5, 30, -5, -5, 30, -5, -5, -30, 5, 5, 30, -5, 5, 30, 5, 5, -30, -5, 5, 30, -5, 5, -30, 5, 5, -30, -5, -5, 30, 5, -5, 30, -5, -5, -30, 5, -5, 30, 5, -5, -30, -5, -5, -30 )
 
 [sub_resource type="CubeMesh" id=17]
 material = ExtResource( 8 )
@@ -92,6 +88,41 @@ data = PoolVector3Array( -5, 2.5, 30, 5, 2.5, 30, -5, -2.5, 30, 5, 2.5, 30, 5, -
 
 [sub_resource type="Environment" id=25]
 ambient_light_energy = 0.0
+
+[sub_resource type="CubeMesh" id=9]
+material = ExtResource( 8 )
+size = Vector3( 30, 0.5, 200 )
+
+[sub_resource type="ConcavePolygonShape" id=29]
+data = PoolVector3Array( -15, 0.25, 100, 15, 0.25, 100, -15, -0.25, 100, 15, 0.25, 100, 15, -0.25, 100, -15, -0.25, 100, 15, 0.25, -100, -15, 0.25, -100, 15, -0.25, -100, -15, 0.25, -100, -15, -0.25, -100, 15, -0.25, -100, 15, 0.25, 100, 15, 0.25, -100, 15, -0.25, 100, 15, 0.25, -100, 15, -0.25, -100, 15, -0.25, 100, -15, 0.25, -100, -15, 0.25, 100, -15, -0.25, -100, -15, 0.25, 100, -15, -0.25, 100, -15, -0.25, -100, 15, 0.25, 100, -15, 0.25, 100, 15, 0.25, -100, -15, 0.25, 100, -15, 0.25, -100, 15, 0.25, -100, -15, -0.25, 100, 15, -0.25, 100, -15, -0.25, -100, 15, -0.25, 100, 15, -0.25, -100, -15, -0.25, -100 )
+
+[sub_resource type="CubeMesh" id=26]
+material = ExtResource( 8 )
+size = Vector3( 10, 20, 10 )
+
+[sub_resource type="ConcavePolygonShape" id=27]
+data = PoolVector3Array( -5, 10, 5, 5, 10, 5, -5, -10, 5, 5, 10, 5, 5, -10, 5, -5, -10, 5, 5, 10, -5, -5, 10, -5, 5, -10, -5, -5, 10, -5, -5, -10, -5, 5, -10, -5, 5, 10, 5, 5, 10, -5, 5, -10, 5, 5, 10, -5, 5, -10, -5, 5, -10, 5, -5, 10, -5, -5, 10, 5, -5, -10, -5, -5, 10, 5, -5, -10, 5, -5, -10, -5, 5, 10, 5, -5, 10, 5, 5, 10, -5, -5, 10, 5, -5, 10, -5, 5, 10, -5, -5, -10, 5, 5, -10, 5, -5, -10, -5, 5, -10, 5, 5, -10, -5, -5, -10, -5 )
+
+[sub_resource type="CubeMesh" id=28]
+material = ExtResource( 8 )
+size = Vector3( 10, 5, 30 )
+
+[sub_resource type="ConcavePolygonShape" id=30]
+data = PoolVector3Array( -5, 2.5, 15, 5, 2.5, 15, -5, -2.5, 15, 5, 2.5, 15, 5, -2.5, 15, -5, -2.5, 15, 5, 2.5, -15, -5, 2.5, -15, 5, -2.5, -15, -5, 2.5, -15, -5, -2.5, -15, 5, -2.5, -15, 5, 2.5, 15, 5, 2.5, -15, 5, -2.5, 15, 5, 2.5, -15, 5, -2.5, -15, 5, -2.5, 15, -5, 2.5, -15, -5, 2.5, 15, -5, -2.5, -15, -5, 2.5, 15, -5, -2.5, 15, -5, -2.5, -15, 5, 2.5, 15, -5, 2.5, 15, 5, 2.5, -15, -5, 2.5, 15, -5, 2.5, -15, 5, 2.5, -15, -5, -2.5, 15, 5, -2.5, 15, -5, -2.5, -15, 5, -2.5, 15, 5, -2.5, -15, -5, -2.5, -15 )
+
+[sub_resource type="CubeMesh" id=31]
+material = ExtResource( 8 )
+size = Vector3( 10, 5, 10 )
+
+[sub_resource type="ConcavePolygonShape" id=36]
+data = PoolVector3Array( -5, 2.5, 5, 5, 2.5, 5, -5, -2.5, 5, 5, 2.5, 5, 5, -2.5, 5, -5, -2.5, 5, 5, 2.5, -5, -5, 2.5, -5, 5, -2.5, -5, -5, 2.5, -5, -5, -2.5, -5, 5, -2.5, -5, 5, 2.5, 5, 5, 2.5, -5, 5, -2.5, 5, 5, 2.5, -5, 5, -2.5, -5, 5, -2.5, 5, -5, 2.5, -5, -5, 2.5, 5, -5, -2.5, -5, -5, 2.5, 5, -5, -2.5, 5, -5, -2.5, -5, 5, 2.5, 5, -5, 2.5, 5, 5, 2.5, -5, -5, 2.5, 5, -5, 2.5, -5, 5, 2.5, -5, -5, -2.5, 5, 5, -2.5, 5, -5, -2.5, -5, 5, -2.5, 5, 5, -2.5, -5, -5, -2.5, -5 )
+
+[sub_resource type="CubeMesh" id=32]
+material = ExtResource( 8 )
+size = Vector3( 90, 5, 10 )
+
+[sub_resource type="ConcavePolygonShape" id=33]
+data = PoolVector3Array( -45, 2.5, 5, 45, 2.5, 5, -45, -2.5, 5, 45, 2.5, 5, 45, -2.5, 5, -45, -2.5, 5, 45, 2.5, -5, -45, 2.5, -5, 45, -2.5, -5, -45, 2.5, -5, -45, -2.5, -5, 45, -2.5, -5, 45, 2.5, 5, 45, 2.5, -5, 45, -2.5, 5, 45, 2.5, -5, 45, -2.5, -5, 45, -2.5, 5, -45, 2.5, -5, -45, 2.5, 5, -45, -2.5, -5, -45, 2.5, 5, -45, -2.5, 5, -45, -2.5, -5, 45, 2.5, 5, -45, 2.5, 5, 45, 2.5, -5, -45, 2.5, 5, -45, 2.5, -5, 45, 2.5, -5, -45, -2.5, 5, 45, -2.5, 5, -45, -2.5, -5, 45, -2.5, 5, 45, -2.5, -5, -45, -2.5, -5 )
 
 [node name="arena" type="Spatial"]
 script = ExtResource( 6 )
@@ -201,10 +232,6 @@ length = 4
 height = 3
 width = 5
 
-[node name="east_roof" type="MeshInstance" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -85, 5, 0 )
-mesh = SubResource( 9 )
-
 [node name="west_roof" type="Spatial" parent="."]
 
 [node name="top_piece" type="MeshInstance" parent="west_roof"]
@@ -244,7 +271,7 @@ mesh = SubResource( 14 )
 [node name="StaticBody" type="StaticBody" parent="west_roof/top_wall"]
 
 [node name="CollisionShape" type="CollisionShape" parent="west_roof/top_wall/StaticBody"]
-shape = SubResource( 15 )
+shape = SubResource( 34 )
 
 [node name="bottom_wall" type="MeshInstance" parent="west_roof"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 55, 5, -50 )
@@ -253,7 +280,7 @@ mesh = SubResource( 14 )
 [node name="StaticBody" type="StaticBody" parent="west_roof/bottom_wall"]
 
 [node name="CollisionShape" type="CollisionShape" parent="west_roof/bottom_wall/StaticBody"]
-shape = SubResource( 16 )
+shape = SubResource( 35 )
 
 [node name="middle_wall" type="MeshInstance" parent="west_roof"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 55, 7.5, 0 )
@@ -339,3 +366,125 @@ width = 5
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource( 25 )
+
+[node name="east" type="Spatial" parent="."]
+
+[node name="roof" type="MeshInstance" parent="east"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -85, 5, 0 )
+mesh = SubResource( 9 )
+skeleton = NodePath("../..")
+
+[node name="StaticBody" type="StaticBody" parent="east/roof"]
+
+[node name="CollisionShape" type="CollisionShape" parent="east/roof/StaticBody"]
+shape = SubResource( 29 )
+
+[node name="statue_1" type="MeshInstance" parent="east"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -65, 10, 85 )
+mesh = SubResource( 26 )
+
+[node name="StaticBody" type="StaticBody" parent="east/statue_1"]
+
+[node name="CollisionShape" type="CollisionShape" parent="east/statue_1/StaticBody"]
+shape = SubResource( 27 )
+
+[node name="statue_2" type="MeshInstance" parent="east"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -65, 10, 65 )
+mesh = SubResource( 26 )
+
+[node name="StaticBody" type="StaticBody" parent="east/statue_2"]
+
+[node name="CollisionShape" type="CollisionShape" parent="east/statue_2/StaticBody"]
+shape = SubResource( 27 )
+
+[node name="statue_3" type="MeshInstance" parent="east"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -65, 10, 25 )
+mesh = SubResource( 26 )
+
+[node name="StaticBody" type="StaticBody" parent="east/statue_3"]
+
+[node name="CollisionShape" type="CollisionShape" parent="east/statue_3/StaticBody"]
+shape = SubResource( 27 )
+
+[node name="statue_4" type="MeshInstance" parent="east"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -65, 10, -25 )
+mesh = SubResource( 26 )
+
+[node name="StaticBody" type="StaticBody" parent="east/statue_4"]
+
+[node name="CollisionShape" type="CollisionShape" parent="east/statue_4/StaticBody"]
+shape = SubResource( 27 )
+
+[node name="statue_5" type="MeshInstance" parent="east"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -65, 10, -65 )
+mesh = SubResource( 26 )
+
+[node name="StaticBody" type="StaticBody" parent="east/statue_5"]
+
+[node name="CollisionShape" type="CollisionShape" parent="east/statue_5/StaticBody"]
+shape = SubResource( 27 )
+
+[node name="statue_6" type="MeshInstance" parent="east"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -65, 10, -85 )
+mesh = SubResource( 26 )
+
+[node name="StaticBody" type="StaticBody" parent="east/statue_6"]
+
+[node name="CollisionShape" type="CollisionShape" parent="east/statue_6/StaticBody"]
+shape = SubResource( 27 )
+
+[node name="ramp_1" parent="east" instance=ExtResource( 7 )]
+transform = Transform( -1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -54, 1.2, 75 )
+length = 4
+height = 3
+width = 3
+
+[node name="ramp_2" parent="east" instance=ExtResource( 7 )]
+transform = Transform( -1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -54, 1.2, 0 )
+length = 4
+height = 3
+width = 10
+
+[node name="ramp_3" parent="east" instance=ExtResource( 7 )]
+transform = Transform( -1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -54, 1.2, -75 )
+length = 4
+height = 3
+width = 3
+
+[node name="wall_1" type="MeshInstance" parent="east"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -65, 2.75, 45 )
+mesh = SubResource( 28 )
+
+[node name="StaticBody" type="StaticBody" parent="east/wall_1"]
+
+[node name="CollisionShape" type="CollisionShape" parent="east/wall_1/StaticBody"]
+shape = SubResource( 30 )
+
+[node name="wall_2" type="MeshInstance" parent="east"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -65, 2.75, -45 )
+mesh = SubResource( 28 )
+
+[node name="StaticBody" type="StaticBody" parent="east/wall_2"]
+
+[node name="CollisionShape" type="CollisionShape" parent="east/wall_2/StaticBody"]
+shape = SubResource( 30 )
+
+[node name="wall_3" type="MeshInstance" parent="east"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -65, 2.75, -95 )
+mesh = SubResource( 31 )
+
+[node name="StaticBody" type="StaticBody" parent="east/wall_3"]
+
+[node name="CollisionShape" type="CollisionShape" parent="east/wall_3/StaticBody"]
+shape = SubResource( 36 )
+
+[node name="north" type="Spatial" parent="."]
+
+[node name="wall" type="MeshInstance" parent="north"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -25, 2.75, 95 )
+mesh = SubResource( 32 )
+
+[node name="StaticBody" type="StaticBody" parent="north/wall"]
+
+[node name="CollisionShape" type="CollisionShape" parent="north/wall/StaticBody"]
+shape = SubResource( 33 )
