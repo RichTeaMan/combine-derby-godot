@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=2]
+[gd_scene load_steps=43 format=2]
 
 [ext_resource path="res://combine.gd" type="Script" id=1]
 [ext_resource path="res://materials/mudCracked/mud.tres" type="Material" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://ramp.tscn" type="PackedScene" id=7]
 [ext_resource path="res://materials/concrete_hd/concrete.tres" type="Material" id=8]
 [ext_resource path="res://hay_bale.tscn" type="PackedScene" id=9]
+[ext_resource path="res://hay_pyramid.tscn" type="PackedScene" id=10]
 
 [sub_resource type="CubeMesh" id=1]
 size = Vector3( 500, 1, 500 )
@@ -629,3 +630,8 @@ transform = Transform( -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 1.15, 4
 
 [node name="hay_bale16" parent="hay3" instance=ExtResource( 9 )]
 transform = Transform( -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0.5, 5.75, 0 )
+
+[node name="hay_pyramid" parent="." instance=ExtResource( 10 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -16.337, 0.0811539, 31.7248 )
+bales = 10
+padding = 2.0
