@@ -60,6 +60,10 @@ exit={
  ]
 }
 
+[mono]
+
+project/assembly_name="combine-derby"
+
 [physics]
 
 common/enable_pause_aware_picking=true
