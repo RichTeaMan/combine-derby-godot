@@ -29,7 +29,7 @@ jobs:
       - name: Upload Artifact
         uses: actions/upload-artifact@v1
         with:
-          name: windows
+          name: combine-derby-windows
           path: build/windows
 
   export-linux:
@@ -53,5 +53,5 @@ jobs:
       - name: Upload Artifact
         uses: actions/upload-artifact@v1
         with:
-          name: linux
+          name: combine-derby-linux
           path: build/linux
