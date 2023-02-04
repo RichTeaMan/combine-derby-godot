@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/hay1.ogg-7666e937aee2d5890a51028242aec120.oggstr"
+
+[deps]
+
+source_file="res://assets/sounds/hay1.ogg"
+dest_files=[ "res://.import/hay1.ogg-7666e937aee2d5890a51028242aec120.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0
