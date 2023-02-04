@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://scripts/camera_pivot.gd" type="Script" id=1]
 [ext_resource path="res://scripts/combine.gd" type="Script" id=2]
+[ext_resource path="res://assets/sounds/engine_heavy_loop.ogg" type="AudioStream" id=3]
 
 [sub_resource type="CubeMesh" id=7]
 size = Vector3( 2, 2, 4 )
@@ -88,3 +89,7 @@ script = ExtResource( 1 )
 [node name="camera" type="Camera" parent="vehicle/camera_pivot"]
 transform = Transform( -1, -5.32907e-15, -8.74228e-08, -1.55533e-08, 0.984047, 0.177909, 8.60281e-08, 0.177909, -0.984047, 0, 3, -6 )
 far = 200.0
+
+[node name="sound" type="AudioStreamPlayer3D" parent="vehicle"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, 0 )
+stream = ExtResource( 3 )
