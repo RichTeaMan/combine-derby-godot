@@ -1,18 +1,24 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://assets/hay-bale.glb" type="PackedScene" id=1]
+[ext_resource path="res://scripts/hay_bale.gd" type="Script" id=2]
 
 [sub_resource type="CylinderShape" id=1]
 height = 1.2
 radius = 0.75
 
 [node name="hay_bale" type="Spatial"]
+script = ExtResource( 2 )
 
 [node name="RigidBody" type="RigidBody" parent="."]
 mass = 100.0
+contacts_reported = 1
+contact_monitor = true
 
 [node name="CollisionShape" type="CollisionShape" parent="RigidBody"]
 transform = Transform( -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0 )
 shape = SubResource( 1 )
 
 [node name="hay-bale" parent="RigidBody" instance=ExtResource( 1 )]
+
+[connection signal="body_entered" from="RigidBody" to="." method="hay_body_entered"]
