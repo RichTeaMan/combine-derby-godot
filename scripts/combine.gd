@@ -18,6 +18,8 @@ func _physics_process(delta):
 	var right_rpm = $back_right_wheel.get_rpm()
 	$back_right_wheel.engine_force = acceleration * max_torque * (1 - right_rpm / max_rpm)
 
+	Global.update_speed(get_linear_velocity().length(), 1)
+
 	if acceleration != 0:
 		$sound.unit_db = accelerating_sound_db
 	else:

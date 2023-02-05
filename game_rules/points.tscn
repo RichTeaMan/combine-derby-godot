@@ -16,12 +16,33 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 50.0
 margin_top = -200.0
+margin_right = -1530.0
+margin_bottom = -134.0
 size_flags_horizontal = 2
 size_flags_vertical = 2
-custom_constants/margin_bottom = 20
 
 [node name="points_label" type="RichTextLabel" parent="gui"]
-margin_right = 1870.0
-margin_bottom = 180.0
+margin_right = 340.0
+margin_bottom = 66.0
+rect_clip_content = false
 custom_fonts/normal_font = SubResource( 1 )
 text = "Points: 99999"
+
+[node name="gui2" type="MarginContainer" parent="."]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -565.0
+margin_top = -200.0
+margin_right = -183.0
+margin_bottom = -134.0
+size_flags_horizontal = 2
+size_flags_vertical = 2
+
+[node name="speed_label" type="RichTextLabel" parent="gui2"]
+margin_right = 382.0
+margin_bottom = 66.0
+rect_clip_content = false
+custom_fonts/normal_font = SubResource( 1 )
+text = "Speed: 999m/s"
