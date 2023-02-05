@@ -9,7 +9,7 @@ func _ready():
 	$sound.play()
 
 func _physics_process(delta):
-	steering = lerp(steering, Input.get_axis("right","left") * 0.4, 5 * delta)
+	steering = lerp(steering, Input.get_axis("right","left") * -0.4, 5 * delta)
 	var acceleration = Input.get_axis("back","forward")
 	
 	var left_rpm = $back_left_wheel.get_rpm()

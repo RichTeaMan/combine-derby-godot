@@ -10,11 +10,11 @@ size = Vector3( 2, 2, 4 )
 [sub_resource type="ConvexPolygonShape" id=8]
 points = PoolVector3Array( 0.999957, 1, 1.90861, -0.999842, -1, -1.97018, 1, -0.968297, -1.90869, -0.999842, -1, 1.97018, -0.968099, 1, -1.90861, 1, -0.968297, 1.90869, -0.968099, 1, 1.90861, 0.999957, 1, -1.90861 )
 
-[sub_resource type="SpatialMaterial" id=6]
+[sub_resource type="SpatialMaterial" id=10]
 albedo_color = Color( 0, 0, 0, 1 )
 
 [sub_resource type="CylinderMesh" id=9]
-material = SubResource( 6 )
+material = SubResource( 10 )
 top_radius = 0.6
 bottom_radius = 0.6
 height = 0.25
