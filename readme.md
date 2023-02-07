@@ -1,5 +1,7 @@
 # Combine Derby
 
+An awful game about smashing things with a combine harvester written in the [Godot engine](https://godotengine.org/). A [continuation of a prevous attempt in Bevy](https://github.com/RichTeaMan/combine-derby).
+
 ## Attributions
 
 Wet mud texture: https://godotengine.org/asset-library/asset/334
