@@ -14,6 +14,8 @@ script = ExtResource( 3 )
 contacts_reported = 1
 contact_monitor = true
 can_sleep = false
+axis_lock_angular_x = true
+axis_lock_angular_z = true
 
 [node name="CollisionShape" type="CollisionShape" parent="RigidBody"]
 shape = SubResource( 1 )
