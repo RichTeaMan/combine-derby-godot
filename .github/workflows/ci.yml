@@ -6,7 +6,11 @@ on: push
 env:
   GODOT_VERSION: 3.5.1
   EXPORT_NAME: combine_derby
-  
+
+# permission for githu pages push
+permissions:
+  contents: write
+
 jobs:
   export-windows:
     name: Windows Export
