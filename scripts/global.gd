@@ -9,3 +9,6 @@ func add_points(points):
 
 func update_speed(speed_ms, vehicle_id):
 	emit_signal("speed", speed_ms, vehicle_id)
+
+func is_in_vehicle_group(node: Node):
+	return node.is_in_group("vehicle")

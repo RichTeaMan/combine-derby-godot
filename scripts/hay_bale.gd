@@ -6,7 +6,7 @@ func _ready():
 	bale_explode_template = preload("res://hay_bale_explode.tscn")
 
 func hay_body_entered(body:Node):
-	if body.is_in_group("vehicle"):
+	if Global.is_in_vehicle_group(body):
 		Global.add_points(10)
 
 		# create hay bale particle emitter
