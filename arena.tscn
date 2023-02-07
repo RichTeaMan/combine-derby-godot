@@ -125,22 +125,6 @@ shadow_enabled = true
 [node name="cow" parent="." instance=ExtResource( 3 )]
 transform = Transform( 0.217513, 0, 0.976057, 0, 1, 0, -0.976057, 0, 0.217513, 37.7952, 7.61748, 83.246 )
 
-[node name="west_wall" parent="." instance=ExtResource( 5 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 100, 0, 0 )
-width = 200
-
-[node name="east_wall" parent="." instance=ExtResource( 5 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -100, 0, 0 )
-width = 200
-
-[node name="north_wall" parent="." instance=ExtResource( 5 )]
-transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 100 )
-width = 200
-
-[node name="south_wall" parent="." instance=ExtResource( 5 )]
-transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, -100 )
-width = 200
-
 [node name="ramp" parent="." instance=ExtResource( 7 )]
 transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 40, 1.2, 24 )
 length = 4
@@ -555,3 +539,19 @@ padding = 2.0
 
 [node name="combine" parent="." instance=ExtResource( 1 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.255266, 0 )
+
+[node name="north_wall" parent="." instance=ExtResource( 5 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 100 )
+length = 202
+
+[node name="west_wall" parent="." instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 100, 0, 0 )
+length = 202
+
+[node name="south_wall" parent="." instance=ExtResource( 5 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, -100 )
+length = 202
+
+[node name="east_wall" parent="." instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -100, 0, 0 )
+length = 202
