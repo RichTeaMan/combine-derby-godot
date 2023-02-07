@@ -26,6 +26,8 @@ radial_segments = 12
 [node name="vehicle" type="VehicleBody" parent="." groups=["vehicle"]]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0 )
 mass = 800.0
+angular_velocity = Vector3( 1, 0, 0.5 )
+angular_damp = 2.0
 script = ExtResource( 2 )
 
 [node name="combine_body" type="MeshInstance" parent="vehicle"]
