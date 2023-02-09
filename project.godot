@@ -17,6 +17,7 @@ config/icon="res://icon.png"
 [autoload]
 
 Global="*res://singletons/global.tscn"
+BuildInfo="*res://singletons/build_info.tscn"
 
 [display]
 
