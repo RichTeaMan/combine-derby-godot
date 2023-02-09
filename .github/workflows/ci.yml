@@ -24,6 +24,7 @@ jobs:
           lfs: true
       - name: Setup
         run: |
+          git config --global --add safe.directory $(pwd)
           ./setBuildConstants.sh
           mkdir -v -p ~/.local/share/godot/templates
           mv /root/.local/share/godot/templates/${GODOT_VERSION}.stable ~/.local/share/godot/templates/${GODOT_VERSION}.stable
@@ -49,6 +50,7 @@ jobs:
           lfs: true
       - name: Setup
         run: |
+          git config --global --add safe.directory $(pwd)
           ./setBuildConstants.sh
           mkdir -v -p ~/.local/share/godot/templates
           mv /root/.local/share/godot/templates/${GODOT_VERSION}.stable ~/.local/share/godot/templates/${GODOT_VERSION}.stable
@@ -74,6 +76,7 @@ jobs:
           lfs: true
       - name: Setup
         run: |
+          git config --global --add safe.directory $(pwd)
           ./setBuildConstants.sh
           mkdir -v -p ~/.local/share/godot/templates
           mv /root/.local/share/godot/templates/${GODOT_VERSION}.stable ~/.local/share/godot/templates/${GODOT_VERSION}.stable
