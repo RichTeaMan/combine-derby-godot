@@ -555,3 +555,18 @@ length = 202
 [node name="east_wall" parent="." instance=ExtResource( 5 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -100, 0, 0 )
 length = 202
+
+[node name="cow2" parent="." instance=ExtResource( 3 )]
+transform = Transform( 0.0214833, 0, -0.999769, 0, 1, 0, 0.999769, 0, 0.0214833, 39.7414, 7.25, -71.2668 )
+
+[node name="cow3" parent="." instance=ExtResource( 3 )]
+transform = Transform( 0.648864, 0, -0.760904, 0, 1, 0, 0.760904, 0, 0.648864, -90.8021, 7.25, -91.783 )
+
+[node name="cow4" parent="." instance=ExtResource( 3 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 37.2895, 2.5, -51.5588 )
+
+[node name="cow5" parent="." instance=ExtResource( 3 )]
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 39.0784, 2.5, 54.7124 )
+
+[node name="cow6" parent="." instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -63.7298, 7.25, 43.5042 )
