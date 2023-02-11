@@ -36,17 +36,22 @@ func _input(_event):
 
 ## Sets master volume. Volume should between 0.0 and 1.0.
 func set_master_volume(volume):
-	if volume > 1.0:
-		volume = 1.0
-	elif volume < 0.0:
-		volume = 0.0
-	var sound_range = max_sound - min_sound
 	var resolved_db= resolve_volume_fraction_to_db(volume)
 	print("Master volume set to %s, resolved db set to %s" % [volume, resolved_db])
 	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), resolved_db)
 
 func get_master_volume():
 	var db = AudioServer.get_bus_volume_db(AudioServer.get_bus_index("Master"))
+	return resolve_db_volume_fraction(db)
+
+## Sets sfx volume. Volume should between 0.0 and 1.0.
+func set_sfx_volume(volume):
+	var resolved_db= resolve_volume_fraction_to_db(volume)
+	print("SFX volume set to %s, resolved db set to %s" % [volume, resolved_db])
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("sfx"), resolved_db)
+
+func get_sfx_volume():
+	var db = AudioServer.get_bus_volume_db(AudioServer.get_bus_index("sfx"))
 	return resolve_db_volume_fraction(db)
 
 func resolve_volume_fraction_to_db(volume):

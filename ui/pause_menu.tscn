@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://assets/fonts/fira_sans/FiraSans-Bold.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://themes/ui_theme.tres" type="Theme" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://ui/checkbox_reverse_camera.gd" type="Script" id=4]
 [ext_resource path="res://ui/button_quit.gd" type="Script" id=5]
 [ext_resource path="res://ui/master_volume_slider.gd" type="Script" id=6]
+[ext_resource path="res://ui/sfx_volume_slider.gd" type="Script" id=7]
 
 [sub_resource type="DynamicFont" id=1]
 size = 72
@@ -57,12 +58,12 @@ text = "Paused"
 [node name="CenterContainer2" type="CenterContainer" parent="colour/margin/VBoxContainer"]
 margin_top = 164.0
 margin_right = 1920.0
-margin_bottom = 450.0
+margin_bottom = 494.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="colour/margin/VBoxContainer/CenterContainer2"]
 margin_left = 733.0
 margin_right = 1187.0
-margin_bottom = 286.0
+margin_bottom = 330.0
 
 [node name="CenterContainer" type="CenterContainer" parent="colour/margin/VBoxContainer/CenterContainer2/VBoxContainer"]
 margin_right = 454.0
@@ -114,12 +115,12 @@ bbcode_enabled = true
 bbcode_text = "[center]Audio[/center]"
 text = "Audio"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="colour/margin/VBoxContainer/CenterContainer2/VBoxContainer"]
+[node name="volume_row" type="HBoxContainer" parent="colour/margin/VBoxContainer/CenterContainer2/VBoxContainer"]
 margin_top = 246.0
 margin_right = 454.0
 margin_bottom = 286.0
 
-[node name="RichTextLabel" type="RichTextLabel" parent="colour/margin/VBoxContainer/CenterContainer2/VBoxContainer/HBoxContainer"]
+[node name="RichTextLabel" type="RichTextLabel" parent="colour/margin/VBoxContainer/CenterContainer2/VBoxContainer/volume_row"]
 margin_right = 200.0
 margin_bottom = 40.0
 rect_min_size = Vector2( 200, 40 )
@@ -128,20 +129,44 @@ bbcode_enabled = true
 bbcode_text = "[right]Volume    [/right]"
 text = "Volume    "
 
-[node name="master_volume_slider" type="HSlider" parent="colour/margin/VBoxContainer/CenterContainer2/VBoxContainer/HBoxContainer"]
+[node name="master_volume_slider" type="HSlider" parent="colour/margin/VBoxContainer/CenterContainer2/VBoxContainer/volume_row"]
 margin_left = 204.0
 margin_right = 454.0
-margin_bottom = 16.0
-rect_min_size = Vector2( 250, 0 )
+margin_bottom = 40.0
+rect_min_size = Vector2( 250, 40 )
 max_value = 1.0
 step = 0.1
 ticks_on_borders = true
 script = ExtResource( 6 )
 
+[node name="sfx_volume_row" type="HBoxContainer" parent="colour/margin/VBoxContainer/CenterContainer2/VBoxContainer"]
+margin_top = 290.0
+margin_right = 454.0
+margin_bottom = 330.0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="colour/margin/VBoxContainer/CenterContainer2/VBoxContainer/sfx_volume_row"]
+margin_right = 200.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 200, 40 )
+theme = ExtResource( 2 )
+bbcode_enabled = true
+bbcode_text = "[right]SFX Volume    [/right]"
+text = "SFX Volume    "
+
+[node name="sfx_volume_slider" type="HSlider" parent="colour/margin/VBoxContainer/CenterContainer2/VBoxContainer/sfx_volume_row"]
+margin_left = 204.0
+margin_right = 454.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 250, 40 )
+max_value = 1.0
+step = 0.1
+ticks_on_borders = true
+script = ExtResource( 7 )
+
 [node name="CenterContainer3" type="CenterContainer" parent="colour/margin/VBoxContainer"]
-margin_top = 454.0
+margin_top = 498.0
 margin_right = 1920.0
-margin_bottom = 492.0
+margin_bottom = 536.0
 mouse_filter = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="colour/margin/VBoxContainer/CenterContainer3"]
@@ -158,5 +183,6 @@ text = "Quit"
 script = ExtResource( 5 )
 
 [connection signal="gui_input" from="colour/margin/VBoxContainer/CenterContainer2/VBoxContainer/CenterContainer3/checkbox_reverse_camera" to="colour/margin/VBoxContainer/CenterContainer2/VBoxContainer/CenterContainer3/checkbox_reverse_camera" method="_on_checkbox_reverse_camera_gui_input"]
-[connection signal="value_changed" from="colour/margin/VBoxContainer/CenterContainer2/VBoxContainer/HBoxContainer/master_volume_slider" to="colour/margin/VBoxContainer/CenterContainer2/VBoxContainer/HBoxContainer/master_volume_slider" method="_on_master_volume_slider_value_changed"]
+[connection signal="value_changed" from="colour/margin/VBoxContainer/CenterContainer2/VBoxContainer/volume_row/master_volume_slider" to="colour/margin/VBoxContainer/CenterContainer2/VBoxContainer/volume_row/master_volume_slider" method="_on_master_volume_slider_value_changed"]
+[connection signal="value_changed" from="colour/margin/VBoxContainer/CenterContainer2/VBoxContainer/sfx_volume_row/sfx_volume_slider" to="colour/margin/VBoxContainer/CenterContainer2/VBoxContainer/sfx_volume_row/sfx_volume_slider" method="_on_master_volume_slider_value_changed"]
 [connection signal="pressed" from="colour/margin/VBoxContainer/CenterContainer3/HBoxContainer/button_quit" to="colour/margin/VBoxContainer/CenterContainer3/HBoxContainer/button_quit" method="_on_button_quit_pressed"]
