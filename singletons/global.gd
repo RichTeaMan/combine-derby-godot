@@ -6,7 +6,7 @@ signal speed(speed_ms, vehicle_id)
 
 var pause_menu
 
-var camera_reverses: bool = false
+var camera_reverses: bool = true
 
 func _ready():
 	var pause_menu_template = preload("res://ui/pause_menu.tscn")
