@@ -1,10 +1,21 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://assets/combine-body.glb" type="PackedScene" id=1]
 [ext_resource path="res://scripts/combine.gd" type="Script" id=2]
 [ext_resource path="res://assets/sounds/engine_heavy_loop.ogg" type="AudioStream" id=3]
 [ext_resource path="res://scripts/camera_pivot.gd" type="Script" id=4]
 [ext_resource path="res://assets/particles/smoke_particle.png" type="Texture" id=5]
+[ext_resource path="res://assets/sounds/crash/big/06.ogg" type="AudioStream" id=6]
+[ext_resource path="res://assets/sounds/crash/big/10.ogg" type="AudioStream" id=7]
+[ext_resource path="res://assets/sounds/crash/big/12.ogg" type="AudioStream" id=8]
+[ext_resource path="res://assets/sounds/crash/big/08.ogg" type="AudioStream" id=9]
+[ext_resource path="res://scripts/crash_sounds.gd" type="Script" id=10]
+[ext_resource path="res://assets/sounds/crash/small/05.ogg" type="AudioStream" id=11]
+[ext_resource path="res://assets/sounds/crash/small/03.ogg" type="AudioStream" id=12]
+[ext_resource path="res://assets/sounds/crash/small/04.ogg" type="AudioStream" id=13]
+[ext_resource path="res://assets/sounds/crash/big/11.ogg" type="AudioStream" id=14]
+[ext_resource path="res://assets/sounds/crash/big/07.ogg" type="AudioStream" id=15]
+[ext_resource path="res://assets/sounds/crash/big/09.ogg" type="AudioStream" id=16]
 
 [sub_resource type="CubeMesh" id=7]
 size = Vector3( 2.1, 2, 4.5 )
@@ -37,6 +48,8 @@ size = Vector3( 0.1, 0.1, 0 )
 [node name="vehicle" type="VehicleBody" parent="." groups=["vehicle"]]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0 )
 mass = 800.0
+contacts_reported = 4
+contact_monitor = true
 angular_velocity = Vector3( 1, 0, 0.5 )
 angular_damp = 2.0
 script = ExtResource( 2 )
@@ -126,3 +139,42 @@ fract_delta = false
 local_coords = false
 mesh = SubResource( 11 )
 gravity = Vector3( 0, 0.5, 0 )
+
+[node name="crash_sounds" type="Spatial" parent="vehicle"]
+script = ExtResource( 10 )
+
+[node name="small" type="Spatial" parent="vehicle/crash_sounds"]
+
+[node name="s3" type="AudioStreamPlayer3D" parent="vehicle/crash_sounds/small"]
+stream = ExtResource( 12 )
+
+[node name="s4" type="AudioStreamPlayer3D" parent="vehicle/crash_sounds/small"]
+stream = ExtResource( 13 )
+
+[node name="s5" type="AudioStreamPlayer3D" parent="vehicle/crash_sounds/small"]
+stream = ExtResource( 11 )
+
+[node name="big" type="Spatial" parent="vehicle/crash_sounds"]
+
+[node name="s6" type="AudioStreamPlayer3D" parent="vehicle/crash_sounds/big"]
+stream = ExtResource( 6 )
+
+[node name="s7" type="AudioStreamPlayer3D" parent="vehicle/crash_sounds/big"]
+stream = ExtResource( 15 )
+
+[node name="s8" type="AudioStreamPlayer3D" parent="vehicle/crash_sounds/big"]
+stream = ExtResource( 9 )
+
+[node name="s9" type="AudioStreamPlayer3D" parent="vehicle/crash_sounds/big"]
+stream = ExtResource( 16 )
+
+[node name="s10" type="AudioStreamPlayer3D" parent="vehicle/crash_sounds/big"]
+stream = ExtResource( 7 )
+
+[node name="s11" type="AudioStreamPlayer3D" parent="vehicle/crash_sounds/big"]
+stream = ExtResource( 14 )
+
+[node name="s12" type="AudioStreamPlayer3D" parent="vehicle/crash_sounds/big"]
+stream = ExtResource( 8 )
+
+[connection signal="body_shape_entered" from="vehicle" to="vehicle" method="_on_vehicle_body_shape_entered"]

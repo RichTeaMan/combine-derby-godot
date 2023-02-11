@@ -14,3 +14,5 @@ A web version of it can be found at https://richteaman.github.io/combine-derby-g
 * Hay sound sample: https://www.youtube.com/watch?v=lMlY5yFZ-b8
 * Engine sound sample: https://opengameart.org/content/engine-loop-heavy-vehicletank
 * Smoke particle: https://www.pngkit.com/downpic/u2q8q8u2o0t4q8t4_fog-png-transparent-images-smoke-particle-texture-png/
+* Rally noises: https://opengameart.org/content/stunt-rally-sounds
+    * Crashes noises:  Author: halleck, License:  CC BY SA 3.0

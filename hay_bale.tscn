@@ -12,7 +12,7 @@ script = ExtResource( 2 )
 
 [node name="RigidBody" type="RigidBody" parent="."]
 mass = 100.0
-contacts_reported = 1
+contacts_reported = 4
 contact_monitor = true
 
 [node name="CollisionShape" type="CollisionShape" parent="RigidBody"]

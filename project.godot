@@ -78,7 +78,7 @@ project/assembly_name="combine-derby"
 
 common/physics_fps=180
 common/enable_pause_aware_picking=true
-3d/physics_engine="GodotPhysics"
+3d/physics_engine="Bullet"
 
 [rendering]
 

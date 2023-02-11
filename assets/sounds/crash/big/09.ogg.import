@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/09.ogg-6fe3386cf89103f2e48af5987db0669b.oggstr"
+
+[deps]
+
+source_file="res://assets/sounds/crash/big/09.ogg"
+dest_files=[ "res://.import/09.ogg-6fe3386cf89103f2e48af5987db0669b.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

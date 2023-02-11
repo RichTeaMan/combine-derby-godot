@@ -31,3 +31,22 @@ func _input(_ev):
 
 func is_reversing():
 	return $back_left_wheel.get_rpm() < 0 && $back_right_wheel.get_rpm() < 0
+
+
+func _integrate_forces(state: PhysicsDirectBodyState) -> void:
+	if state.get_contact_count() == 0:
+		return
+	var collision_force = Vector3.ZERO
+	for i in range(state.get_contact_count()):
+		collision_force += state.get_contact_impulse(i) * state.get_contact_local_normal(i)
+	if collision_force != Vector3.ZERO:
+		print("collsion force %s" % collision_force.length_squared())
+	if collision_force.length_squared() > 30000.0:
+		$crash_sounds.play_big_sound()
+	elif collision_force.length_squared() > 100.0:
+		$crash_sounds.play_small_sound()
+
+func _on_vehicle_body_shape_entered(body_rid, body, body_shape_index, local_shape_index):
+	# integrate forces seem to miss some collision (usually static bodies, but not always)
+	# this seems to find the rest of them. big crashes are assumed
+	$crash_sounds.play_big_sound()
