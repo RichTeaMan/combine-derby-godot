@@ -22,7 +22,7 @@ func is_in_vehicle_group(node: Node):
 	return node.is_in_group("vehicle")
 
 func _input(_event):
-	if Input.is_action_just_pressed("exit"):
+	if Input.is_action_just_pressed("menu"):
 		if get_tree().paused:
 			get_tree().paused = false
 			get_tree().get_root().remove_child(pause_menu)
