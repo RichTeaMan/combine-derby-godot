@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://assets/fonts/fira_sans/FiraSans-Bold.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://themes/ui_theme.tres" type="Theme" id=2]
 [ext_resource path="res://ui/pause_menu.gd" type="Script" id=3]
 [ext_resource path="res://ui/checkbox_reverse_camera.gd" type="Script" id=4]
 [ext_resource path="res://ui/button_quit.gd" type="Script" id=5]
+[ext_resource path="res://ui/master_volume_slider.gd" type="Script" id=6]
 
 [sub_resource type="DynamicFont" id=1]
 size = 72
@@ -56,20 +57,20 @@ text = "Paused"
 [node name="CenterContainer2" type="CenterContainer" parent="colour/margin/VBoxContainer"]
 margin_top = 164.0
 margin_right = 1920.0
-margin_bottom = 278.0
+margin_bottom = 450.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="colour/margin/VBoxContainer/CenterContainer2"]
-margin_left = 812.0
-margin_right = 1108.0
-margin_bottom = 114.0
+margin_left = 733.0
+margin_right = 1187.0
+margin_bottom = 286.0
 
 [node name="CenterContainer" type="CenterContainer" parent="colour/margin/VBoxContainer/CenterContainer2/VBoxContainer"]
-margin_right = 296.0
+margin_right = 454.0
 margin_bottom = 70.0
 
 [node name="options_banner" type="RichTextLabel" parent="colour/margin/VBoxContainer/CenterContainer2/VBoxContainer/CenterContainer"]
-margin_left = 48.0
-margin_right = 248.0
+margin_left = 127.0
+margin_right = 327.0
 margin_bottom = 70.0
 rect_min_size = Vector2( 200, 70 )
 custom_fonts/normal_font = SubResource( 2 )
@@ -77,18 +78,70 @@ bbcode_enabled = true
 bbcode_text = "[center]Options[/center]"
 text = "Options"
 
-[node name="checkbox_reverse_camera" type="CheckBox" parent="colour/margin/VBoxContainer/CenterContainer2/VBoxContainer"]
+[node name="CenterContainer3" type="CenterContainer" parent="colour/margin/VBoxContainer/CenterContainer2/VBoxContainer"]
 margin_top = 74.0
-margin_right = 296.0
+margin_right = 454.0
 margin_bottom = 114.0
+
+[node name="checkbox_reverse_camera" type="CheckBox" parent="colour/margin/VBoxContainer/CenterContainer2/VBoxContainer/CenterContainer3"]
+margin_left = 79.0
+margin_right = 375.0
+margin_bottom = 40.0
 theme = ExtResource( 2 )
 text = "Camera never reverses"
 script = ExtResource( 4 )
 
+[node name="Panel" type="Panel" parent="colour/margin/VBoxContainer/CenterContainer2/VBoxContainer"]
+modulate = Color( 1, 1, 1, 0 )
+self_modulate = Color( 1, 1, 1, 0 )
+margin_top = 118.0
+margin_right = 454.0
+margin_bottom = 168.0
+rect_min_size = Vector2( 0, 50 )
+
+[node name="CenterContainer2" type="CenterContainer" parent="colour/margin/VBoxContainer/CenterContainer2/VBoxContainer"]
+margin_top = 172.0
+margin_right = 454.0
+margin_bottom = 242.0
+
+[node name="audio_banner" type="RichTextLabel" parent="colour/margin/VBoxContainer/CenterContainer2/VBoxContainer/CenterContainer2"]
+margin_left = 127.0
+margin_right = 327.0
+margin_bottom = 70.0
+rect_min_size = Vector2( 200, 70 )
+custom_fonts/normal_font = SubResource( 2 )
+bbcode_enabled = true
+bbcode_text = "[center]Audio[/center]"
+text = "Audio"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="colour/margin/VBoxContainer/CenterContainer2/VBoxContainer"]
+margin_top = 246.0
+margin_right = 454.0
+margin_bottom = 286.0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="colour/margin/VBoxContainer/CenterContainer2/VBoxContainer/HBoxContainer"]
+margin_right = 200.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 200, 40 )
+theme = ExtResource( 2 )
+bbcode_enabled = true
+bbcode_text = "[right]Volume    [/right]"
+text = "Volume    "
+
+[node name="master_volume_slider" type="HSlider" parent="colour/margin/VBoxContainer/CenterContainer2/VBoxContainer/HBoxContainer"]
+margin_left = 204.0
+margin_right = 454.0
+margin_bottom = 16.0
+rect_min_size = Vector2( 250, 0 )
+max_value = 1.0
+step = 0.1
+ticks_on_borders = true
+script = ExtResource( 6 )
+
 [node name="CenterContainer3" type="CenterContainer" parent="colour/margin/VBoxContainer"]
-margin_top = 282.0
+margin_top = 454.0
 margin_right = 1920.0
-margin_bottom = 320.0
+margin_bottom = 492.0
 mouse_filter = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="colour/margin/VBoxContainer/CenterContainer3"]
@@ -104,5 +157,6 @@ theme = ExtResource( 2 )
 text = "Quit"
 script = ExtResource( 5 )
 
-[connection signal="gui_input" from="colour/margin/VBoxContainer/CenterContainer2/VBoxContainer/checkbox_reverse_camera" to="colour/margin/VBoxContainer/CenterContainer2/VBoxContainer/checkbox_reverse_camera" method="_on_checkbox_reverse_camera_gui_input"]
+[connection signal="gui_input" from="colour/margin/VBoxContainer/CenterContainer2/VBoxContainer/CenterContainer3/checkbox_reverse_camera" to="colour/margin/VBoxContainer/CenterContainer2/VBoxContainer/CenterContainer3/checkbox_reverse_camera" method="_on_checkbox_reverse_camera_gui_input"]
+[connection signal="value_changed" from="colour/margin/VBoxContainer/CenterContainer2/VBoxContainer/HBoxContainer/master_volume_slider" to="colour/margin/VBoxContainer/CenterContainer2/VBoxContainer/HBoxContainer/master_volume_slider" method="_on_master_volume_slider_value_changed"]
 [connection signal="pressed" from="colour/margin/VBoxContainer/CenterContainer3/HBoxContainer/button_quit" to="colour/margin/VBoxContainer/CenterContainer3/HBoxContainer/button_quit" method="_on_button_quit_pressed"]
