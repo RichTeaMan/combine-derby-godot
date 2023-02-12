@@ -88,12 +88,14 @@ func resolve_db_volume_fraction(db):
 
 func play_music(name: String):
 	var file = "res://assets/music/%s" % name
-	if File.new().file_exists(file):
+	if ResourceLoader.exists(file):
 		print("Playing %s" % name)
 		var music = load(file) 
 		music.set_loop(false)
 		$music_player.stream = music
 		$music_player.play()
+	else:
+		print("Unable to play %s, file not found" % name)
 	
 func set_playlist(playlist: Array, random_start = false):
 	if playlist != null && playlist.size() > 0:
