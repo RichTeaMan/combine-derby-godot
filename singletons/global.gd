@@ -43,6 +43,16 @@ func set_master_volume(volume):
 func get_master_volume():
 	var db = AudioServer.get_bus_volume_db(AudioServer.get_bus_index("Master"))
 	return resolve_db_volume_fraction(db)
+	
+## Sets music volume. Volume should between 0.0 and 1.0.
+func set_music_volume(volume):
+	var resolved_db= resolve_volume_fraction_to_db(volume)
+	print("Music volume set to %s, resolved db set to %s" % [volume, resolved_db])
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("music"), resolved_db)
+
+func get_music_volume():
+	var db = AudioServer.get_bus_volume_db(AudioServer.get_bus_index("music"))
+	return resolve_db_volume_fraction(db)
 
 ## Sets sfx volume. Volume should between 0.0 and 1.0.
 func set_sfx_volume(volume):
@@ -66,4 +76,18 @@ func resolve_volume_fraction_to_db(volume):
 func resolve_db_volume_fraction(db):
 	var adjusted_db = db - min_sound
 	var sound_range = max_sound - min_sound
-	return adjusted_db / sound_range
+	var volume = adjusted_db / sound_range
+	if volume > 1.0:
+		volume = 1.0
+	elif volume < 0.0:
+		volume = 0.0
+	return volume
+
+func play_music(name: String):
+	var file = "res://assets/music/%s" % name
+	if File.new().file_exists(file):
+		var music = load(file) 
+		music.set_loop(false)
+		$music_player.stream = music
+		$music_player.play()
+	
