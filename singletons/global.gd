@@ -11,6 +11,9 @@ var camera_reverses: bool = true
 var min_sound = -60.0
 var max_sound = 6.0
 
+var current_playlist: Array
+var current_playlist_index: int
+
 func _ready():
 	var pause_menu_template = preload("res://ui/pause_menu.tscn")
 	pause_menu = pause_menu_template.instance()
@@ -86,8 +89,24 @@ func resolve_db_volume_fraction(db):
 func play_music(name: String):
 	var file = "res://assets/music/%s" % name
 	if File.new().file_exists(file):
+		print("Playing %s" % name)
 		var music = load(file) 
 		music.set_loop(false)
 		$music_player.stream = music
 		$music_player.play()
 	
+func set_playlist(playlist: Array, random_start = false):
+	if playlist != null && playlist.size() > 0:
+		current_playlist = playlist
+		current_playlist_index = 0
+		if random_start:
+			current_playlist_index = randi() % playlist.size()
+		play_music(current_playlist[current_playlist_index])
+
+func _on_music_player_finished():
+	if current_playlist == null || current_playlist.size() == 0:
+		return
+	current_playlist_index += 1
+	if current_playlist_index == current_playlist.size():
+		current_playlist_index = 0
+	play_music(current_playlist[current_playlist_index])

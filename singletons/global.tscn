@@ -8,3 +8,5 @@ script = ExtResource( 1 )
 
 [node name="music_player" type="AudioStreamPlayer" parent="."]
 bus = "music"
+
+[connection signal="finished" from="music_player" to="." method="_on_music_player_finished"]

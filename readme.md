@@ -20,3 +20,5 @@ A web version of it can be found at https://richteaman.github.io/combine-derby-g
 ### Music
 
 * https://freemusicarchive.org/music/Jason_Shaw/Audionautix_Acoustic/JENNYS_THEME___________________-45/
+* https://freemusicarchive.org/music/Jason_Shaw/Audionautix_Acoustic/SNAPPY________________________________-56/
+* https://www.bensound.com/royalty-free-music/track/jazzy-frenchy-upbeat-funny

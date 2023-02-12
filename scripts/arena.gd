@@ -1,4 +1,6 @@
 extends Spatial
 
 func _ready():
-	Global.play_music("JasonShaw_JennysTheme.ogg")
+	Global.set_playlist(["JasonShaw_JennysTheme.ogg",
+		"JasonShaw_Snappy.ogg",
+		"jazzyfrenchy.ogg"], true)
