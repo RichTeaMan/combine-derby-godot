@@ -11,7 +11,7 @@ config_version=4
 [application]
 
 config/name="combine-derby"
-run/main_scene="res://game_rules/points.tscn"
+run/main_scene="res://ui/start_screen.tscn"
 config/icon="res://icon.png"
 
 [autoload]
