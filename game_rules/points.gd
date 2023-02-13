@@ -9,8 +9,8 @@ var countdown_length_seconds = 60
 var game_active = true;
 
 func _ready():
-	Global.connect("points", self, "_on_points")
-	Global.connect("speed", self, "_on_speed")
+	var _a = Global.connect("points", self, "_on_points")
+	var _b = Global.connect("speed", self, "_on_speed")
 	_on_points(0)
 	_on_speed(0, 0)
 	refresh_timer()

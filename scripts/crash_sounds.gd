@@ -31,7 +31,6 @@ func play_random_sound(sound_array: Array):
 	sound.play()
 
 func pick_random_child(node_array: Array):
-	$small/s3.name
 	var random_id =  randi() % node_array.size()
 	return node_array[random_id]
 

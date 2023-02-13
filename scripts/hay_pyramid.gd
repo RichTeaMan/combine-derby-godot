@@ -4,7 +4,7 @@ extends Spatial
 
 export (int, 1, 100) var bales = 1
 export (int, 1, 10) var height = 1
-export (float, 0, 10, 0.5) var padding = 1
+export (float, 0, 10, 0.5) var padding = 1.0
 
 var bale_template;
 
@@ -18,7 +18,7 @@ func _enter_tree():
 	create_bales()
 
 # Called when the node enters the scene tree for the first time.
-func _process(delta):
+func _process(_delta):
 	if Engine.editor_hint:
 		create_bales()
 

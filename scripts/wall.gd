@@ -14,8 +14,7 @@ func _enter_tree():
 	wall_chunk_template = preload("res://wall_chunk.tscn")
 	create_wall_chunks()
 
-# Called when the node enters the scene tree for the first time.
-func _process(delta):
+func _process(_delta):
 	if Engine.editor_hint && length != current_length:
 		create_wall_chunks()
 		current_length = length
