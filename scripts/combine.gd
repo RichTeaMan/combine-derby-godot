@@ -5,12 +5,24 @@ var max_torque = 2000
 var idle_sound_db = 0.0
 var accelerating_sound_db = 6.0
 
+export var player_id = 1
+
+var steering_left_input
+var steering_right_input
+var forward_input
+var back_input
+
+
 func _ready():
+	steering_left_input = "player%d_left" % player_id
+	steering_right_input = "player%d_right" % player_id
+	forward_input = "player%d_forward" % player_id
+	back_input = "player%d_back" % player_id
 	$sound.play()
 
 func _physics_process(delta):
-	steering = lerp(steering, Input.get_axis("right","left") * -0.4, 5 * delta)
-	var acceleration = Input.get_axis("back","forward")
+	steering = lerp(steering, Input.get_axis(steering_right_input,steering_left_input) * -0.4, 5 * delta)
+	var acceleration = Input.get_axis(back_input, forward_input)
 
 	var left_rpm = abs($back_left_wheel.get_rpm())
 	$back_left_wheel.engine_force = acceleration * max_torque * (1 - left_rpm / max_rpm)
