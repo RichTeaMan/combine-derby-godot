@@ -12,7 +12,6 @@ var steering_right_input
 var forward_input
 var back_input
 
-
 func _ready():
 	steering_left_input = "player%d_left" % player_id
 	steering_right_input = "player%d_right" % player_id
@@ -52,7 +51,9 @@ func _integrate_forces(state: PhysicsDirectBodyState) -> void:
 	for i in range(state.get_contact_count()):
 		collision_force += state.get_contact_impulse(i) * state.get_contact_local_normal(i)
 	if collision_force != Vector3.ZERO:
-		print("combine collsion force %s" % collision_force.length_squared())
+		
+		#print("combine collsion force %s" % collision_force.length_squared())
+		pass
 	if collision_force.length_squared() > 30000.0:
 		$crash_sounds.play_big_sound()
 	elif collision_force.length_squared() > 100.0:
@@ -61,5 +62,8 @@ func _integrate_forces(state: PhysicsDirectBodyState) -> void:
 func _on_vehicle_body_shape_entered(_body_rid, _body, _body_shape_index, _local_shape_index):
 	# integrate forces seem to miss some collision (usually static bodies, but not always)
 	# this seems to find the rest of them. big crashes are assumed
-	print("combine body shape entered")
+	#print("combine body shape entered")
 	$crash_sounds.play_big_sound()
+
+#func setup_camera_viewport():
+#	$camera_pivot/camera.

@@ -388,7 +388,7 @@ mesh = SubResource( 32 )
 shape = SubResource( 33 )
 
 [node name="hay" type="Spatial" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 30, 5, 50 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 30, 5, 47.5656 )
 
 [node name="hay_bale" parent="hay" instance=ExtResource( 9 )]
 transform = Transform( -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0.75, 0 )

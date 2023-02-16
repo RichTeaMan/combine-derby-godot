@@ -1,0 +1,50 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://player_viewport.gd" type="Script" id=1]
+[ext_resource path="res://two_player.gd" type="Script" id=2]
+
+[node name="two_player" type="Node"]
+script = ExtResource( 2 )
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+margin_right = 1924.0
+margin_bottom = 1080.0
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/HBoxContainer"]
+margin_right = 960.0
+margin_bottom = 1080.0
+rect_min_size = Vector2( 960, 0 )
+
+[node name="viewport_1" type="ViewportContainer" parent="MarginContainer/HBoxContainer/MarginContainer"]
+margin_right = 960.0
+margin_bottom = 1080.0
+stretch = true
+
+[node name="Viewport" type="Viewport" parent="MarginContainer/HBoxContainer/MarginContainer/viewport_1"]
+size = Vector2( 960, 1080 )
+handle_input_locally = false
+render_target_update_mode = 3
+script = ExtResource( 1 )
+player_id = 1
+
+[node name="MarginContainer2" type="MarginContainer" parent="MarginContainer/HBoxContainer"]
+margin_left = 964.0
+margin_right = 1924.0
+margin_bottom = 1080.0
+rect_min_size = Vector2( 960, 0 )
+
+[node name="viewport_2" type="ViewportContainer" parent="MarginContainer/HBoxContainer/MarginContainer2"]
+margin_right = 960.0
+margin_bottom = 1080.0
+stretch = true
+
+[node name="Viewport" type="Viewport" parent="MarginContainer/HBoxContainer/MarginContainer2/viewport_2"]
+size = Vector2( 960, 1080 )
+handle_input_locally = false
+render_target_update_mode = 3
+script = ExtResource( 1 )
+player_id = 2

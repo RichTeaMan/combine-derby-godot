@@ -4,6 +4,9 @@ signal points(point_increment)
 
 signal speed(speed_ms, vehicle_id)
 
+signal player_added(player_id, node)
+
+
 var pause_menu
 
 var camera_reverses: bool = true
@@ -18,6 +21,9 @@ func _ready():
 	var pause_menu_template = preload("res://ui/pause_menu.tscn")
 	pause_menu = pause_menu_template.instance()
 
+
+func add_player(player_id: int, node: Node):
+	emit_signal("player_added", player_id, node)
 
 func add_points(points):
 	emit_signal("points", points)
@@ -112,3 +118,30 @@ func _on_music_player_finished():
 	if current_playlist_index == current_playlist.size():
 		current_playlist_index = 0
 	play_music(current_playlist[current_playlist_index])
+
+func create_game(player_count: int, game_mode: String, arena_name: String):
+	print("Create game")
+	var player_container = preload("res://two_player.tscn");
+	var instance = player_container.instance()
+	print("Adding game instance...")
+	get_parent().add_child(instance)
+	
+	print("    points")
+	var game_type = preload("res://game_rules/points.tscn")
+	var game_instance = game_type.instance()
+	#get_tree().change_scene_to(game_instance)
+	
+	var combine_template = preload("res://vehicles/combine.tscn")
+	var combine_instance_1 = combine_template.instance()
+	combine_instance_1.player_id = 1
+	var combine_instance_2 = combine_template.instance()
+	combine_instance_2.player_id = 2
+
+	combine_instance_1.add_to_group("player", true)
+	combine_instance_2.add_to_group("player", true)
+	add_player(combine_instance_1.player_id, combine_instance_1)
+	add_player(combine_instance_2.player_id, combine_instance_2)
+	print("Combines added")
+	instance.add_child(game_instance)
+	
+	
