@@ -34,7 +34,7 @@ material = SubResource( 10 )
 size = Vector3( 0.1, 0.1, 0 )
 
 [node name="vehicle" type="VehicleBody" groups=["vehicle"]]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 0 )
 mass = 800.0
 contacts_reported = 4
 contact_monitor = true
@@ -99,6 +99,7 @@ script = ExtResource( 4 )
 
 [node name="camera" type="Camera" parent="camera_pivot"]
 transform = Transform( -1, -5.32907e-15, -8.74228e-08, -1.55533e-08, 0.984047, 0.177909, 8.60281e-08, 0.177909, -0.984047, 0, 3, -6 )
+fov = 90.0
 far = 400.0
 
 [node name="sound" type="AudioStreamPlayer3D" parent="."]
