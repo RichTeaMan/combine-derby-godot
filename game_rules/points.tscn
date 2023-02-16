@@ -1,15 +1,10 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://game_rules/points.gd" type="Script" id=1]
-[ext_resource path="res://assets/fonts/fira_sans/FiraSans-Black.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://themes/large_ui_theme.tres" type="Theme" id=3]
 [ext_resource path="res://game_rules/time_label.gd" type="Script" id=4]
 [ext_resource path="res://themes/ui_theme.tres" type="Theme" id=5]
 [ext_resource path="res://game_rules/points_label.gd" type="Script" id=6]
-
-[sub_resource type="DynamicFont" id=1]
-size = 48
-font_data = ExtResource( 2 )
 
 [node name="points" type="Spatial"]
 script = ExtResource( 1 )
@@ -33,43 +28,6 @@ bbcode_enabled = true
 bbcode_text = "[center]00:00[/center]"
 text = "00:00"
 script = ExtResource( 4 )
-
-[node name="gui" type="MarginContainer" parent="."]
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 50.0
-margin_top = -200.0
-margin_right = -596.0
-margin_bottom = -134.0
-size_flags_horizontal = 2
-size_flags_vertical = 2
-
-[node name="points_label" type="RichTextLabel" parent="gui" groups=["points_ui"]]
-margin_right = 1274.0
-margin_bottom = 66.0
-rect_clip_content = false
-custom_fonts/normal_font = SubResource( 1 )
-text = "Points: 99999"
-
-[node name="gui2" type="MarginContainer" parent="."]
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = -565.0
-margin_top = -200.0
-margin_right = -183.0
-margin_bottom = -134.0
-size_flags_horizontal = 2
-size_flags_vertical = 2
-
-[node name="speed_label" type="RichTextLabel" parent="gui2"]
-margin_right = 382.0
-margin_bottom = 66.0
-rect_clip_content = false
-custom_fonts/normal_font = SubResource( 1 )
-text = "Speed: 999m/s"
 
 [node name="Timer" type="Timer" parent="."]
 autostart = true

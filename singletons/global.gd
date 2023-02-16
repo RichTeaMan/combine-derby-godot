@@ -1,8 +1,8 @@
 extends Spatial
 
-signal points(point_increment)
+signal points(player_id, point_increment)
 
-signal speed(speed_ms, vehicle_id)
+signal speed(player_id, speed_ms)
 
 signal player_added(player_id, node)
 
@@ -21,18 +21,23 @@ func _ready():
 	var pause_menu_template = preload("res://ui/pause_menu.tscn")
 	pause_menu = pause_menu_template.instance()
 
-
 func add_player(player_id: int, node: Node):
 	emit_signal("player_added", player_id, node)
 
-func add_points(points):
-	emit_signal("points", points)
+func add_points(player_id: int, points: int):
+	emit_signal("points", player_id, points)
 
-func update_speed(speed_ms, vehicle_id):
-	emit_signal("speed", speed_ms, vehicle_id)
+func update_speed(player_id, speed_ms):
+	emit_signal("speed", player_id, speed_ms)
 
 func is_in_vehicle_group(node: Node):
 	return node.is_in_group("vehicle")
+
+func get_screen_width():
+	return get_viewport().size.x
+
+func get_screen_height():
+	return get_viewport().size.y
 
 func _input(_event):
 	if Input.is_action_just_pressed("menu"):
@@ -143,5 +148,3 @@ func create_game(player_count: int, game_mode: String, arena_name: String):
 	add_player(combine_instance_2.player_id, combine_instance_2)
 	print("Combines added")
 	instance.add_child(game_instance)
-	
-	
