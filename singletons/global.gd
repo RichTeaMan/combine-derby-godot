@@ -125,8 +125,16 @@ func _on_music_player_finished():
 	play_music(current_playlist[current_playlist_index])
 
 func create_game(player_count: int, game_mode: String, arena_name: String):
-	print("Create game")
-	var player_container = preload("res://two_player.tscn");
+	print("Create game. Players: %s" % [player_count])
+	
+	var player_container
+	if player_count == 1:
+		player_container = preload("res://player_frames/one_player.tscn")
+	elif player_count == 2:
+		player_container = preload("res://player_frames/two_player.tscn")
+	else:
+		print("Unsupported number of players")
+		get_tree().quit()
 	var instance = player_container.instance()
 	print("Adding game instance...")
 	get_parent().add_child(instance)
@@ -137,14 +145,12 @@ func create_game(player_count: int, game_mode: String, arena_name: String):
 	#get_tree().change_scene_to(game_instance)
 	
 	var combine_template = preload("res://vehicles/combine.tscn")
-	var combine_instance_1 = combine_template.instance()
-	combine_instance_1.player_id = 1
-	var combine_instance_2 = combine_template.instance()
-	combine_instance_2.player_id = 2
-
-	combine_instance_1.add_to_group("player", true)
-	combine_instance_2.add_to_group("player", true)
-	add_player(combine_instance_1.player_id, combine_instance_1)
-	add_player(combine_instance_2.player_id, combine_instance_2)
+	for i in player_count:
+		var player_id = i + 1
+		var combine_instance = combine_template.instance()
+		combine_instance.player_id = player_id
+		combine_instance.add_to_group("player", true)
+		add_player(combine_instance.player_id, combine_instance)
+	
 	print("Combines added")
 	instance.add_child(game_instance)

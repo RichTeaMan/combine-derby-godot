@@ -23,4 +23,3 @@ func _on_speed(signal_player_id, speed):
 	if signal_player_id != self.player_id:
 		return
 	$gui2/speed_label.text = "Speed: %.1fm/s" % speed
-

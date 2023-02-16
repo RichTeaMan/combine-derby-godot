@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://player_viewport.gd" type="Script" id=1]
-[ext_resource path="res://two_player.gd" type="Script" id=2]
+[ext_resource path="res://player_frames/player_frame.gd" type="Script" id=2]
 [ext_resource path="res://ui/player_hud.tscn" type="PackedScene" id=3]
 
 [node name="two_player" type="Node"]

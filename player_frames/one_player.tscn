@@ -1,0 +1,30 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://player_viewport.gd" type="Script" id=1]
+[ext_resource path="res://player_frames/player_frame.gd" type="Script" id=2]
+[ext_resource path="res://ui/player_hud.tscn" type="PackedScene" id=3]
+
+[node name="one_player" type="Node"]
+script = ExtResource( 2 )
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="viewport_1" type="ViewportContainer" parent="HBoxContainer"]
+margin_right = 1920.0
+margin_bottom = 1080.0
+rect_min_size = Vector2( 1920, 1080 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+stretch = true
+
+[node name="Viewport" type="Viewport" parent="HBoxContainer/viewport_1"]
+size = Vector2( 1920, 1080 )
+handle_input_locally = false
+render_target_update_mode = 3
+audio_listener_enable_3d = true
+script = ExtResource( 1 )
+player_id = 1
+
+[node name="points" parent="HBoxContainer/viewport_1/Viewport" instance=ExtResource( 3 )]
