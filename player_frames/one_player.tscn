@@ -14,7 +14,7 @@ anchor_bottom = 1.0
 [node name="viewport_1" type="ViewportContainer" parent="HBoxContainer"]
 margin_right = 1920.0
 margin_bottom = 1080.0
-rect_min_size = Vector2( 1920, 1080 )
+rect_min_size = Vector2( 480, 270 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
 stretch = true

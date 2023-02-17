@@ -14,7 +14,7 @@ anchor_bottom = 1.0
 [node name="viewport_1" type="ViewportContainer" parent="HBoxContainer"]
 margin_right = 960.0
 margin_bottom = 1080.0
-rect_min_size = Vector2( 960, 1080 )
+rect_min_size = Vector2( 240, 270 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
 stretch = true
@@ -30,10 +30,10 @@ player_id = 1
 [node name="points" parent="HBoxContainer/viewport_1/Viewport" instance=ExtResource( 3 )]
 
 [node name="viewport_2" type="ViewportContainer" parent="HBoxContainer"]
-margin_left = 964.0
-margin_right = 1924.0
+margin_left = 960.0
+margin_right = 1920.0
 margin_bottom = 1080.0
-rect_min_size = Vector2( 960, 1080 )
+rect_min_size = Vector2( 240, 270 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
 stretch = true
