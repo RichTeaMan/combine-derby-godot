@@ -18,6 +18,7 @@ config/icon="res://icon.png"
 
 Global="*res://singletons/global.tscn"
 BuildInfo="*res://singletons/build_info.tscn"
+Transitions="*res://singletons/transitions.tscn"
 
 [display]
 

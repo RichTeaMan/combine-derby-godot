@@ -11,7 +11,12 @@ func _input(_ev):
 		start_game(1)
 
 func start_game(player_count):
-	Global.create_game(player_count, "", "")	
+	var callback = funcref(self, "create_game")
+	Transitions.fade_func(callback, [player_count])
+
+func create_game(player_count: int):
+	Global.create_game(player_count, "","")
+	Transitions.fade_back()
 	queue_free()
 
 func _on_sound_enabled_chb_toggled(button_pressed):
