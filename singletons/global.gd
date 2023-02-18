@@ -6,6 +6,8 @@ signal speed(player_id, speed_ms)
 
 signal player_added(player_id, node)
 
+signal player_ui(player_id, node)
+
 
 var pause_menu
 
@@ -27,8 +29,11 @@ func add_player(player_id: int, node: Node):
 func add_points(player_id: int, points: int):
 	emit_signal("points", player_id, points)
 
-func update_speed(player_id, speed_ms):
+func update_speed(player_id: int, speed_ms: float):
 	emit_signal("speed", player_id, speed_ms)
+
+func add_player_ui(player_id: int, node: Node) -> void:
+	emit_signal("player_ui", player_id, node)
 
 func is_in_vehicle_group(node: Node):
 	return node.is_in_group("vehicle")
@@ -150,7 +155,7 @@ func create_game(player_count: int, game_mode: String, arena_name: String):
 	print("    points")
 	var game_type = preload("res://game_rules/points.tscn")
 	var game_instance = game_type.instance()
-	#get_tree().change_scene_to(game_instance)
+	game_instance.player_count = player_count
 	
 	var combine_template = preload("res://vehicles/combine.tscn")
 	for i in player_count:
