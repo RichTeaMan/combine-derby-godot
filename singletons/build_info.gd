@@ -1,4 +1,4 @@
-extends Spatial
+extends CanvasLayer
 
 var commit_hash = "dev"
 var build_time = "dev"
