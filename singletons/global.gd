@@ -47,6 +47,13 @@ func _input(_event):
 		else:
 			get_tree().paused = true
 			get_tree().get_root().add_child(pause_menu)
+ 
+func set_mute(mute):
+	print("Master bus muted: %s" % [mute])
+	AudioServer.set_bus_mute(AudioServer.get_bus_index("Master"), mute)
+
+func get_mute() -> bool:
+	return AudioServer.is_bus_mute(AudioServer.get_bus_index("Master"))
 
 ## Sets master volume. Volume should between 0.0 and 1.0.
 func set_master_volume(volume):
