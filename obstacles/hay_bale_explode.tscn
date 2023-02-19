@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://assets/particles/wheat.png" type="Texture" id=1]
-[ext_resource path="res://scripts/hay_bale_explode.gd" type="Script" id=2]
+[ext_resource path="res://obstacles/hay_bale_explode.gd" type="Script" id=2]
 [ext_resource path="res://assets/sounds/hay1.ogg" type="AudioStream" id=3]
 
 [sub_resource type="SpatialMaterial" id=2]

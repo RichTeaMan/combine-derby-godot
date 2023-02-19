@@ -47,7 +47,7 @@ func create_bales():
 	for node in get_children():
 		node.queue_free()
 
-	var bale_template = preload("res://hay_bale.tscn")
+	var bale_template = preload("res://obstacles/hay_bale.tscn")
 	var y = bale_height / 2.0
 
 	for h in max_height:

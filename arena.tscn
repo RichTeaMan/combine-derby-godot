@@ -2,13 +2,13 @@
 
 [ext_resource path="res://vehicles/combine.tscn" type="PackedScene" id=1]
 [ext_resource path="res://materials/mudCracked/mud.tres" type="Material" id=2]
-[ext_resource path="res://cow.tscn" type="PackedScene" id=3]
+[ext_resource path="res://obstacles/cow.tscn" type="PackedScene" id=3]
 [ext_resource path="res://obstacles/barrel.tscn" type="PackedScene" id=4]
 [ext_resource path="res://wall.tscn" type="PackedScene" id=5]
 [ext_resource path="res://scripts/arena.gd" type="Script" id=6]
 [ext_resource path="res://ramp.tscn" type="PackedScene" id=7]
 [ext_resource path="res://materials/concrete_hd/concrete.tres" type="Material" id=8]
-[ext_resource path="res://hay_pyramid.tscn" type="PackedScene" id=10]
+[ext_resource path="res://obstacles/hay_pyramid.tscn" type="PackedScene" id=10]
 
 [sub_resource type="CubeMesh" id=1]
 size = Vector3( 500, 1, 500 )
@@ -427,43 +427,21 @@ player_id = 2
 
 [node name="hay_pyramid" parent="." instance=ExtResource( 10 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0 )
-padding = 1.8
-width = 6
-depth = 6
-max_height = 6
 
 [node name="hay_pyramid2" parent="." instance=ExtResource( 10 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -71, 5.25, 9 )
-padding = 1.8
-width = 1
-depth = 7
-max_height = 7
 
 [node name="hay_pyramid3" parent="." instance=ExtResource( 10 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -71, 5.25, -10 )
-padding = 1.8
-width = 1
-depth = 7
-max_height = 7
 
 [node name="hay_pyramid4" parent="." instance=ExtResource( 10 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 23, 5.25, -89 )
-padding = 1.8
-width = 1
-depth = 5
-max_height = 5
 
 [node name="hay_pyramid5" parent="." instance=ExtResource( 10 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 18.0681, 5.09872, 95.9091 )
-padding = 1.8
-width = 3
-depth = 3
-max_height = 3
 
 [node name="hay_pyramid6" parent="." instance=ExtResource( 10 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 91.042, 5.09872, -0.0146751 )
-padding = 1.8
-width = 10
 
 [node name="barrel" parent="." instance=ExtResource( 4 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 22, 5.25, -42 )
