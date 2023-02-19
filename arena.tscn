@@ -460,5 +460,82 @@ width = 3
 depth = 3
 max_height = 3
 
+[node name="hay_pyramid6" parent="." instance=ExtResource( 10 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 91.042, 5.09872, -0.0146751 )
+padding = 1.8
+width = 10
+
 [node name="barrel" parent="." instance=ExtResource( 4 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 22, 5.25, -42 )
+
+[node name="barrel2" parent="." instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 22, 5.25, 43 )
+
+[node name="barrel3" parent="." instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 80.2626, 0.5, 23.7929 )
+
+[node name="barrel4" parent="." instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 81.2849, 0.5, 73.8012 )
+
+[node name="barrel5" parent="." instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 54.0645, 0.5, 88.6052 )
+
+[node name="barrel6" parent="." instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 80.2626, 0.5, -21.8989 )
+
+[node name="barrel7" parent="." instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 80.2626, 0.5, -72.8597 )
+
+[node name="barrel8" parent="." instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 55.0492, 0.5, -89.7287 )
+
+[node name="barrel9" parent="." instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 55.0492, 5.25, -89.7287 )
+
+[node name="barrel10" parent="." instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 91.9597, 5.25, -70.1688 )
+
+[node name="barrel11" parent="." instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 71.1213, 5.25, -16.9076 )
+
+[node name="barrel12" parent="." instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 71.1213, 5.25, 15.5861 )
+
+[node name="barrel13" parent="." instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 94.473, 5.25, 42.4437 )
+
+[node name="barrel14" parent="." instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 56.0319, 5.25, 90.0126 )
+
+[node name="barrel15" parent="." instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -67.722, 5.25, 94.7229 )
+
+[node name="barrel16" parent="." instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -92.9032, 5.25, 53.2844 )
+
+[node name="barrel17" parent="." instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -64.9735, 5.25, -32.5961 )
+
+[node name="barrel18" parent="." instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -64.9735, 5.25, -55.4297 )
+
+[node name="barrel19" parent="." instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -64.9735, 5.25, -94.9537 )
+
+[node name="barrel20" parent="." instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -53.8302, 0.5, -61.4654 )
+
+[node name="barrel21" parent="." instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -53.8302, 0.5, -25.8572 )
+
+[node name="barrel22" parent="." instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -53.8302, 0.5, 22.4158 )
+
+[node name="barrel23" parent="." instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 21.5118, 0.5, 22.4158 )
+
+[node name="barrel24" parent="." instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -17.8405, 0.5, 69.4567 )
+
+[node name="barrel25" parent="." instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.517693, 0.5, -73.7381 )
