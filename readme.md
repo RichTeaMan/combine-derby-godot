@@ -17,6 +17,8 @@ A web version of it can be found at https://richteaman.github.io/combine-derby-g
 * Rally noises: https://opengameart.org/content/stunt-rally-sounds
     * Crashes noises:  Author: halleck, License:  CC BY SA 3.0
 * Kenney particle pack: https://www.kenney.nl/assets/particle-pack/
+* Explosion sound: https://opengameart.org/content/9-explosion-sounds
+
 ### Music
 
 * https://freemusicarchive.org/music/Jason_Shaw/Audionautix_Acoustic/JENNYS_THEME___________________-45/
