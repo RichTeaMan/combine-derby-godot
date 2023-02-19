@@ -21,3 +21,7 @@ func create_game(player_count: int):
 
 func _on_sound_enabled_chb_toggled(button_pressed):
 	Global.set_mute(!button_pressed)
+
+
+func _on_github_link_button_pressed():
+	OS.shell_open("https://github.com/RichTeaMan/combine-derby-godot")

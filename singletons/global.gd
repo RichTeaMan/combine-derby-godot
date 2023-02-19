@@ -138,7 +138,6 @@ func _on_music_player_finished():
 
 func create_game(player_count: int, game_mode: String, arena_name: String):
 	print("Create game. Players: %s" % [player_count])
-	#Transitions.fade()
 	
 	var player_container
 	if player_count == 1:

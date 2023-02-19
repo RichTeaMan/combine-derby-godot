@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://themes/large_ui_theme.tres" type="Theme" id=1]
 [ext_resource path="res://ui/start_screen.gd" type="Script" id=2]
 [ext_resource path="res://ui/sound_enabled_chb.gd" type="Script" id=3]
+[ext_resource path="res://themes/ui_theme.tres" type="Theme" id=4]
 
 [node name="start_screen" type="Control"]
 anchor_right = 1.0
@@ -59,6 +60,21 @@ pressed = true
 text = "Sound Enabled"
 script = ExtResource( 3 )
 
+[node name="MarginContainer3" type="MarginContainer" parent="."]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 30.0
+margin_top = -38.0
+margin_bottom = 32.0
+
+[node name="github_link_button" type="LinkButton" parent="MarginContainer3"]
+margin_right = 1890.0
+margin_bottom = 70.0
+theme = ExtResource( 4 )
+text = "github.com"
+
 [connection signal="pressed" from="MarginContainer/CenterContainer/VBoxContainer/start_1_player" to="." method="_on_one_player_pressed"]
 [connection signal="pressed" from="MarginContainer/CenterContainer/VBoxContainer/start_2_player" to="." method="_on_two_player_pressed"]
 [connection signal="toggled" from="MarginContainer2/HFlowContainer/sound_enabled_chb" to="." method="_on_sound_enabled_chb_toggled"]
+[connection signal="pressed" from="MarginContainer3/github_link_button" to="." method="_on_github_link_button_pressed"]
