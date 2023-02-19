@@ -3,9 +3,7 @@ extends Spatial
 var exploded = false
 
 func barrel_body_entered(body: Node):
-	print("combine?")
 	if not exploded and Global.is_in_vehicle_group(body):
-		print("explosion!")
 		Global.add_points(body.player_id, 20, "barrel booms")
 		exploded = true
 
