@@ -1,6 +1,6 @@
 extends Spatial
 
-signal points(player_id, point_increment)
+signal points(player_id, point_increment, category)
 
 signal speed(player_id, speed_ms)
 
@@ -26,8 +26,8 @@ func _ready():
 func add_player(player_id: int, node: Node):
 	emit_signal("player_added", player_id, node)
 
-func add_points(player_id: int, points: int):
-	emit_signal("points", player_id, points)
+func add_points(player_id: int, points_increment: int, category: String):
+	emit_signal("points", player_id, points_increment, category)
 
 func update_speed(player_id: int, speed_ms: float):
 	emit_signal("speed", player_id, speed_ms)
