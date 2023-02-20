@@ -166,4 +166,3 @@ func create_game(player_count: int, game_mode: String, arena_name: String):
 	
 	print("Combines added")
 	instance.add_child(game_instance)
-	#Transitions.fade_back()
