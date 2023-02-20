@@ -98,8 +98,9 @@ gradient = SubResource( 10 )
 [sub_resource type="ParticlesMaterial" id=12]
 emission_shape = 1
 emission_sphere_radius = 0.2
+direction = Vector3( 1, 0, 30 )
 spread = 0.0
-gravity = Vector3( 0, 0, 0 )
+gravity = Vector3( 0, 1, 0 )
 angular_velocity = 30.0
 angular_velocity_random = 1.0
 linear_accel = 4.0
@@ -143,11 +144,12 @@ draw_pass_1 = SubResource( 8 )
 
 [node name="smoke_particles" type="Particles" parent="RigidBody"]
 unique_name_in_owner = true
-transform = Transform( 1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 1.67535, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.67535, 0 )
 material_override = SubResource( 9 )
 amount = 32
 lifetime = 3.0
-visibility_aabb = AABB( -3.01464, -4, -2.72353, 6.02927, 8, 5.44705 )
+visibility_aabb = AABB( -3.015, -4, -2.724, 6.029, 8, 5.447 )
+local_coords = false
 process_material = SubResource( 12 )
 draw_pass_1 = SubResource( 8 )
 
