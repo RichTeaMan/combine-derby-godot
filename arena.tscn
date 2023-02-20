@@ -429,10 +429,10 @@ player_id = 2
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0 )
 
 [node name="hay_pyramid2" parent="." instance=ExtResource( 10 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -71, 5.25, 9 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -75, 5.25, 9 )
 
 [node name="hay_pyramid3" parent="." instance=ExtResource( 10 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -71, 5.25, -10 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -75, 5.25, -10 )
 
 [node name="hay_pyramid4" parent="." instance=ExtResource( 10 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 23, 5.25, -89 )
