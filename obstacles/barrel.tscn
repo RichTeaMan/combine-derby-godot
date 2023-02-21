@@ -114,7 +114,7 @@ color_ramp = SubResource( 11 )
 script = ExtResource( 4 )
 
 [node name="RigidBody" type="RigidBody" parent="."]
-contacts_reported = 1
+contacts_reported = 8
 contact_monitor = true
 
 [node name="CollisionShape" type="CollisionShape" parent="RigidBody"]
