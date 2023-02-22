@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=2]
+[gd_scene load_steps=40 format=2]
 
 [ext_resource path="res://vehicles/combine.tscn" type="PackedScene" id=1]
 [ext_resource path="res://materials/mudCracked/mud.tres" type="Material" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://materials/concrete_hd/concrete.tres" type="Material" id=8]
 [ext_resource path="res://obstacles/bull.tscn" type="PackedScene" id=9]
 [ext_resource path="res://obstacles/hay_pyramid.tscn" type="PackedScene" id=10]
+[ext_resource path="res://obstacles/chicken_collection.tscn" type="PackedScene" id=12]
 
 [sub_resource type="CubeMesh" id=1]
 size = Vector3( 500, 1, 500 )
@@ -413,12 +414,6 @@ transform = Transform( 0.0214833, 0, -0.999769, 0, 1, 0, 0.999769, 0, 0.0214833,
 [node name="cow3" parent="." instance=ExtResource( 3 )]
 transform = Transform( 0.648864, 0, -0.760904, 0, 1, 0, 0.760904, 0, 0.648864, -90.8021, 7.25, -91.783 )
 
-[node name="cow4" parent="." instance=ExtResource( 3 )]
-transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 37.2895, 2.5, -51.5588 )
-
-[node name="cow5" parent="." instance=ExtResource( 3 )]
-transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 39.0784, 2.5, 54.7124 )
-
 [node name="cow6" parent="." instance=ExtResource( 3 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -63.7298, 7.25, 43.5042 )
 
@@ -524,3 +519,21 @@ transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 71.3767
 
 [node name="bull2" parent="." instance=ExtResource( 9 )]
 transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 71.3767, 8.25, -67.0788 )
+
+[node name="chicken_collection" parent="." instance=ExtResource( 12 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 39.1557, 0.483864, 50.4051 )
+
+[node name="chicken_collection2" parent="." instance=ExtResource( 12 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 38.6484, -0.0899825, -58.0415 )
+
+[node name="chicken_collection3" parent="." instance=ExtResource( 12 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -84.4371, 4.66002, 69.4763 )
+
+[node name="chicken_collection4" parent="." instance=ExtResource( 12 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -77.6938, 4.66002, -73.4239 )
+
+[node name="chicken_collection5" parent="." instance=ExtResource( 12 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -12.7855, 0.240517, -1.62058 )
+
+[node name="chicken_collection6" parent="." instance=ExtResource( 12 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 86.882, 0.240486, -1.44608 )
