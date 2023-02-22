@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/bull.ogg-921b6207722d2c4698b1933ae343f50a.oggstr"
+
+[deps]
+
+source_file="res://assets/sounds/bull.ogg"
+dest_files=[ "res://.import/bull.ogg-921b6207722d2c4698b1933ae343f50a.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0
