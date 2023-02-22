@@ -18,6 +18,8 @@ A web version of it can be found at https://richteaman.github.io/combine-derby-g
     * Crashes noises:  Author: halleck, License:  CC BY SA 3.0
 * Kenney particle pack: https://www.kenney.nl/assets/particle-pack/
 * Explosion sound: https://opengameart.org/content/9-explosion-sounds
+* Chicken cluck sound: https://www.youtube.com/watch?v=ML6QPGbfMS4
+* Bull sound: https://www.youtube.com/watch?v=1B2vCw4cGdw
 
 ### Music
 
