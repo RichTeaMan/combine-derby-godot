@@ -8,8 +8,10 @@ signal player_added(player_id, node)
 
 signal player_ui(player_id, node)
 
-
 var pause_menu
+
+var current_game_scene: Node
+var current_player_count = 1
 
 var camera_reverses: bool = true
 
@@ -34,6 +36,10 @@ func update_speed(player_id: int, speed_ms: float):
 
 func add_player_ui(player_id: int, node: Node) -> void:
 	emit_signal("player_ui", player_id, node)
+
+func do_restart_game():
+	current_game_scene.queue_free()
+	call_deferred("create_game", current_player_count, "", "")
 
 func is_in_vehicle_group(node: Node):
 	return node.is_in_group("vehicle")
@@ -138,7 +144,10 @@ func _on_music_player_finished():
 
 func create_game(player_count: int, game_mode: String, arena_name: String):
 	print("Create game. Players: %s" % [player_count])
-	
+
+	for player in get_tree().get_nodes_in_group("player"):
+		player.remove_from_group("player")
+
 	var player_container
 	if player_count == 1:
 		player_container = preload("res://player_frames/one_player.tscn")
@@ -150,12 +159,12 @@ func create_game(player_count: int, game_mode: String, arena_name: String):
 	var instance = player_container.instance()
 	print("Adding game instance...")
 	get_parent().add_child(instance)
-	
+
 	print("    points")
 	var game_type = preload("res://game_rules/points.tscn")
 	var game_instance = game_type.instance()
 	game_instance.player_count = player_count
-	
+
 	var combine_template = preload("res://vehicles/combine.tscn")
 	for i in player_count:
 		var player_id = i + 1
@@ -163,6 +172,8 @@ func create_game(player_count: int, game_mode: String, arena_name: String):
 		combine_instance.player_id = player_id
 		combine_instance.add_to_group("player", true)
 		add_player(combine_instance.player_id, combine_instance)
-	
+
 	print("Combines added")
 	instance.add_child(game_instance)
+	current_game_scene = instance
+	current_player_count = player_count

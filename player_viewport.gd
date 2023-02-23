@@ -3,6 +3,8 @@ extends Viewport
 export var player_id: int
 export var scale = 0.5
 
+var has_player = false
+
 func _ready():
 	Global.connect("player_added", self, "_on_player_added")
 	get_tree().get_root().connect("size_changed", self, "_on_resize")
@@ -17,6 +19,7 @@ func apply_scale():
 	print("Applied scale.")
 
 func _on_player_added(added_player_id: int, node: Node):
-	if player_id == added_player_id:
+	if !has_player &&  player_id == added_player_id:
+		has_player = true
 		add_child(node)
 		print("Player %d successfully added" % player_id)

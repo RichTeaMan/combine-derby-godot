@@ -28,3 +28,12 @@ func _on_resume_button_pressed():
 	for node in get_tree().get_nodes_in_group("points_ui"):
 		node.visible = false
 	queue_free()
+
+
+func _on_restart_button_pressed():
+	var callback = funcref(self, "restart_game")
+	Transitions.fade_func(callback, [])
+
+func restart_game():
+	Global.do_restart_game()
+	Transitions.fade_back()
