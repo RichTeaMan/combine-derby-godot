@@ -23,9 +23,21 @@ jobs:
           git config --global --add safe.directory $(pwd)
           ./setBuildConstants.sh
           mkdir -v -p ~/.local/share/godot/templates
+          mkdir -v -p ~/.config/godot
           mv /root/.local/share/godot/templates/${GODOT_VERSION}.stable ~/.local/share/godot/templates/${GODOT_VERSION}.stable
+          mv /root/.config/godot/editor_settings-3.tres ~/.config/godot/editor_settings-3.tres
+      - name: Windows Dependencies
+        run: |
+          dpkg --add-architecture i386 && apt-get update && apt-get install -y wine-stable && apt-get install -y wine32
+          mkdir -v -p ~/.local/share/rcedit
+          wget https://github.com/electron/rcedit/releases/download/v1.1.1/rcedit-x64.exe -O ~/.local/share/rcedit/rcedit-x64.exe
+          mkdir -p /github/home/.wine
+          chown $USER:$USER -R ~
+          echo 'export/windows/wine = "/usr/bin/wine"' >> ~/.config/godot/editor_settings-3.tres
+          echo 'export/windows/rcedit = "/github/home/.local/share/rcedit/rcedit-x64.exe"' >> ~/.config/godot/editor_settings-3.tres
       - name: Windows Build
         run: |
+          wine ~/.local/share/rcedit/rcedit-x64.exe
           mkdir -v -p build/windows
           godot -v --export "Windows Desktop" build/windows/$EXPORT_NAME.exe
       - name: Upload Artifact
