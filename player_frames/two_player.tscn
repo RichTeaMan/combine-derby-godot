@@ -25,7 +25,6 @@ audio_listener_enable_3d = true
 shadow_atlas_size = 4096
 script = ExtResource( 1 )
 player_id = 1
-scale = 0.35
 
 [node name="ui_viewport" type="Viewport" parent="HBoxContainer/viewport_1"]
 size = Vector2( 958, 1000 )
@@ -52,7 +51,6 @@ audio_listener_enable_3d = true
 shadow_atlas_size = 4096
 script = ExtResource( 1 )
 player_id = 2
-scale = 0.35
 
 [node name="ui_viewport" type="Viewport" parent="HBoxContainer/viewport_2"]
 size = Vector2( 958, 1080 )

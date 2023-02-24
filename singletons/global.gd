@@ -8,6 +8,8 @@ signal player_added(player_id, node)
 
 signal player_ui(player_id, node)
 
+signal gfx_settings_updated()
+
 var pause_menu
 
 var current_game_scene: Node
@@ -20,6 +22,8 @@ var max_sound = 6.0
 
 var current_playlist: Array
 var current_playlist_index: int
+
+var gfx_scaling = 0.5
 
 func _ready():
 	var pause_menu_template = preload("res://ui/pause_menu.tscn")
@@ -40,6 +44,10 @@ func add_player_ui(player_id: int, node: Node) -> void:
 func do_restart_game():
 	current_game_scene.queue_free()
 	call_deferred("create_game", current_player_count, "", "")
+
+func do_gfx_settings_updated():
+	print("GFX scaling set to %s." % gfx_scaling)
+	emit_signal("gfx_settings_updated")
 
 func is_in_vehicle_group(node: Node):
 	return node.is_in_group("vehicle")

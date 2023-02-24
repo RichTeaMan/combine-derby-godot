@@ -59,12 +59,12 @@ text = "Paused"
 [node name="CenterContainer2" type="CenterContainer" parent="colour/margin/VBoxContainer"]
 margin_top = 164.0
 margin_right = 1920.0
-margin_bottom = 538.0
+margin_bottom = 656.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="colour/margin/VBoxContainer/CenterContainer2"]
 margin_left = 733.0
 margin_right = 1187.0
-margin_bottom = 374.0
+margin_bottom = 492.0
 
 [node name="CenterContainer" type="CenterContainer" parent="colour/margin/VBoxContainer/CenterContainer2/VBoxContainer"]
 margin_right = 454.0
@@ -188,10 +188,52 @@ step = 0.1
 ticks_on_borders = true
 script = ExtResource( 7 )
 
+[node name="CenterContainer4" type="CenterContainer" parent="colour/margin/VBoxContainer/CenterContainer2/VBoxContainer"]
+margin_top = 378.0
+margin_right = 454.0
+margin_bottom = 448.0
+
+[node name="graphics_banner" type="RichTextLabel" parent="colour/margin/VBoxContainer/CenterContainer2/VBoxContainer/CenterContainer4"]
+margin_left = 127.0
+margin_right = 327.0
+margin_bottom = 70.0
+rect_min_size = Vector2( 200, 70 )
+custom_fonts/normal_font = SubResource( 2 )
+bbcode_enabled = true
+bbcode_text = "[center]Graphics[/center]"
+text = "Graphics"
+
+[node name="scaling_row" type="HBoxContainer" parent="colour/margin/VBoxContainer/CenterContainer2/VBoxContainer"]
+margin_top = 452.0
+margin_right = 454.0
+margin_bottom = 492.0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="colour/margin/VBoxContainer/CenterContainer2/VBoxContainer/scaling_row"]
+margin_right = 200.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 200, 40 )
+theme = ExtResource( 2 )
+bbcode_enabled = true
+bbcode_text = "[right]Scaling   [/right]"
+text = "Scaling   "
+
+[node name="gfx_scaling_slider" type="HSlider" parent="colour/margin/VBoxContainer/CenterContainer2/VBoxContainer/scaling_row"]
+unique_name_in_owner = true
+margin_left = 204.0
+margin_right = 454.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 250, 40 )
+min_value = 0.1
+max_value = 1.0
+step = 0.1
+value = 0.1
+ticks_on_borders = true
+script = ExtResource( 7 )
+
 [node name="CenterContainer3" type="CenterContainer" parent="colour/margin/VBoxContainer"]
-margin_top = 542.0
+margin_top = 660.0
 margin_right = 1920.0
-margin_bottom = 580.0
+margin_bottom = 698.0
 mouse_filter = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="colour/margin/VBoxContainer/CenterContainer3"]
@@ -211,4 +253,5 @@ script = ExtResource( 5 )
 [connection signal="value_changed" from="colour/margin/VBoxContainer/CenterContainer2/VBoxContainer/volume_row/master_volume_slider" to="colour/margin/VBoxContainer/CenterContainer2/VBoxContainer/volume_row/master_volume_slider" method="_on_master_volume_slider_value_changed"]
 [connection signal="value_changed" from="colour/margin/VBoxContainer/CenterContainer2/VBoxContainer/music_volume_row/music_volume_slider" to="colour/margin/VBoxContainer/CenterContainer2/VBoxContainer/music_volume_row/music_volume_slider" method="_on_music_volume_slider_value_changed"]
 [connection signal="value_changed" from="colour/margin/VBoxContainer/CenterContainer2/VBoxContainer/sfx_volume_row/sfx_volume_slider" to="colour/margin/VBoxContainer/CenterContainer2/VBoxContainer/sfx_volume_row/sfx_volume_slider" method="_on_sfx_volume_slider_value_changed"]
+[connection signal="value_changed" from="colour/margin/VBoxContainer/CenterContainer2/VBoxContainer/scaling_row/gfx_scaling_slider" to="." method="_on_gfx_scaling_slider_value_changed"]
 [connection signal="pressed" from="colour/margin/VBoxContainer/CenterContainer3/HBoxContainer/button_quit" to="colour/margin/VBoxContainer/CenterContainer3/HBoxContainer/button_quit" method="_on_button_quit_pressed"]
