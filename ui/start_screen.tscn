@@ -101,27 +101,32 @@ text = "github.com"
 show_behind_parent = true
 anchor_right = 1.0
 anchor_bottom = 1.0
+mouse_filter = 2
 
 [node name="TextureRect" type="TextureRect" parent="MarginContainer4"]
 show_behind_parent = true
 margin_right = 1920.0
 margin_bottom = 1080.0
+mouse_filter = 2
 texture = ExtResource( 5 )
 expand = true
 
 [node name="MarginContainer5" type="MarginContainer" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
+mouse_filter = 2
 
 [node name="CenterContainer" type="CenterContainer" parent="MarginContainer5"]
 margin_right = 1920.0
 margin_bottom = 1080.0
+mouse_filter = 2
 
 [node name="Control" type="Control" parent="MarginContainer5/CenterContainer"]
 margin_left = 960.0
 margin_top = 540.0
 margin_right = 960.0
 margin_bottom = 540.0
+mouse_filter = 2
 
 [node name="TextureRect" type="TextureRect" parent="MarginContainer5/CenterContainer/Control"]
 margin_left = -503.0
@@ -129,6 +134,7 @@ margin_top = -396.0
 margin_right = 922.0
 margin_bottom = 372.0
 rect_scale = Vector2( 0.7, 0.7 )
+mouse_filter = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
 texture = ExtResource( 6 )
