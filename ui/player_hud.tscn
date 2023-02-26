@@ -108,13 +108,21 @@ rect_min_size = Vector2( 0, 100 )
 margin_right = 1920.0
 margin_bottom = 1080.0
 
+[node name="Panel" type="Panel" parent="top_banner/CenterContainer"]
+self_modulate = Color( 0, 0, 0, 0.25098 )
+margin_left = 680.0
+margin_top = 501.0
+margin_right = 1240.0
+margin_bottom = 561.0
+rect_min_size = Vector2( 560, 60 )
+
 [node name="control_label" type="RichTextLabel" parent="top_banner/CenterContainer"]
 unique_name_in_owner = true
 margin_left = 660.0
-margin_top = 480.0
+margin_top = 505.0
 margin_right = 1260.0
-margin_bottom = 600.0
-rect_min_size = Vector2( 600, 120 )
+margin_bottom = 575.0
+rect_min_size = Vector2( 600, 70 )
 theme = ExtResource( 3 )
 bbcode_enabled = true
 bbcode_text = "[center]Control with WASD keys.[/center]"
