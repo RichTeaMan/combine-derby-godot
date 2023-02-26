@@ -1,0 +1,34 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://materials/mudCracked/mud.tres" type="Material" id=1]
+[ext_resource path="res://obstacles/hay_pyramid.tscn" type="PackedScene" id=2]
+[ext_resource path="res://vehicles/combine_2.tscn" type="PackedScene" id=3]
+
+[sub_resource type="QuadMesh" id=1]
+material = ExtResource( 1 )
+size = Vector2( 400, 400 )
+
+[sub_resource type="ConcavePolygonShape" id=2]
+data = PoolVector3Array( -200, -200, 0, -200, 200, 0, 200, 200, 0, -200, -200, 0, 200, 200, 0, 200, -200, 0 )
+
+[node name="title_screen" type="Spatial"]
+
+[node name="hay_pyramid" parent="." instance=ExtResource( 2 )]
+transform = Transform( 0.973655, 0, 0.228028, 0, 1, 0, -0.228028, 0, 0.973655, 0.716657, 0, 0 )
+padding = 1.8
+
+[node name="MeshInstance" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0 )
+mesh = SubResource( 1 )
+
+[node name="StaticBody" type="StaticBody" parent="MeshInstance"]
+
+[node name="CollisionShape" type="CollisionShape" parent="MeshInstance/StaticBody"]
+shape = SubResource( 2 )
+
+[node name="vehicle" parent="." instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.339039, 0.645624, -74.6122 )
+
+[node name="Camera" type="Camera" parent="."]
+transform = Transform( 0.966908, 0.0478669, -0.250594, 0, 0.982241, 0.187621, 0.255125, -0.181413, 0.949737, -2.36941, 2.4562, 6.11593 )
+current = true
