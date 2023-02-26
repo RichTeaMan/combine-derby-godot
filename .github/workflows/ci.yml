@@ -72,3 +72,29 @@ jobs:
           name: combine-derby-linux
           path: build/linux
 
+  export-web:
+    name: Web Threads Export
+    runs-on: ubuntu-22.04
+    container:
+      image: barichello/godot-ci:3.5.1
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          lfs: true
+      - name: Setup
+        run: |
+          git config --global --add safe.directory $(pwd)
+          ./setBuildConstants.sh
+          mkdir -v -p ~/.local/share/godot/templates
+          mv /root/.local/share/godot/templates/${GODOT_VERSION}.stable ~/.local/share/godot/templates/${GODOT_VERSION}.stable
+      - name: Web Build
+        run: |
+          mkdir -v -p build/web
+          godot -v --export "HTML5-threads" build/web/index.html
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v1
+        with:
+          name: combine-derby-web-threads
+          path: build/web
+
