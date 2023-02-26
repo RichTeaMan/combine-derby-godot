@@ -113,6 +113,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.67535, 0 )
 material_override = SubResource( 9 )
 amount = 32
 lifetime = 3.0
+preprocess = 10.0
 local_coords = false
 mesh = SubResource( 8 )
 emission_shape = 1

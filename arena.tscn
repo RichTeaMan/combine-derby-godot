@@ -445,24 +445,6 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 22, 5.25, -42 )
 [node name="barrel2" parent="." instance=ExtResource( 4 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 22, 5.25, 43 )
 
-[node name="barrel3" parent="." instance=ExtResource( 4 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 80.2626, 0.5, 23.7929 )
-
-[node name="barrel4" parent="." instance=ExtResource( 4 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 81.2849, 0.5, 73.8012 )
-
-[node name="barrel5" parent="." instance=ExtResource( 4 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 54.0645, 0.5, 88.6052 )
-
-[node name="barrel6" parent="." instance=ExtResource( 4 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 80.2626, 0.5, -21.8989 )
-
-[node name="barrel7" parent="." instance=ExtResource( 4 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 80.2626, 0.5, -72.8597 )
-
-[node name="barrel8" parent="." instance=ExtResource( 4 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 55.0492, 0.5, -89.7287 )
-
 [node name="barrel9" parent="." instance=ExtResource( 4 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 55.0492, 5.25, -89.7287 )
 
