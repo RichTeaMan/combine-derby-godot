@@ -1,10 +1,9 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://assets/fonts/fira_sans/FiraSans-Bold.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://themes/ui_theme.tres" type="Theme" id=2]
 [ext_resource path="res://ui/pause_menu.gd" type="Script" id=3]
 [ext_resource path="res://ui/checkbox_reverse_camera.gd" type="Script" id=4]
-[ext_resource path="res://ui/button_quit.gd" type="Script" id=5]
 [ext_resource path="res://ui/master_volume_slider.gd" type="Script" id=6]
 [ext_resource path="res://ui/sfx_volume_slider.gd" type="Script" id=7]
 [ext_resource path="res://ui/music_volume_slider.gd" type="Script" id=8]
@@ -236,22 +235,36 @@ margin_right = 1920.0
 margin_bottom = 698.0
 mouse_filter = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="colour/margin/VBoxContainer/CenterContainer3"]
-margin_left = 929.0
-margin_right = 990.0
+[node name="button_row" type="HBoxContainer" parent="colour/margin/VBoxContainer/CenterContainer3"]
+margin_left = 867.0
+margin_right = 1052.0
 margin_bottom = 38.0
 mouse_filter = 2
 
-[node name="button_quit" type="Button" parent="colour/margin/VBoxContainer/CenterContainer3/HBoxContainer"]
-margin_right = 61.0
+[node name="button_restart" type="Button" parent="colour/margin/VBoxContainer/CenterContainer3/button_row"]
+margin_right = 96.0
+margin_bottom = 38.0
+theme = ExtResource( 2 )
+text = "Restart"
+
+[node name="Panel" type="Panel" parent="colour/margin/VBoxContainer/CenterContainer3/button_row" groups=["html5_disable"]]
+self_modulate = Color( 1, 1, 1, 0 )
+margin_left = 100.0
+margin_right = 120.0
+margin_bottom = 38.0
+rect_min_size = Vector2( 20, 20 )
+
+[node name="button_quit" type="Button" parent="colour/margin/VBoxContainer/CenterContainer3/button_row" groups=["html5_disable"]]
+margin_left = 124.0
+margin_right = 185.0
 margin_bottom = 38.0
 theme = ExtResource( 2 )
 text = "Quit"
-script = ExtResource( 5 )
 
 [connection signal="gui_input" from="colour/margin/VBoxContainer/CenterContainer2/VBoxContainer/CenterContainer3/checkbox_reverse_camera" to="colour/margin/VBoxContainer/CenterContainer2/VBoxContainer/CenterContainer3/checkbox_reverse_camera" method="_on_checkbox_reverse_camera_gui_input"]
 [connection signal="value_changed" from="colour/margin/VBoxContainer/CenterContainer2/VBoxContainer/volume_row/master_volume_slider" to="colour/margin/VBoxContainer/CenterContainer2/VBoxContainer/volume_row/master_volume_slider" method="_on_master_volume_slider_value_changed"]
 [connection signal="value_changed" from="colour/margin/VBoxContainer/CenterContainer2/VBoxContainer/music_volume_row/music_volume_slider" to="colour/margin/VBoxContainer/CenterContainer2/VBoxContainer/music_volume_row/music_volume_slider" method="_on_music_volume_slider_value_changed"]
 [connection signal="value_changed" from="colour/margin/VBoxContainer/CenterContainer2/VBoxContainer/sfx_volume_row/sfx_volume_slider" to="colour/margin/VBoxContainer/CenterContainer2/VBoxContainer/sfx_volume_row/sfx_volume_slider" method="_on_sfx_volume_slider_value_changed"]
 [connection signal="value_changed" from="colour/margin/VBoxContainer/CenterContainer2/VBoxContainer/scaling_row/gfx_scaling_slider" to="." method="_on_gfx_scaling_slider_value_changed"]
-[connection signal="pressed" from="colour/margin/VBoxContainer/CenterContainer3/HBoxContainer/button_quit" to="colour/margin/VBoxContainer/CenterContainer3/HBoxContainer/button_quit" method="_on_button_quit_pressed"]
+[connection signal="pressed" from="colour/margin/VBoxContainer/CenterContainer3/button_row/button_restart" to="." method="_on_button_restart_pressed"]
+[connection signal="pressed" from="colour/margin/VBoxContainer/CenterContainer3/button_row/button_quit" to="." method="_on_button_quit_pressed"]

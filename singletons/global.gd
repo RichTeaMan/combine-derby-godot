@@ -61,11 +61,17 @@ func get_screen_height():
 func _input(_event):
 	if Input.is_action_just_pressed("menu"):
 		if get_tree().paused:
-			get_tree().paused = false
-			get_tree().get_root().remove_child(pause_menu)
+			close_pause()
 		else:
-			get_tree().paused = true
-			get_tree().get_root().add_child(pause_menu)
+			open_pause()
+
+func open_pause():
+	get_tree().paused = true
+	get_tree().get_root().add_child(pause_menu)
+
+func close_pause():
+	get_tree().paused = false
+	get_tree().get_root().remove_child(pause_menu)
  
 func set_mute(mute):
 	print("Master bus muted: %s" % [mute])

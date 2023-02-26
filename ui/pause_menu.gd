@@ -6,6 +6,10 @@ func _ready():
 	print("ready, %s " % Global.gfx_scaling)
 	$"%gfx_scaling_slider".set_value(Global.gfx_scaling)
 	preloaded = true
+	
+	if OS.get_name() == "HTML5":
+		for n in get_tree().get_nodes_in_group("html5_disable"):
+			n.visible = false
 
 func _input(_event):
 	if Input.is_action_just_pressed("menu_quit"):
@@ -18,3 +22,12 @@ func _on_gfx_scaling_slider_value_changed(value):
 	print("gfx range %s" % $"%gfx_scaling_slider".value)
 	Global.gfx_scaling = $"%gfx_scaling_slider".value
 	Global.do_gfx_settings_updated()
+
+func _on_button_restart_pressed():
+	Global.close_pause()
+	Global.do_restart_game()
+	Transitions.fade_back()
+
+func _on_button_quit_pressed():
+	print("Quit button pressed")
+	get_tree().quit()
