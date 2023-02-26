@@ -70,10 +70,12 @@ text = "Two Players"
 
 [node name="MarginContainer2" type="MarginContainer" parent="."]
 anchor_right = 1.0
+mouse_filter = 2
 
 [node name="HFlowContainer" type="HFlowContainer" parent="MarginContainer2"]
 margin_right = 1920.0
 margin_bottom = 66.0
+mouse_filter = 2
 
 [node name="sound_enabled_chb" type="CheckBox" parent="MarginContainer2/HFlowContainer"]
 margin_right = 358.0
