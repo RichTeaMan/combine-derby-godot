@@ -111,7 +111,6 @@ color_ramp = SubResource( 3 )
 unique_name_in_owner = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.67535, 0 )
 material_override = SubResource( 9 )
-emitting = false
 amount = 32
 lifetime = 3.0
 preprocess = 10.0
