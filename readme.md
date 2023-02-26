@@ -1,8 +1,10 @@
 # Combine Derby
 
-An awful game about smashing things with a combine harvester written in the [Godot engine](https://godotengine.org/). A [continuation of a prevous attempt in Bevy](https://github.com/RichTeaMan/combine-derby).
+An awful game about smashing things with a combine harvester written in the [Godot engine](https://godotengine.org/). It can be downloaded from [itch.io](https://richteaman.itch.io/combine-derby).
 
-A web version of it can be found at https://richteaman.github.io/combine-derby-godot/. Windows and Linux builds are also available as an action artifact.
+CI builds can be played at https://richteaman.github.io/combine-derby-godot/ and Windows and Linux builds are also available as action artifacts.
+
+This is a [continuation of a prevous attempt in Bevy](https://github.com/RichTeaMan/combine-derby).
 
 ## Attributions
 
