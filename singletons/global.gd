@@ -26,6 +26,8 @@ var current_playlist_index: int
 var gfx_scaling = 0.5
 
 func _ready():
+	if is_web():
+		gfx_scaling = 0.4
 	var pause_menu_template = preload("res://ui/pause_menu.tscn")
 	pause_menu = pause_menu_template.instance()
 
@@ -72,6 +74,9 @@ func open_pause():
 func close_pause():
 	get_tree().paused = false
 	get_tree().get_root().remove_child(pause_menu)
+
+func is_web():
+	return OS.get_name() == "HTML5"
  
 func set_mute(mute):
 	print("Master bus muted: %s" % [mute])

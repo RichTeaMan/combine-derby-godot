@@ -8,7 +8,7 @@ func _ready():
 	Global.connect("player_added", self, "_on_player_added")
 	Global.connect("gfx_settings_updated", self, "_on_gfx_settings_updated")
 	get_tree().get_root().connect("size_changed", self, "_on_resize")
-	apply_scale()
+	_on_resize()
 	print("viewport %d ready" % player_id)
 
 func _on_resize():
@@ -16,7 +16,7 @@ func _on_resize():
 
 func apply_scale():
 	size = get_parent().get_rect().size * Global.gfx_scaling
-	print("Applied scale.")
+	print("Applied scale %s." % Global.gfx_scaling)
 
 func _on_player_added(added_player_id: int, node: Node):
 	if !has_player &&  player_id == added_player_id:

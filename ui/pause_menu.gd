@@ -6,13 +6,12 @@ func _ready():
 	print("ready, %s " % Global.gfx_scaling)
 	$"%gfx_scaling_slider".set_value(Global.gfx_scaling)
 	preloaded = true
-	
-	if OS.get_name() == "HTML5":
-		for n in get_tree().get_nodes_in_group("html5_disable"):
-			n.visible = false
+
+	for n in get_tree().get_nodes_in_group("html5_disable"):
+		n.visible = not Global.is_web()
 
 func _input(_event):
-	if Input.is_action_just_pressed("menu_quit"):
+	if not Global.is_web() && Input.is_action_just_pressed("menu_quit"):
 		print("Quit key pressed")
 		get_tree().quit()
 

@@ -43,7 +43,6 @@ func _input(_ev):
 func is_reversing():
 	return $back_left_wheel.get_rpm() < 0 && $back_right_wheel.get_rpm() < 0
 
-
 func _integrate_forces(state: PhysicsDirectBodyState) -> void:
 	if state.get_contact_count() == 0:
 		return

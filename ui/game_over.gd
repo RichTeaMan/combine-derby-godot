@@ -29,7 +29,6 @@ func _on_resume_button_pressed():
 		node.visible = false
 	queue_free()
 
-
 func _on_restart_button_pressed():
 	var callback = funcref(self, "restart_game")
 	Transitions.fade_func(callback, [])
