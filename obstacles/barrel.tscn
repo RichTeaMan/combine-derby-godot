@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://assets/models/barrel.glb" type="PackedScene" id=1]
 [ext_resource path="res://assets/particles/fire_01.png" type="Texture" id=2]
@@ -18,33 +18,13 @@ particles_anim_v_frames = 1
 particles_anim_loop = false
 albedo_texture = ExtResource( 2 )
 
-[sub_resource type="Gradient" id=3]
-colors = PoolColorArray( 1, 0.972549, 0.729412, 1, 0.939453, 0.274526, 0.0574771, 1 )
-
-[sub_resource type="GradientTexture" id=4]
-gradient = SubResource( 3 )
+[sub_resource type="QuadMesh" id=8]
 
 [sub_resource type="Curve" id=14]
 _data = [ Vector2( 0, 0 ), 0.0, 0.0, 0, 0, Vector2( 0.385475, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
 
-[sub_resource type="CurveTexture" id=15]
-curve = SubResource( 14 )
-
-[sub_resource type="ParticlesMaterial" id=16]
-emission_shape = 1
-emission_sphere_radius = 0.2
-spread = 0.0
-gravity = Vector3( 0, 0, 0 )
-angular_velocity = 30.0
-angular_velocity_random = 1.0
-linear_accel = 4.0
-angle = 360.0
-angle_random = 1.0
-scale = 3.0
-scale_curve = SubResource( 15 )
-color_ramp = SubResource( 4 )
-
-[sub_resource type="QuadMesh" id=8]
+[sub_resource type="Gradient" id=3]
+colors = PoolColorArray( 1, 0.972549, 0.729412, 1, 0.939453, 0.274526, 0.0574771, 1 )
 
 [sub_resource type="SpatialMaterial" id=13]
 flags_unshaded = true
@@ -59,23 +39,6 @@ albedo_texture = ExtResource( 2 )
 [sub_resource type="Curve" id=5]
 max_value = 40.0
 _data = [ Vector2( 0, 0 ), 0.0, 0.0, 0, 0, Vector2( 0.793296, 39.7297 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
-
-[sub_resource type="CurveTexture" id=17]
-curve = SubResource( 5 )
-
-[sub_resource type="ParticlesMaterial" id=18]
-emission_shape = 1
-emission_sphere_radius = 0.2
-spread = 0.0
-gravity = Vector3( 0, 0, 0 )
-angular_velocity = 30.0
-angular_velocity_random = 1.0
-linear_accel = 4.0
-angle = 360.0
-angle_random = 1.0
-scale = 2.0
-scale_curve = SubResource( 17 )
-color_ramp = SubResource( 4 )
 
 [sub_resource type="SpatialMaterial" id=9]
 flags_transparent = true
@@ -92,24 +55,6 @@ albedo_texture = ExtResource( 3 )
 offsets = PoolRealArray( 0, 0.529032, 1 )
 colors = PoolColorArray( 0, 0, 0, 0, 0.545161, 0.545161, 0.545161, 1, 1, 1, 1, 0 )
 
-[sub_resource type="GradientTexture" id=11]
-gradient = SubResource( 10 )
-
-[sub_resource type="ParticlesMaterial" id=12]
-emission_shape = 1
-emission_sphere_radius = 0.2
-direction = Vector3( 1, 0, 30 )
-spread = 0.0
-gravity = Vector3( 0, 1, 0 )
-angular_velocity = 30.0
-angular_velocity_random = 1.0
-linear_accel = 4.0
-angle = 360.0
-angle_random = 1.0
-scale = 2.0
-scale_random = 0.5
-color_ramp = SubResource( 11 )
-
 [node name="barrel" type="Spatial"]
 script = ExtResource( 4 )
 
@@ -124,34 +69,65 @@ shape = SubResource( 1 )
 [node name="model" parent="RigidBody" instance=ExtResource( 1 )]
 unique_name_in_owner = true
 
-[node name="fire_particles" type="Particles" parent="RigidBody"]
+[node name="fire_particles" type="CPUParticles" parent="RigidBody"]
 transform = Transform( 1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 1.67535, 0 )
 material_override = SubResource( 2 )
 amount = 16
-visibility_aabb = AABB( -3.01464, -4, -2.72353, 6.02927, 8, 5.44705 )
-process_material = SubResource( 16 )
-draw_pass_1 = SubResource( 8 )
+mesh = SubResource( 8 )
+emission_shape = 1
+emission_sphere_radius = 0.2
+spread = 0.0
+gravity = Vector3( 0, 0, 0 )
+angular_velocity = 30.0
+angular_velocity_random = 1.0
+linear_accel = 4.0
+angle = 360.0
+angle_random = 1.0
+scale_amount = 3.0
+scale_amount_curve = SubResource( 14 )
+color_ramp = SubResource( 3 )
 
-[node name="explosion_particles" type="Particles" parent="RigidBody"]
+[node name="explosion_particles" type="CPUParticles" parent="RigidBody"]
 unique_name_in_owner = true
 transform = Transform( 1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 1.67535, 0 )
 material_override = SubResource( 13 )
 emitting = false
 amount = 16
-visibility_aabb = AABB( -3.01464, -4, -2.72353, 6.02927, 8, 5.44705 )
-process_material = SubResource( 18 )
-draw_pass_1 = SubResource( 8 )
+mesh = SubResource( 8 )
+emission_shape = 1
+emission_sphere_radius = 0.2
+spread = 0.0
+gravity = Vector3( 0, 0, 0 )
+angular_velocity = 30.0
+angular_velocity_random = 1.0
+linear_accel = 4.0
+angle = 360.0
+angle_random = 1.0
+scale_amount = 2.0
+scale_amount_curve = SubResource( 5 )
+color_ramp = SubResource( 3 )
 
-[node name="smoke_particles" type="Particles" parent="RigidBody"]
+[node name="smoke_particles" type="CPUParticles" parent="RigidBody"]
 unique_name_in_owner = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.67535, 0 )
 material_override = SubResource( 9 )
 amount = 32
 lifetime = 3.0
-visibility_aabb = AABB( -3.015, -4, -2.724, 6.029, 8, 5.447 )
 local_coords = false
-process_material = SubResource( 12 )
-draw_pass_1 = SubResource( 8 )
+mesh = SubResource( 8 )
+emission_shape = 1
+emission_sphere_radius = 0.2
+direction = Vector3( 1, 0, 30 )
+spread = 0.0
+gravity = Vector3( 0, 1, 0 )
+angular_velocity = 30.0
+angular_velocity_random = 1.0
+linear_accel = 4.0
+angle = 360.0
+angle_random = 1.0
+scale_amount = 2.0
+scale_amount_random = 0.5
+color_ramp = SubResource( 10 )
 
 [node name="explosion_sound" type="AudioStreamPlayer3D" parent="RigidBody"]
 unique_name_in_owner = true
