@@ -184,7 +184,7 @@ func create_game(player_count: int, game_mode: String, arena_name: String):
 	var game_instance = game_type.instance()
 	game_instance.player_count = player_count
 
-	var combine_template = preload("res://vehicles/combine_2.tscn")
+	var combine_template = preload("res://vehicles/combine.tscn")
 	for i in player_count:
 		var player_id = i + 1
 		var combine_instance = combine_template.instance()

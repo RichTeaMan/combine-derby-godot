@@ -2,7 +2,7 @@
 
 [ext_resource path="res://materials/mudCracked/mud.tres" type="Material" id=1]
 [ext_resource path="res://obstacles/hay_pyramid.tscn" type="PackedScene" id=2]
-[ext_resource path="res://vehicles/combine_2.tscn" type="PackedScene" id=3]
+[ext_resource path="res://vehicles/combine.tscn" type="PackedScene" id=3]
 
 [sub_resource type="QuadMesh" id=1]
 material = ExtResource( 1 )
