@@ -1,4 +1,4 @@
-extends Spatial
+extends Node3D
 
 var bale_explode_template
 
@@ -10,8 +10,8 @@ func hay_body_entered(body: Node):
 		Global.add_points(body.player_id, 10, "Hay bales")
 
 		# create hay bale particle emitter
-		var explode_instance = bale_explode_template.instance()
-		var current_transform = $RigidBody.global_transform
+		var explode_instance = bale_explode_template.instantiate()
+		var current_transform = $RigidBody3D.global_transform
 		explode_instance.set_transform(current_transform)
 		get_tree().get_root().add_child(explode_instance)
 

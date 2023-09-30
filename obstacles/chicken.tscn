@@ -4,25 +4,25 @@
 [ext_resource path="res://assets/sounds/big-cluck.ogg" type="AudioStream" id=2]
 [ext_resource path="res://obstacles/chicken.gd" type="Script" id=3]
 
-[sub_resource type="SphereShape" id=1]
+[sub_resource type="SphereShape3D" id=1]
 radius = 0.5
 
-[node name="chicken" type="Spatial"]
+[node name="chicken" type="Node3D"]
 script = ExtResource( 3 )
 
-[node name="RigidBody" type="RigidBody" parent="."]
-contacts_reported = 5
+[node name="RigidBody3D" type="RigidBody3D" parent="."]
+max_contacts_reported = 5
 contact_monitor = true
 
-[node name="chicken" parent="RigidBody" instance=ExtResource( 1 )]
-transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0 )
+[node name="chicken" parent="RigidBody3D" instance=ExtResource( 1 )]
+transform = Transform3D( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0 )
 
-[node name="CollisionShape" type="CollisionShape" parent="RigidBody"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
 shape = SubResource( 1 )
 
-[node name="sound" type="AudioStreamPlayer" parent="RigidBody"]
+[node name="sound" type="AudioStreamPlayer" parent="RigidBody3D"]
 unique_name_in_owner = true
 stream = ExtResource( 2 )
 volume_db = -14.0
 
-[connection signal="body_entered" from="RigidBody" to="." method="chicken_body_entered"]
+[connection signal="body_entered" from="RigidBody3D" to="." method="chicken_body_entered"]

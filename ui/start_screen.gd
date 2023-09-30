@@ -11,7 +11,7 @@ func _input(_ev):
 		start_game(1)
 
 func start_game(player_count):
-	var callback = funcref(self, "create_game")
+	var callback = Callable(self, "create_game")
 	Transitions.fade_func(callback, [player_count])
 
 func create_game(player_count: int):

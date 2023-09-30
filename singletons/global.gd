@@ -1,4 +1,4 @@
-extends Spatial
+extends Node3D
 
 signal points(player_id, point_increment, category)
 
@@ -25,29 +25,29 @@ var current_playlist_index: int
 
 var gfx_scaling = 0.5
 
-func _ready():
+func _ready() -> void:
 	if is_web():
 		gfx_scaling = 0.4
 	var pause_menu_template = preload("res://ui/pause_menu.tscn")
-	pause_menu = pause_menu_template.instance()
+	pause_menu = pause_menu_template.instantiate()
 
-func add_player(player_id: int, node: Node):
+func add_player(player_id: int, node: Node) -> void:
 	emit_signal("player_added", player_id, node)
 
-func add_points(player_id: int, points_increment: int, category: String):
+func add_points(player_id: int, points_increment: int, category: String) -> void:
 	emit_signal("points", player_id, points_increment, category)
 
-func update_speed(player_id: int, speed_ms: float):
+func update_speed(player_id: int, speed_ms: float) -> void:
 	emit_signal("speed", player_id, speed_ms)
 
 func add_player_ui(player_id: int, node: Node) -> void:
 	emit_signal("player_ui", player_id, node)
 
-func do_restart_game():
+func do_restart_game() -> void:
 	current_game_scene.queue_free()
 	call_deferred("create_game", current_player_count, "", "")
 
-func do_gfx_settings_updated():
+func do_gfx_settings_updated() -> void:
 	print("GFX scaling set to %s." % gfx_scaling)
 	emit_signal("gfx_settings_updated")
 
@@ -60,25 +60,25 @@ func get_screen_width():
 func get_screen_height():
 	return get_viewport().size.y
 
-func _input(_event):
+func _input(_event) -> void:
 	if Input.is_action_just_pressed("menu"):
 		if get_tree().paused:
 			close_pause()
 		else:
 			open_pause()
 
-func open_pause():
+func open_pause() -> void:
 	get_tree().paused = true
 	get_tree().get_root().add_child(pause_menu)
 
-func close_pause():
+func close_pause() -> void:
 	get_tree().paused = false
 	get_tree().get_root().remove_child(pause_menu)
 
 func is_web():
 	return OS.get_name() == "HTML5"
  
-func set_mute(mute):
+func set_mute(mute) -> void:
 	print("Master bus muted: %s" % [mute])
 	AudioServer.set_bus_mute(AudioServer.get_bus_index("Master"), mute)
 
@@ -86,7 +86,7 @@ func get_mute() -> bool:
 	return AudioServer.is_bus_mute(AudioServer.get_bus_index("Master"))
 
 ## Sets master volume. Volume should between 0.0 and 1.0.
-func set_master_volume(volume):
+func set_master_volume(volume) -> void:
 	var resolved_db= resolve_volume_fraction_to_db(volume)
 	print("Master volume set to %s, resolved db set to %s" % [volume, resolved_db])
 	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), resolved_db)
@@ -96,7 +96,7 @@ func get_master_volume():
 	return resolve_db_volume_fraction(db)
 	
 ## Sets music volume. Volume should between 0.0 and 1.0.
-func set_music_volume(volume):
+func set_music_volume(volume) -> void:
 	var resolved_db= resolve_volume_fraction_to_db(volume)
 	print("Music volume set to %s, resolved db set to %s" % [volume, resolved_db])
 	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("music"), resolved_db)
@@ -106,7 +106,7 @@ func get_music_volume():
 	return resolve_db_volume_fraction(db)
 
 ## Sets sfx volume. Volume should between 0.0 and 1.0.
-func set_sfx_volume(volume):
+func set_sfx_volume(volume) -> void:
 	var resolved_db= resolve_volume_fraction_to_db(volume)
 	print("SFX volume set to %s, resolved db set to %s" % [volume, resolved_db])
 	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("sfx"), resolved_db)
@@ -134,7 +134,7 @@ func resolve_db_volume_fraction(db):
 		volume = 0.0
 	return volume
 
-func play_music(name: String):
+func play_music(name: String) -> void:
 	var file = "res://assets/music/%s" % name
 	if ResourceLoader.exists(file):
 		print("Playing %s" % name)
@@ -145,7 +145,7 @@ func play_music(name: String):
 	else:
 		print("Unable to play %s, file not found" % name)
 	
-func set_playlist(playlist: Array, random_start = false):
+func set_playlist(playlist: Array, random_start = false) -> void:
 	if playlist != null && playlist.size() > 0:
 		current_playlist = playlist
 		current_playlist_index = 0
@@ -153,7 +153,7 @@ func set_playlist(playlist: Array, random_start = false):
 			current_playlist_index = randi() % playlist.size()
 		play_music(current_playlist[current_playlist_index])
 
-func _on_music_player_finished():
+func _on_music_player_finished() -> void:
 	if current_playlist == null || current_playlist.size() == 0:
 		return
 	current_playlist_index += 1
@@ -161,7 +161,7 @@ func _on_music_player_finished():
 		current_playlist_index = 0
 	play_music(current_playlist[current_playlist_index])
 
-func create_game(player_count: int, game_mode: String, arena_name: String):
+func create_game(player_count: int, game_mode: String, arena_name: String) -> void:
 	print("Create game. Players: %s" % [player_count])
 
 	for player in get_tree().get_nodes_in_group("player"):
@@ -175,19 +175,19 @@ func create_game(player_count: int, game_mode: String, arena_name: String):
 	else:
 		print("Unsupported number of players")
 		get_tree().quit()
-	var instance = player_container.instance()
+	var instance = player_container.instantiate()
 	print("Adding game instance...")
 	get_parent().add_child(instance)
 
 	print("    points")
 	var game_type = preload("res://game_rules/points.tscn")
-	var game_instance = game_type.instance()
+	var game_instance = game_type.instantiate()
 	game_instance.player_count = player_count
 
 	var combine_template = preload("res://vehicles/combine.tscn")
 	for i in player_count:
 		var player_id = i + 1
-		var combine_instance = combine_template.instance()
+		var combine_instance = combine_template.instantiate()
 		combine_instance.player_id = player_id
 		combine_instance.add_to_group("player", true)
 		add_player(combine_instance.player_id, combine_instance)

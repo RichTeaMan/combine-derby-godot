@@ -1,175 +1,182 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=22 format=3 uid="uid://baqe8nacn46t5"]
 
-[ext_resource path="res://assets/combine_back_wheel_2.glb" type="PackedScene" id=1]
-[ext_resource path="res://scripts/combine.gd" type="Script" id=2]
-[ext_resource path="res://assets/sounds/engine_heavy_loop.ogg" type="AudioStream" id=3]
-[ext_resource path="res://scripts/camera_pivot.gd" type="Script" id=4]
-[ext_resource path="res://assets/particles/smoke_particle.png" type="Texture" id=5]
-[ext_resource path="res://assets/sounds/crash/big/06.ogg" type="AudioStream" id=6]
-[ext_resource path="res://assets/sounds/crash/big/10.ogg" type="AudioStream" id=7]
-[ext_resource path="res://assets/sounds/crash/big/12.ogg" type="AudioStream" id=8]
-[ext_resource path="res://assets/sounds/crash/big/08.ogg" type="AudioStream" id=9]
-[ext_resource path="res://scripts/crash_sounds.gd" type="Script" id=10]
-[ext_resource path="res://assets/sounds/crash/small/05.ogg" type="AudioStream" id=11]
-[ext_resource path="res://assets/sounds/crash/small/03.ogg" type="AudioStream" id=12]
-[ext_resource path="res://assets/sounds/crash/small/04.ogg" type="AudioStream" id=13]
-[ext_resource path="res://assets/sounds/crash/big/11.ogg" type="AudioStream" id=14]
-[ext_resource path="res://assets/sounds/crash/big/07.ogg" type="AudioStream" id=15]
-[ext_resource path="res://assets/sounds/crash/big/09.ogg" type="AudioStream" id=16]
-[ext_resource path="res://assets/combine_body_2.glb" type="PackedScene" id=17]
-[ext_resource path="res://assets/combine_front_wheel_2.glb" type="PackedScene" id=18]
+[ext_resource type="PackedScene" uid="uid://buhkug341cp5g" path="res://assets/combine_back_wheel_2.glb" id="1"]
+[ext_resource type="Script" path="res://scripts/combine.gd" id="2"]
+[ext_resource type="Script" path="res://scripts/camera_pivot.gd" id="4"]
+[ext_resource type="Texture2D" uid="uid://pa5l1yicmy1p" path="res://assets/particles/smoke_particle.png" id="5_m18g7"]
+[ext_resource type="AudioStream" uid="uid://ukhvokx0xrwp" path="res://assets/sounds/crash/small/03.ogg" id="6_0mlor"]
+[ext_resource type="AudioStream" uid="uid://cy4blobgmjtg" path="res://assets/sounds/crash/small/04.ogg" id="7_o6c15"]
+[ext_resource type="AudioStream" uid="uid://deeq3vrykjj1d" path="res://assets/sounds/crash/small/05.ogg" id="8_5umr1"]
+[ext_resource type="AudioStream" uid="uid://dqy7pffm2i2l1" path="res://assets/sounds/crash/big/06.ogg" id="9_0h8v7"]
+[ext_resource type="Script" path="res://scripts/crash_sounds.gd" id="10"]
+[ext_resource type="AudioStream" uid="uid://brvwx6gumd7cq" path="res://assets/sounds/crash/big/07.ogg" id="10_22lh3"]
+[ext_resource type="AudioStream" uid="uid://ct0ct3axnbv7x" path="res://assets/sounds/crash/big/08.ogg" id="11_5wrop"]
+[ext_resource type="AudioStream" uid="uid://2gaik7006ihm" path="res://assets/sounds/crash/big/09.ogg" id="12_jyowi"]
+[ext_resource type="AudioStream" uid="uid://d3powmwtqgli2" path="res://assets/sounds/crash/big/10.ogg" id="13_u5dfe"]
+[ext_resource type="AudioStream" uid="uid://bkbnydusqgx1" path="res://assets/sounds/crash/big/11.ogg" id="14_cybgy"]
+[ext_resource type="AudioStream" uid="uid://br8t5judkoiru" path="res://assets/sounds/crash/big/12.ogg" id="15_os02o"]
+[ext_resource type="PackedScene" uid="uid://7htsh0vi76gh" path="res://assets/combine_body_2.glb" id="17"]
+[ext_resource type="PackedScene" uid="uid://4yos1gbxwbhq" path="res://assets/combine_front_wheel_2.glb" id="18"]
 
-[sub_resource type="BoxShape" id=12]
-extents = Vector3( 0.654579, 1.08389, 1.0463 )
+[sub_resource type="BoxShape3D" id="12"]
+size = Vector3(1.992, 1.978, 4.326)
 
-[sub_resource type="BoxShape" id=13]
-extents = Vector3( 0.950925, 1.28345, 1.07633 )
+[sub_resource type="BoxShape3D" id="13"]
+size = Vector3(4, 0.567, 0.525)
 
-[sub_resource type="SpatialMaterial" id=10]
-flags_transparent = true
-params_billboard_mode = 1
-albedo_texture = ExtResource( 5 )
-uv1_scale = Vector3( 3, 2, 1 )
+[sub_resource type="StandardMaterial3D" id="10"]
+transparency = 1
+albedo_texture = ExtResource("5_m18g7")
+uv1_scale = Vector3(3, 2, 1)
+billboard_mode = 1
 
-[sub_resource type="CubeMesh" id=11]
-material = SubResource( 10 )
-size = Vector3( 0.1, 0.1, 0 )
+[sub_resource type="BoxMesh" id="11"]
+material = SubResource("10")
+size = Vector3(0.1, 0.1, 0)
 
-[node name="vehicle" type="VehicleBody" groups=["vehicle"]]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 0 )
+[node name="vehicle" type="VehicleBody3D" groups=["vehicle"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 0)
 mass = 800.0
-contacts_reported = 4
+max_contacts_reported = 4
 contact_monitor = true
-angular_velocity = Vector3( 1, 0, 0.5 )
+angular_velocity = Vector3(1, 0, 0.5)
 angular_damp = 2.0
-script = ExtResource( 2 )
+script = ExtResource("2")
 
-[node name="body_collision" type="CollisionShape" parent="."]
-transform = Transform( 1.52083, 0, 0, 0, 0.912097, 0, 0, 0, 2.06772, 0, 0.561225, -0.067 )
-shape = SubResource( 12 )
+[node name="body_collision" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.561225, -0.067)
+shape = SubResource("12")
 
-[node name="bumper_collision" type="CollisionShape" parent="."]
-transform = Transform( 2.10271, 0, 0, 0, 0.21352, -0.0641165, 0, 0.0581695, 0.235749, 0, -0.302573, 2.63791 )
-shape = SubResource( 13 )
+[node name="bumper_collision" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.964836, -0.262851, 0, 0.262851, 0.964836, 0, -0.302573, 2.63791)
+shape = SubResource("13")
 
-[node name="front_left_wheel" type="VehicleWheel" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.28294, -0.303759, 1.5 )
+[node name="front_left_wheel" type="VehicleWheel3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.28294, -0.303759, 1.5)
 use_as_traction = true
 wheel_radius = 0.57
 suspension_stiffness = 50.0
 damping_compression = 1.9
 damping_relaxation = 2.0
 
-[node name="combine_front_wheel_2" parent="front_left_wheel" instance=ExtResource( 18 )]
+[node name="combine_front_wheel_2" parent="front_left_wheel" instance=ExtResource("18")]
 
-[node name="front_right_wheel" type="VehicleWheel" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.283, -0.304, 1.5 )
+[node name="front_right_wheel" type="VehicleWheel3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.283, -0.304, 1.5)
 use_as_traction = true
 wheel_radius = 0.57
 suspension_stiffness = 50.0
 damping_compression = 1.9
 damping_relaxation = 2.0
 
-[node name="combine_front_wheel_2" parent="front_right_wheel" instance=ExtResource( 18 )]
-transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0 )
+[node name="combine_front_wheel_2" parent="front_right_wheel" instance=ExtResource("18")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 
-[node name="back_left_wheel" type="VehicleWheel" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.990969, -0.365911, -1.29941 )
+[node name="back_left_wheel" type="VehicleWheel3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.990969, -0.365911, -1.29941)
 use_as_steering = true
 wheel_radius = 0.45
 suspension_stiffness = 50.0
 damping_compression = 1.9
 damping_relaxation = 2.0
 
-[node name="combine_back_wheel_2" parent="back_left_wheel" instance=ExtResource( 1 )]
+[node name="combine_back_wheel_2" parent="back_left_wheel" instance=ExtResource("1")]
 
-[node name="back_right_wheel" type="VehicleWheel" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.991, -0.366, -1.299 )
+[node name="back_right_wheel" type="VehicleWheel3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.991, -0.366, -1.299)
 use_as_steering = true
 wheel_radius = 0.45
 suspension_stiffness = 50.0
 damping_compression = 1.9
 damping_relaxation = 2.0
 
-[node name="combine_back_wheel_2" parent="back_right_wheel" instance=ExtResource( 1 )]
-transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0 )
+[node name="combine_back_wheel_2" parent="back_right_wheel" instance=ExtResource("1")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 
-[node name="camera_pivot" type="Spatial" parent="."]
-script = ExtResource( 4 )
+[node name="camera_pivot" type="Node3D" parent="."]
+script = ExtResource("4")
 
-[node name="camera" type="Camera" parent="camera_pivot"]
-transform = Transform( -1, -5.32907e-15, -8.74228e-08, -1.55533e-08, 0.984047, 0.177909, 8.60281e-08, 0.177909, -0.984047, 0, 3, -6 )
+[node name="camera" type="Camera3D" parent="camera_pivot"]
+transform = Transform3D(-1, -5.32907e-15, -8.74228e-08, -1.55533e-08, 0.984047, 0.177909, 8.60281e-08, 0.177909, -0.984047, 0, 3, -6)
 fov = 90.0
 far = 400.0
 
 [node name="sound" type="AudioStreamPlayer3D" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, 0 )
-stream = ExtResource( 3 )
-bus = "sfx"
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, 0)
+bus = &"sfx"
 
-[node name="Spatial" type="Spatial" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.670041, 1.96966, -1.84759 )
+[node name="Node3D" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.670041, 1.96966, -1.84759)
 
-[node name="exhaust_particles" type="CPUParticles" parent="Spatial"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.356192, 0.246284, -0.333383 )
+[node name="exhaust_particles" type="CPUParticles3D" parent="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.356192, 0.246284, -0.333383)
 amount = 100
 lifetime = 7.74
 preprocess = 5.0
 speed_scale = 2.0
 randomness = 1.0
 fract_delta = false
-local_coords = false
-mesh = SubResource( 11 )
-gravity = Vector3( 0, 0.5, 0 )
+mesh = SubResource("11")
+gravity = Vector3(0, 0.5, 0)
 
-[node name="crash_sounds" type="Spatial" parent="."]
-script = ExtResource( 10 )
+[node name="crash_sounds" type="Node3D" parent="."]
+script = ExtResource("10")
 
-[node name="small" type="Spatial" parent="crash_sounds"]
+[node name="small" type="Node3D" parent="crash_sounds"]
 
 [node name="s3" type="AudioStreamPlayer3D" parent="crash_sounds/small"]
-stream = ExtResource( 12 )
-bus = "sfx"
+stream = ExtResource("6_0mlor")
+unit_size = 1.0
+bus = &"sfx"
 
 [node name="s4" type="AudioStreamPlayer3D" parent="crash_sounds/small"]
-stream = ExtResource( 13 )
-bus = "sfx"
+stream = ExtResource("7_o6c15")
+unit_size = 1.0
+bus = &"sfx"
 
 [node name="s5" type="AudioStreamPlayer3D" parent="crash_sounds/small"]
-stream = ExtResource( 11 )
-bus = "sfx"
+stream = ExtResource("8_5umr1")
+unit_size = 1.0
+bus = &"sfx"
 
-[node name="big" type="Spatial" parent="crash_sounds"]
+[node name="big" type="Node3D" parent="crash_sounds"]
 
 [node name="s6" type="AudioStreamPlayer3D" parent="crash_sounds/big"]
-stream = ExtResource( 6 )
-bus = "sfx"
+stream = ExtResource("9_0h8v7")
+unit_size = 1.0
+bus = &"sfx"
 
 [node name="s7" type="AudioStreamPlayer3D" parent="crash_sounds/big"]
-stream = ExtResource( 15 )
-bus = "sfx"
+stream = ExtResource("10_22lh3")
+unit_size = 1.0
+bus = &"sfx"
 
 [node name="s8" type="AudioStreamPlayer3D" parent="crash_sounds/big"]
-stream = ExtResource( 9 )
-bus = "sfx"
+stream = ExtResource("11_5wrop")
+unit_size = 1.0
+bus = &"sfx"
 
 [node name="s9" type="AudioStreamPlayer3D" parent="crash_sounds/big"]
-stream = ExtResource( 16 )
-bus = "sfx"
+stream = ExtResource("12_jyowi")
+unit_size = 1.0
+bus = &"sfx"
 
 [node name="s10" type="AudioStreamPlayer3D" parent="crash_sounds/big"]
-stream = ExtResource( 7 )
-bus = "sfx"
+stream = ExtResource("13_u5dfe")
+unit_size = 1.0
+bus = &"sfx"
 
 [node name="s11" type="AudioStreamPlayer3D" parent="crash_sounds/big"]
-stream = ExtResource( 14 )
-bus = "sfx"
+stream = ExtResource("14_cybgy")
+unit_size = 1.0
+bus = &"sfx"
 
 [node name="s12" type="AudioStreamPlayer3D" parent="crash_sounds/big"]
-stream = ExtResource( 8 )
-bus = "sfx"
+stream = ExtResource("15_os02o")
+unit_size = 1.0
+bus = &"sfx"
 
-[node name="combine_body_2" parent="." instance=ExtResource( 17 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.790884, 0 )
+[node name="combine_body_2" parent="." instance=ExtResource("17")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.790884, 0)
 
 [connection signal="body_shape_entered" from="." to="." method="_on_vehicle_body_shape_entered"]

@@ -1,19 +1,23 @@
-extends Spatial
+extends Node3D
 
 var small_playing = false
 var big_playing = false
 
-var small_sounds
-var big_sounds
+var small_sounds: Array[AudioStreamPlayer3D] = []
+var big_sounds: Array[AudioStreamPlayer3D] = []
 
 func _ready():
 	randomize()
-	small_sounds = $small.get_children()
-	big_sounds = $big.get_children()
-	for sound in small_sounds:
-		sound.connect("finished", self, "_on_small_sound_finshed")
-	for sound in big_sounds:
-		sound.connect("finished", self, "_on_big_sound_finshed")
+	var small_sound_nodes = $small.get_children()
+	var big_sound_nodes = $big.get_children()
+	for sound in small_sound_nodes:
+		if sound is AudioStreamPlayer3D:
+			small_sounds.append(sound)
+			sound.finished.connect(_on_small_sound_finshed)
+	for sound in big_sound_nodes:
+		if sound is AudioStreamPlayer3D:
+			big_sounds.append(sound)
+			sound.finished.connect(_on_big_sound_finshed)
 
 func play_small_sound():
 	if !small_playing:
@@ -25,12 +29,12 @@ func play_big_sound():
 		play_random_sound(big_sounds)
 		big_playing = true
 
-func play_random_sound(sound_array: Array):
+func play_random_sound(sound_array: Array[AudioStreamPlayer3D]):
 	var sound = pick_random_child(sound_array)
 	print("playing crash sound: %s" % sound.name)
 	sound.play()
 
-func pick_random_child(node_array: Array):
+func pick_random_child(node_array: Array[AudioStreamPlayer3D]) -> AudioStreamPlayer3D:
 	var random_id =  randi() % node_array.size()
 	return node_array[random_id]
 

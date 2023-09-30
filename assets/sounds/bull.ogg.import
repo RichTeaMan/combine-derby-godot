@@ -1,15 +1,19 @@
 [remap]
 
-importer="ogg_vorbis"
-type="AudioStreamOGGVorbis"
-path="res://.import/bull.ogg-921b6207722d2c4698b1933ae343f50a.oggstr"
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://clp2y2yfydfnm"
+path="res://.godot/imported/bull.ogg-921b6207722d2c4698b1933ae343f50a.oggvorbisstr"
 
 [deps]
 
 source_file="res://assets/sounds/bull.ogg"
-dest_files=[ "res://.import/bull.ogg-921b6207722d2c4698b1933ae343f50a.oggstr" ]
+dest_files=["res://.godot/imported/bull.ogg-921b6207722d2c4698b1933ae343f50a.oggvorbisstr"]
 
 [params]
 
 loop=false
 loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

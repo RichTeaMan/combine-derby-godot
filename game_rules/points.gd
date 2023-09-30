@@ -1,6 +1,6 @@
-extends Spatial
+extends Node3D
 
-export var player_count: int
+@export var player_count: int
 
 var current_points = 0
 var countdown_length_seconds = 60
@@ -9,7 +9,7 @@ var player_points: Array
 
 func _ready():
 	refresh_timer()
-	var _a = Global.connect("points", self, "_on_points")
+	var _a = Global.connect("points", Callable(self, "_on_points"))
 
 func _enter_tree():
 	var arena = preload("res://arena.tscn")
@@ -18,7 +18,7 @@ func _enter_tree():
 		var p = {}
 		p["points"] = 0
 		player_points.append(p)
-	add_child(arena.instance())
+	add_child(arena.instantiate())
 
 func _on_points(player_id: int, points: int, category: String) -> void:
 	if player_id <= player_count:
@@ -36,7 +36,7 @@ func _on_Timer_timeout():
 
 		for player_index in player_count:
 			var player_id = player_index + 1
-			var game_over_instance = game_over_scene.instance()
+			var game_over_instance = game_over_scene.instantiate()
 			game_over_instance.player_id = player_id
 			game_over_instance.points = player_points[player_id]
 			Global.add_player_ui(player_id, game_over_instance)
@@ -47,4 +47,4 @@ func _on_Timer_timeout():
 func refresh_timer():
 	var minutes_remaining = countdown_length_seconds / 60
 	var seconds_remaining = countdown_length_seconds % 60
-	$"%time_label".bbcode_text = "[center]%s:%02d[/center]" % [ minutes_remaining, seconds_remaining ]
+	$"%time_label".text = "[center]%s:%02d[/center]" % [ minutes_remaining, seconds_remaining ]

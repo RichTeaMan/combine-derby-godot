@@ -1,264 +1,197 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=8 format=3 uid="uid://c7jmq6gd2q0i4"]
 
-[ext_resource path="res://assets/fonts/fira_sans/FiraSans-Bold.ttf" type="DynamicFontData" id=1]
-[ext_resource path="res://themes/ui_theme.tres" type="Theme" id=2]
-[ext_resource path="res://ui/pause_menu.gd" type="Script" id=3]
-[ext_resource path="res://ui/checkbox_reverse_camera.gd" type="Script" id=4]
-[ext_resource path="res://ui/master_volume_slider.gd" type="Script" id=6]
-[ext_resource path="res://ui/sfx_volume_slider.gd" type="Script" id=7]
-[ext_resource path="res://ui/music_volume_slider.gd" type="Script" id=8]
-
-[sub_resource type="DynamicFont" id=1]
-size = 72
-font_data = ExtResource( 1 )
-
-[sub_resource type="DynamicFont" id=2]
-size = 38
-font_data = ExtResource( 1 )
+[ext_resource type="Theme" uid="uid://crxug62ulgqui" path="res://themes/ui_theme.tres" id="2"]
+[ext_resource type="Theme" uid="uid://b5dkmxxjri631" path="res://themes/ui_bold_theme.tres" id="2_jq341"]
+[ext_resource type="Script" path="res://ui/pause_menu.gd" id="3"]
+[ext_resource type="Script" path="res://ui/checkbox_reverse_camera.gd" id="4"]
+[ext_resource type="Script" path="res://ui/master_volume_slider.gd" id="6"]
+[ext_resource type="Script" path="res://ui/sfx_volume_slider.gd" id="7"]
+[ext_resource type="Script" path="res://ui/music_volume_slider.gd" id="8"]
 
 [node name="pause_menu" type="MarginContainer"]
-pause_mode = 2
+process_mode = 3
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
-script = ExtResource( 3 )
+script = ExtResource("3")
 
 [node name="colour" type="Panel" parent="."]
-self_modulate = Color( 1, 1, 1, 0.752941 )
-margin_right = 1920.0
-margin_bottom = 1080.0
+self_modulate = Color(1, 1, 1, 0.752941)
+layout_mode = 2
 mouse_filter = 2
 
 [node name="margin" type="MarginContainer" parent="colour"]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_top = 80.0
+offset_top = 80.0
 mouse_filter = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="colour/margin"]
-margin_right = 1920.0
-margin_bottom = 1000.0
+layout_mode = 2
 mouse_filter = 2
 
 [node name="CenterContainer" type="CenterContainer" parent="colour/margin/VBoxContainer"]
-margin_right = 1920.0
-margin_bottom = 160.0
+layout_mode = 2
 
 [node name="pause_banner" type="RichTextLabel" parent="colour/margin/VBoxContainer/CenterContainer"]
-margin_left = 760.0
-margin_right = 1160.0
-margin_bottom = 160.0
-rect_min_size = Vector2( 400, 160 )
-rect_clip_content = false
-custom_fonts/normal_font = SubResource( 1 )
+clip_contents = false
+custom_minimum_size = Vector2(400, 160)
+layout_mode = 2
+theme = ExtResource("2_jq341")
+theme_override_font_sizes/normal_font_size = 72
+theme_override_font_sizes/bold_font_size = 72
 bbcode_enabled = true
-bbcode_text = "[center]Paused[/center]"
-text = "Paused"
+text = "[center]Paused[/center]"
 
 [node name="CenterContainer2" type="CenterContainer" parent="colour/margin/VBoxContainer"]
-margin_top = 164.0
-margin_right = 1920.0
-margin_bottom = 656.0
+layout_mode = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="colour/margin/VBoxContainer/CenterContainer2"]
-margin_left = 733.0
-margin_right = 1187.0
-margin_bottom = 492.0
+layout_mode = 2
 
 [node name="CenterContainer" type="CenterContainer" parent="colour/margin/VBoxContainer/CenterContainer2/VBoxContainer"]
-margin_right = 454.0
-margin_bottom = 70.0
+layout_mode = 2
 
 [node name="options_banner" type="RichTextLabel" parent="colour/margin/VBoxContainer/CenterContainer2/VBoxContainer/CenterContainer"]
-margin_left = 127.0
-margin_right = 327.0
-margin_bottom = 70.0
-rect_min_size = Vector2( 200, 70 )
-custom_fonts/normal_font = SubResource( 2 )
+custom_minimum_size = Vector2(200, 70)
+layout_mode = 2
+theme = ExtResource("2_jq341")
 bbcode_enabled = true
-bbcode_text = "[center]Options[/center]"
-text = "Options"
+text = "[center]Options[/center]"
 
 [node name="CenterContainer3" type="CenterContainer" parent="colour/margin/VBoxContainer/CenterContainer2/VBoxContainer"]
-margin_top = 74.0
-margin_right = 454.0
-margin_bottom = 114.0
+layout_mode = 2
 
 [node name="checkbox_reverse_camera" type="CheckBox" parent="colour/margin/VBoxContainer/CenterContainer2/VBoxContainer/CenterContainer3"]
-margin_left = 79.0
-margin_right = 375.0
-margin_bottom = 40.0
-theme = ExtResource( 2 )
-text = "Camera never reverses"
-script = ExtResource( 4 )
+layout_mode = 2
+theme = ExtResource("2")
+text = "Camera3D never reverses"
+script = ExtResource("4")
 
 [node name="Panel" type="Panel" parent="colour/margin/VBoxContainer/CenterContainer2/VBoxContainer"]
-modulate = Color( 1, 1, 1, 0 )
-self_modulate = Color( 1, 1, 1, 0 )
-margin_top = 118.0
-margin_right = 454.0
-margin_bottom = 168.0
-rect_min_size = Vector2( 0, 50 )
+modulate = Color(1, 1, 1, 0)
+self_modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
 
 [node name="CenterContainer2" type="CenterContainer" parent="colour/margin/VBoxContainer/CenterContainer2/VBoxContainer"]
-margin_top = 172.0
-margin_right = 454.0
-margin_bottom = 242.0
+layout_mode = 2
 
 [node name="audio_banner" type="RichTextLabel" parent="colour/margin/VBoxContainer/CenterContainer2/VBoxContainer/CenterContainer2"]
-margin_left = 127.0
-margin_right = 327.0
-margin_bottom = 70.0
-rect_min_size = Vector2( 200, 70 )
-custom_fonts/normal_font = SubResource( 2 )
+custom_minimum_size = Vector2(200, 70)
+layout_mode = 2
+theme = ExtResource("2_jq341")
 bbcode_enabled = true
-bbcode_text = "[center]Audio[/center]"
-text = "Audio"
+text = "[center]Audio[/center]"
 
 [node name="volume_row" type="HBoxContainer" parent="colour/margin/VBoxContainer/CenterContainer2/VBoxContainer"]
-margin_top = 246.0
-margin_right = 454.0
-margin_bottom = 286.0
+layout_mode = 2
 
 [node name="RichTextLabel" type="RichTextLabel" parent="colour/margin/VBoxContainer/CenterContainer2/VBoxContainer/volume_row"]
-margin_right = 200.0
-margin_bottom = 40.0
-rect_min_size = Vector2( 200, 40 )
-theme = ExtResource( 2 )
+custom_minimum_size = Vector2(260, 40)
+layout_mode = 2
+theme = ExtResource("2")
 bbcode_enabled = true
-bbcode_text = "[right]Volume    [/right]"
 text = "Volume    "
 
 [node name="master_volume_slider" type="HSlider" parent="colour/margin/VBoxContainer/CenterContainer2/VBoxContainer/volume_row"]
-margin_left = 204.0
-margin_right = 454.0
-margin_bottom = 40.0
-rect_min_size = Vector2( 250, 40 )
+custom_minimum_size = Vector2(250, 40)
+layout_mode = 2
 max_value = 1.0
 step = 0.1
 ticks_on_borders = true
-script = ExtResource( 6 )
+script = ExtResource("6")
 
 [node name="music_volume_row" type="HBoxContainer" parent="colour/margin/VBoxContainer/CenterContainer2/VBoxContainer"]
-margin_top = 290.0
-margin_right = 454.0
-margin_bottom = 330.0
+layout_mode = 2
 
 [node name="RichTextLabel" type="RichTextLabel" parent="colour/margin/VBoxContainer/CenterContainer2/VBoxContainer/music_volume_row"]
-margin_right = 200.0
-margin_bottom = 40.0
-rect_min_size = Vector2( 200, 40 )
-theme = ExtResource( 2 )
+custom_minimum_size = Vector2(260, 40)
+layout_mode = 2
+theme = ExtResource("2")
 bbcode_enabled = true
-bbcode_text = "[right]Music Volume    [/right]"
 text = "Music Volume    "
 
 [node name="music_volume_slider" type="HSlider" parent="colour/margin/VBoxContainer/CenterContainer2/VBoxContainer/music_volume_row"]
-margin_left = 204.0
-margin_right = 454.0
-margin_bottom = 40.0
-rect_min_size = Vector2( 250, 40 )
+custom_minimum_size = Vector2(250, 40)
+layout_mode = 2
 max_value = 1.0
 step = 0.1
 ticks_on_borders = true
-script = ExtResource( 8 )
+script = ExtResource("8")
 
 [node name="sfx_volume_row" type="HBoxContainer" parent="colour/margin/VBoxContainer/CenterContainer2/VBoxContainer"]
-margin_top = 334.0
-margin_right = 454.0
-margin_bottom = 374.0
+layout_mode = 2
 
 [node name="RichTextLabel" type="RichTextLabel" parent="colour/margin/VBoxContainer/CenterContainer2/VBoxContainer/sfx_volume_row"]
-margin_right = 200.0
-margin_bottom = 40.0
-rect_min_size = Vector2( 200, 40 )
-theme = ExtResource( 2 )
+custom_minimum_size = Vector2(260, 40)
+layout_mode = 2
+theme = ExtResource("2")
 bbcode_enabled = true
-bbcode_text = "[right]SFX Volume    [/right]"
 text = "SFX Volume    "
 
 [node name="sfx_volume_slider" type="HSlider" parent="colour/margin/VBoxContainer/CenterContainer2/VBoxContainer/sfx_volume_row"]
-margin_left = 204.0
-margin_right = 454.0
-margin_bottom = 40.0
-rect_min_size = Vector2( 250, 40 )
+custom_minimum_size = Vector2(250, 40)
+layout_mode = 2
 max_value = 1.0
 step = 0.1
 ticks_on_borders = true
-script = ExtResource( 7 )
+script = ExtResource("7")
 
 [node name="CenterContainer4" type="CenterContainer" parent="colour/margin/VBoxContainer/CenterContainer2/VBoxContainer"]
-margin_top = 378.0
-margin_right = 454.0
-margin_bottom = 448.0
+layout_mode = 2
 
 [node name="graphics_banner" type="RichTextLabel" parent="colour/margin/VBoxContainer/CenterContainer2/VBoxContainer/CenterContainer4"]
-margin_left = 127.0
-margin_right = 327.0
-margin_bottom = 70.0
-rect_min_size = Vector2( 200, 70 )
-custom_fonts/normal_font = SubResource( 2 )
+custom_minimum_size = Vector2(200, 70)
+layout_mode = 2
+theme = ExtResource("2_jq341")
 bbcode_enabled = true
-bbcode_text = "[center]Graphics[/center]"
-text = "Graphics"
+text = "[center]Graphics[/center]"
 
 [node name="scaling_row" type="HBoxContainer" parent="colour/margin/VBoxContainer/CenterContainer2/VBoxContainer"]
-margin_top = 452.0
-margin_right = 454.0
-margin_bottom = 492.0
+layout_mode = 2
 
 [node name="RichTextLabel" type="RichTextLabel" parent="colour/margin/VBoxContainer/CenterContainer2/VBoxContainer/scaling_row"]
-margin_right = 200.0
-margin_bottom = 40.0
-rect_min_size = Vector2( 200, 40 )
-theme = ExtResource( 2 )
+custom_minimum_size = Vector2(260, 40)
+layout_mode = 2
+theme = ExtResource("2")
 bbcode_enabled = true
-bbcode_text = "[right]Scaling   [/right]"
 text = "Scaling   "
 
 [node name="gfx_scaling_slider" type="HSlider" parent="colour/margin/VBoxContainer/CenterContainer2/VBoxContainer/scaling_row"]
 unique_name_in_owner = true
-margin_left = 204.0
-margin_right = 454.0
-margin_bottom = 40.0
-rect_min_size = Vector2( 250, 40 )
+custom_minimum_size = Vector2(250, 40)
+layout_mode = 2
 min_value = 0.1
 max_value = 1.0
 step = 0.1
 value = 0.1
 ticks_on_borders = true
-script = ExtResource( 7 )
+script = ExtResource("7")
 
 [node name="CenterContainer3" type="CenterContainer" parent="colour/margin/VBoxContainer"]
-margin_top = 660.0
-margin_right = 1920.0
-margin_bottom = 698.0
+layout_mode = 2
 mouse_filter = 2
 
 [node name="button_row" type="HBoxContainer" parent="colour/margin/VBoxContainer/CenterContainer3"]
-margin_left = 867.0
-margin_right = 1052.0
-margin_bottom = 38.0
+layout_mode = 2
 mouse_filter = 2
 
 [node name="button_restart" type="Button" parent="colour/margin/VBoxContainer/CenterContainer3/button_row"]
-margin_right = 96.0
-margin_bottom = 38.0
-theme = ExtResource( 2 )
+layout_mode = 2
+theme = ExtResource("2")
 text = "Restart"
 
 [node name="Panel" type="Panel" parent="colour/margin/VBoxContainer/CenterContainer3/button_row" groups=["html5_disable"]]
-self_modulate = Color( 1, 1, 1, 0 )
-margin_left = 100.0
-margin_right = 120.0
-margin_bottom = 38.0
-rect_min_size = Vector2( 20, 20 )
+self_modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
 
 [node name="button_quit" type="Button" parent="colour/margin/VBoxContainer/CenterContainer3/button_row" groups=["html5_disable"]]
-margin_left = 124.0
-margin_right = 185.0
-margin_bottom = 38.0
-theme = ExtResource( 2 )
+layout_mode = 2
+theme = ExtResource("2")
 text = "Quit"
 
 [connection signal="gui_input" from="colour/margin/VBoxContainer/CenterContainer2/VBoxContainer/CenterContainer3/checkbox_reverse_camera" to="colour/margin/VBoxContainer/CenterContainer2/VBoxContainer/CenterContainer3/checkbox_reverse_camera" method="_on_checkbox_reverse_camera_gui_input"]

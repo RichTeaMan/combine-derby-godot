@@ -1,15 +1,20 @@
-tool
+@tool
 
-extends Spatial
+extends Node3D
 
-export (float, 0, 10, 0.1) var padding = 1.0
+@export_range(0, 10, 0.1) var padding: float = 1.0
 
-export (int, 1, 100) var width = 4 setget set_width
-export (int, 1, 100) var depth = 4 setget set_depth
-export (int, 1, 100) var max_height = 4 setget set_max_height
+@export_range(1, 100) var width: int = 4:
+	set = set_width
+@export_range(1, 100) var depth: int = 4:
+	set = set_depth
+@export_range( 1, 100) var max_height: int = 4:
+	set = set_max_height
 
-export (float, -1.0, 1.0, 0.1) var width_offset = -0.5 setget set_width_offset
-export (float, -1.0, 1.0, 0.1) var depth_offset = -0.5 setget set_depth_offset
+@export_range(-1.0, 1.0, 0.1) var width_offset: float = -0.5:
+	set = set_width_offset
+@export_range(-1.0, 1.0, 0.1) var depth_offset: float = -0.5:
+	set = set_depth_offset
 
 var bale_height = 1.20
 var bale_rotation = PI * 0.5
@@ -61,10 +66,10 @@ func create_bales():
 		for _d in current_depth:
 			var x = depth_offset * padding * current_width
 			for _w in current_width:
-				var instance = bale_template.instance()
-				instance.translation.x = x
-				instance.translation.y = y
-				instance.translation.z = z
+				var instance = bale_template.instantiate()
+				instance.position.x = x
+				instance.position.y = y
+				instance.position.z = z
 				instance.rotate_z(bale_rotation)
 				add_child(instance)
 				x += padding

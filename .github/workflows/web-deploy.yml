@@ -7,7 +7,7 @@ on:
       - main
 
 env:
-  GODOT_VERSION: 3.5.1
+  GODOT_VERSION: 4.1.1.stable
   EXPORT_NAME: combine_derby
 
 # permission for github pages push
@@ -19,7 +19,7 @@ jobs:
     name: Web Export
     runs-on: ubuntu-22.04
     container:
-      image: barichello/godot-ci:3.5.1
+      image: barichello/godot-ci:4.1.1
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -29,12 +29,12 @@ jobs:
         run: |
           git config --global --add safe.directory $(pwd)
           ./setBuildConstants.sh
-          mkdir -v -p ~/.local/share/godot/templates
-          mv /root/.local/share/godot/templates/${GODOT_VERSION}.stable ~/.local/share/godot/templates/${GODOT_VERSION}.stable
+          mkdir -v -p ~/.local/share/godot/export_templates
+          mv /root/.local/share/godot/export_templates/${GODOT_VERSION} ~/.local/share/godot/export_templates/${GODOT_VERSION}
       - name: Web Build
         run: |
           mkdir -v -p build/web
-          godot -v --export "HTML5" build/web/index.html
+          godot -v --headless --export-release Web build/web/index.html
       - name: Upload Artifact
         uses: actions/upload-artifact@v1
         with:

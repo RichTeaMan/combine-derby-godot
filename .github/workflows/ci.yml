@@ -4,7 +4,7 @@ name: "ci export"
 on: push
 
 env:
-  GODOT_VERSION: 3.5.1
+  GODOT_VERSION: 4.1.1.stable
   EXPORT_NAME: combine_derby
 
 jobs:
@@ -12,7 +12,7 @@ jobs:
     name: Windows Export
     runs-on: ubuntu-22.04
     container:
-      image: barichello/godot-ci:3.5.1
+      image: barichello/godot-ci:4.1.1
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -22,10 +22,10 @@ jobs:
         run: |
           git config --global --add safe.directory $(pwd)
           ./setBuildConstants.sh
-          mkdir -v -p ~/.local/share/godot/templates
+          mkdir -v -p ~/.local/share/godot/export_templates
           mkdir -v -p ~/.config/godot
-          mv /root/.local/share/godot/templates/${GODOT_VERSION}.stable ~/.local/share/godot/templates/${GODOT_VERSION}.stable
-          mv /root/.config/godot/editor_settings-3.tres ~/.config/godot/editor_settings-3.tres
+          mv /root/.local/share/godot/export_templates/${GODOT_VERSION} ~/.local/share/godot/export_templates/${GODOT_VERSION}
+          mv /root/.config/godot/editor_settings-4.tres ~/.config/godot/editor_settings-4.tres
       - name: Windows Dependencies
         run: |
           dpkg --add-architecture i386 && apt-get update && apt-get install -y wine-stable && apt-get install -y wine32
@@ -33,15 +33,14 @@ jobs:
           wget https://github.com/electron/rcedit/releases/download/v1.1.1/rcedit-x64.exe -O ~/.local/share/rcedit/rcedit-x64.exe
           mkdir -p /github/home/.wine
           chown $USER:$USER -R ~
-          echo 'export/windows/wine = "/usr/bin/wine"' >> ~/.config/godot/editor_settings-3.tres
-          echo 'export/windows/rcedit = "/github/home/.local/share/rcedit/rcedit-x64.exe"' >> ~/.config/godot/editor_settings-3.tres
+          echo 'export/windows/rcedit = "/github/home/.local/share/rcedit/rcedit-x64.exe"' >> ~/.config/godot/editor_settings-4.tres
       - name: Windows Build
         run: |
           wine ~/.local/share/rcedit/rcedit-x64.exe
           mkdir -v -p build/windows
-          godot -v --export "Windows Desktop" build/windows/$EXPORT_NAME.exe
+          godot -v --headless --export-release "Windows Desktop" build/windows/$EXPORT_NAME.exe
       - name: Upload Artifact
-        uses: actions/upload-artifact@v1
+        uses: actions/upload-artifact@v3
         with:
           name: combine-derby-windows
           path: build/windows
@@ -50,7 +49,7 @@ jobs:
     name: Linux Export
     runs-on: ubuntu-22.04
     container:
-      image: barichello/godot-ci:3.5.1
+      image: barichello/godot-ci:4.1.1
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -60,23 +59,25 @@ jobs:
         run: |
           git config --global --add safe.directory $(pwd)
           ./setBuildConstants.sh
-          mkdir -v -p ~/.local/share/godot/templates
-          mv /root/.local/share/godot/templates/${GODOT_VERSION}.stable ~/.local/share/godot/templates/${GODOT_VERSION}.stable
+          mkdir -v -p ~/.local/share/godot/export_templates
+          mkdir -v -p ~/.config/godot
+          mv /root/.local/share/godot/export_templates/${GODOT_VERSION} ~/.local/share/godot/export_templates/${GODOT_VERSION}
+          mv /root/.config/godot/editor_settings-4.tres ~/.config/godot/editor_settings-4.tres
       - name: Linux Build
         run: |
           mkdir -v -p build/linux
-          godot -v --export "Linux/X11" build/linux/$EXPORT_NAME.x86_64
+          godot -v --headless --export-release "Linux/X11" build/linux/$EXPORT_NAME.x86_64
       - name: Upload Artifact
-        uses: actions/upload-artifact@v1
+        uses: actions/upload-artifact@v3
         with:
           name: combine-derby-linux
           path: build/linux
 
   export-web:
-    name: Web Threads Export
+    name: Web Export
     runs-on: ubuntu-22.04
     container:
-      image: barichello/godot-ci:3.5.1
+      image: barichello/godot-ci:4.1.1
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -86,15 +87,16 @@ jobs:
         run: |
           git config --global --add safe.directory $(pwd)
           ./setBuildConstants.sh
-          mkdir -v -p ~/.local/share/godot/templates
-          mv /root/.local/share/godot/templates/${GODOT_VERSION}.stable ~/.local/share/godot/templates/${GODOT_VERSION}.stable
+          mkdir -v -p ~/.local/share/godot/export_templates
+          mkdir -v -p ~/.config/godot
+          mv /root/.local/share/godot/export_templates/${GODOT_VERSION} ~/.local/share/godot/export_templates/${GODOT_VERSION}
+          mv /root/.config/godot/editor_settings-4.tres ~/.config/godot/editor_settings-4.tres
       - name: Web Build
         run: |
           mkdir -v -p build/web
-          godot -v --export "HTML5-threads" build/web/index.html
+          godot -v --headless --export-release Web build/web/index.html
       - name: Upload Artifact
-        uses: actions/upload-artifact@v1
+        uses: actions/upload-artifact@v3
         with:
-          name: combine-derby-web-threads
+          name: combine-derby-web
           path: build/web
-

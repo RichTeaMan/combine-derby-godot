@@ -1,11 +1,11 @@
-extends VehicleBody
+extends VehicleBody3D
 
 var max_rpm = 500.0
 var max_torque = 2000
 var idle_sound_db = 0.0
 var accelerating_sound_db = 6.0
 
-export var player_id = 1
+@export var player_id = 1
 
 var steering_left_input
 var steering_right_input
@@ -32,18 +32,17 @@ func _physics_process(delta):
 	Global.update_speed(player_id, get_linear_velocity().length())
 
 	if acceleration != 0:
-		$sound.unit_db = accelerating_sound_db
+		$sound.volume_db = accelerating_sound_db
 	else:
-		$sound.unit_db = idle_sound_db
+		$sound.volume_db = idle_sound_db
 
-func _input(_ev):
 	if Input.is_action_just_pressed("reset"):
 		rotation = Vector3.UP
 
 func is_reversing():
 	return $back_left_wheel.get_rpm() < 0 && $back_right_wheel.get_rpm() < 0
 
-func _integrate_forces(state: PhysicsDirectBodyState) -> void:
+func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 	if state.get_contact_count() == 0:
 		return
 	var collision_force = Vector3.ZERO

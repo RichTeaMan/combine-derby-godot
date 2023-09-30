@@ -1,4 +1,4 @@
 extends CheckBox
 
 func _ready():
-	pressed = !Global.get_mute()
+	button_pressed = !Global.get_mute()

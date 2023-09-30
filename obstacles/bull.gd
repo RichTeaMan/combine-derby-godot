@@ -1,4 +1,4 @@
-extends Spatial
+extends Node3D
 
 func cow_body_entered(body: Node):
 	if !$"%sound".is_playing() && Global.is_in_vehicle_group(body):

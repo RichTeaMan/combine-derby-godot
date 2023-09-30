@@ -2,85 +2,85 @@
 
 [ext_resource path="res://obstacles/chicken.tscn" type="PackedScene" id=1]
 
-[node name="chicken_collection" type="Spatial"]
+[node name="chicken_collection" type="Node3D"]
 
 [node name="chicken" parent="." instance=ExtResource( 1 )]
-transform = Transform( 0.709731, 0, 0.704473, 0, 1, 0, -0.704473, 0, 0.709731, -0.457267, 1.08998, 1.55547 )
+transform = Transform3D( 0.709731, 0, 0.704473, 0, 1, 0, -0.704473, 0, 0.709731, -0.457267, 1.08998, 1.55547 )
 
 [node name="chicken2" parent="." instance=ExtResource( 1 )]
-transform = Transform( 0.709731, 0, 0.704473, 0, 1, 0, -0.704473, 0, 0.709731, 0.259373, 1.08998, 0.857962 )
+transform = Transform3D( 0.709731, 0, 0.704473, 0, 1, 0, -0.704473, 0, 0.709731, 0.259373, 1.08998, 0.857962 )
 
 [node name="chicken3" parent="." instance=ExtResource( 1 )]
-transform = Transform( 0.709731, 0, 0.704473, 0, 1, 0, -0.704473, 0, 0.709731, 0.962194, 1.08998, 0.146528 )
+transform = Transform3D( 0.709731, 0, 0.704473, 0, 1, 0, -0.704473, 0, 0.709731, 0.962194, 1.08998, 0.146528 )
 
 [node name="chicken4" parent="." instance=ExtResource( 1 )]
-transform = Transform( 0.709731, 0, 0.704473, 0, 1, 0, -0.704473, 0, 0.709731, 0.254115, 1.08998, 2.27217 )
+transform = Transform3D( 0.709731, 0, 0.704473, 0, 1, 0, -0.704473, 0, 0.709731, 0.254115, 1.08998, 2.27217 )
 
 [node name="chicken5" parent="." instance=ExtResource( 1 )]
-transform = Transform( 0.709731, 0, 0.704473, 0, 1, 0, -0.704473, 0, 0.709731, 0.963846, 1.08998, 1.56769 )
+transform = Transform3D( 0.709731, 0, 0.704473, 0, 1, 0, -0.704473, 0, 0.709731, 0.963846, 1.08998, 1.56769 )
 
 [node name="chicken6" parent="." instance=ExtResource( 1 )]
-transform = Transform( 0.709731, 0, 0.704473, 0, 1, 0, -0.704473, 0, 0.709731, 1.67358, 1.08998, 0.863219 )
+transform = Transform3D( 0.709731, 0, 0.704473, 0, 1, 0, -0.704473, 0, 0.709731, 1.67358, 1.08998, 0.863219 )
 
 [node name="chicken7" parent="." instance=ExtResource( 1 )]
-transform = Transform( 0.709731, 0, 0.704473, 0, 1, 0, -0.704473, 0, 0.709731, -1.16174, 1.08998, 0.845743 )
+transform = Transform3D( 0.709731, 0, 0.704473, 0, 1, 0, -0.704473, 0, 0.709731, -1.16174, 1.08998, 0.845743 )
 
 [node name="chicken8" parent="." instance=ExtResource( 1 )]
-transform = Transform( 0.709731, 0, 0.704473, 0, 1, 0, -0.704473, 0, 0.709731, -0.45201, 1.08998, 0.14127 )
+transform = Transform3D( 0.709731, 0, 0.704473, 0, 1, 0, -0.704473, 0, 0.709731, -0.45201, 1.08998, 0.14127 )
 
 [node name="chicken9" parent="." instance=ExtResource( 1 )]
-transform = Transform( 0.709731, 0, 0.704473, 0, 1, 0, -0.704473, 0, 0.709731, 0.257721, 1.08998, -0.563203 )
+transform = Transform3D( 0.709731, 0, 0.704473, 0, 1, 0, -0.704473, 0, 0.709731, 0.257721, 1.08998, -0.563203 )
 
 [node name="chicken10" parent="." instance=ExtResource( 1 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.27571, 2.08998, 0 )
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.27571, 2.08998, 0 )
 
 [node name="chicken11" parent="." instance=ExtResource( 1 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.27571, 2.08998, 0 )
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.27571, 2.08998, 0 )
 
 [node name="chicken12" parent="." instance=ExtResource( 1 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.275711, 2.08998, 0 )
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.275711, 2.08998, 0 )
 
 [node name="chicken13" parent="." instance=ExtResource( 1 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.27571, 2.08998, 1 )
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.27571, 2.08998, 1 )
 
 [node name="chicken14" parent="." instance=ExtResource( 1 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.27571, 2.08998, 1 )
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.27571, 2.08998, 1 )
 
 [node name="chicken15" parent="." instance=ExtResource( 1 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.275711, 2.08998, 1 )
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.275711, 2.08998, 1 )
 
 [node name="chicken16" parent="." instance=ExtResource( 1 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.27571, 2.08998, -1 )
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.27571, 2.08998, -1 )
 
 [node name="chicken17" parent="." instance=ExtResource( 1 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.27571, 2.08998, -1 )
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.27571, 2.08998, -1 )
 
 [node name="chicken18" parent="." instance=ExtResource( 1 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.275711, 2.08998, -1 )
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.275711, 2.08998, -1 )
 
 [node name="chicken19" parent="." instance=ExtResource( 1 )]
-transform = Transform( -0.574205, 0, -0.818711, 0, 1, 0, 0.818711, 0, -0.574205, 0.573176, 3.08998, -0.211074 )
+transform = Transform3D( -0.574205, 0, -0.818711, 0, 1, 0, 0.818711, 0, -0.574205, 0.573176, 3.08998, -0.211074 )
 
 [node name="chicken20" parent="." instance=ExtResource( 1 )]
-transform = Transform( -0.574205, 0, -0.818711, 0, 1, 0, 0.818711, 0, -0.574205, -0.00102946, 3.08998, 0.607637 )
+transform = Transform3D( -0.574205, 0, -0.818711, 0, 1, 0, 0.818711, 0, -0.574205, -0.00102946, 3.08998, 0.607637 )
 
 [node name="chicken21" parent="." instance=ExtResource( 1 )]
-transform = Transform( -0.574205, 0, -0.818711, 0, 1, 0, 0.818711, 0, -0.574205, -0.575235, 3.08998, 1.42635 )
+transform = Transform3D( -0.574205, 0, -0.818711, 0, 1, 0, 0.818711, 0, -0.574205, -0.575235, 3.08998, 1.42635 )
 
 [node name="chicken22" parent="." instance=ExtResource( 1 )]
-transform = Transform( -0.574205, 0, -0.818711, 0, 1, 0, 0.818711, 0, -0.574205, -0.245535, 3.08998, -0.78528 )
+transform = Transform3D( -0.574205, 0, -0.818711, 0, 1, 0, 0.818711, 0, -0.574205, -0.245535, 3.08998, -0.78528 )
 
 [node name="chicken23" parent="." instance=ExtResource( 1 )]
-transform = Transform( -0.574205, 0, -0.818711, 0, 1, 0, 0.818711, 0, -0.574205, -0.819741, 3.08998, 0.0334315 )
+transform = Transform3D( -0.574205, 0, -0.818711, 0, 1, 0, 0.818711, 0, -0.574205, -0.819741, 3.08998, 0.0334315 )
 
 [node name="chicken24" parent="." instance=ExtResource( 1 )]
-transform = Transform( -0.574205, 0, -0.818711, 0, 1, 0, 0.818711, 0, -0.574205, -1.39395, 3.08998, 0.852143 )
+transform = Transform3D( -0.574205, 0, -0.818711, 0, 1, 0, 0.818711, 0, -0.574205, -1.39395, 3.08998, 0.852143 )
 
 [node name="chicken25" parent="." instance=ExtResource( 1 )]
-transform = Transform( -0.574205, 0, -0.818711, 0, 1, 0, 0.818711, 0, -0.574205, 1.39189, 3.08998, 0.363131 )
+transform = Transform3D( -0.574205, 0, -0.818711, 0, 1, 0, 0.818711, 0, -0.574205, 1.39189, 3.08998, 0.363131 )
 
 [node name="chicken26" parent="." instance=ExtResource( 1 )]
-transform = Transform( -0.574205, 0, -0.818711, 0, 1, 0, 0.818711, 0, -0.574205, 0.817682, 3.08998, 1.18184 )
+transform = Transform3D( -0.574205, 0, -0.818711, 0, 1, 0, 0.818711, 0, -0.574205, 0.817682, 3.08998, 1.18184 )
 
 [node name="chicken27" parent="." instance=ExtResource( 1 )]
-transform = Transform( -0.574205, 0, -0.818711, 0, 1, 0, 0.818711, 0, -0.574205, 0.243476, 3.08998, 2.00055 )
+transform = Transform3D( -0.574205, 0, -0.818711, 0, 1, 0, 0.818711, 0, -0.574205, 0.243476, 3.08998, 2.00055 )
