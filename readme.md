@@ -6,6 +6,18 @@ CI builds for Windows and Linux builds are available as action artifacts.
 
 This is a [continuation of a prevous attempt in Bevy](https://github.com/RichTeaMan/combine-derby).
 
+## Building
+
+**This project uses git lfs.** Make sure you have pulled large objects:
+
+```bash
+git lfs pull
+```
+
+You may need to install git lfs manually for this to work, search for instructions for your operating system.
+
+This project should be opened in Godot 4 (.NET is not required). Download it from [godotengine.org](https://godotengine.org/download/).
+
 ## Attributions
 
 * Wet mud texture: https://godotengine.org/asset-library/asset/334
