@@ -30,6 +30,20 @@ layout_mode = 2
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/CenterContainer"]
 layout_mode = 2
 
+[node name="CenterContainer3" type="CenterContainer" parent="MarginContainer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="player_select" type="OptionButton" parent="MarginContainer/CenterContainer/VBoxContainer/CenterContainer3"]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("4")
+item_count = 2
+selected = 0
+popup/item_0/text = "One Player"
+popup/item_0/id = 1
+popup/item_1/text = "Two Players"
+popup/item_1/id = 2
+
 [node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/CenterContainer/VBoxContainer"]
 custom_minimum_size = Vector2(800, 120)
 layout_mode = 2
@@ -40,7 +54,7 @@ text = "[center]Wreck as many obstacles as you can in a minute[/center]"
 [node name="CenterContainer" type="CenterContainer" parent="MarginContainer/CenterContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="start_1_player" type="Button" parent="MarginContainer/CenterContainer/VBoxContainer/CenterContainer"]
+[node name="arena_game" type="Button" parent="MarginContainer/CenterContainer/VBoxContainer/CenterContainer"]
 layout_mode = 2
 theme = ExtResource("1")
 text = "Single Player"
@@ -54,7 +68,7 @@ layout_mode = 2
 [node name="CenterContainer2" type="CenterContainer" parent="MarginContainer/CenterContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="start_2_player" type="Button" parent="MarginContainer/CenterContainer/VBoxContainer/CenterContainer2"]
+[node name="harvest_game" type="Button" parent="MarginContainer/CenterContainer/VBoxContainer/CenterContainer2"]
 layout_mode = 2
 theme = ExtResource("1")
 text = "Two Players"
@@ -125,16 +139,16 @@ mouse_filter = 2
 [node name="TextureRect" type="TextureRect" parent="MarginContainer5/CenterContainer/Control"]
 layout_mode = 0
 offset_left = -503.0
-offset_top = -330.0
+offset_top = -458.0
 offset_right = 922.0
-offset_bottom = 223.0
+offset_bottom = 95.0
 scale = Vector2(0.7, 0.7)
 size_flags_horizontal = 4
 size_flags_vertical = 4
 mouse_filter = 2
 texture = ExtResource("6")
 
-[connection signal="pressed" from="MarginContainer/CenterContainer/VBoxContainer/CenterContainer/start_1_player" to="." method="_on_one_player_pressed"]
-[connection signal="pressed" from="MarginContainer/CenterContainer/VBoxContainer/CenterContainer2/start_2_player" to="." method="_on_two_player_pressed"]
+[connection signal="pressed" from="MarginContainer/CenterContainer/VBoxContainer/CenterContainer/arena_game" to="." method="on_arena_game"]
+[connection signal="pressed" from="MarginContainer/CenterContainer/VBoxContainer/CenterContainer2/harvest_game" to="." method="on_harvest_game"]
 [connection signal="toggled" from="MarginContainer2/HFlowContainer/sound_enabled_chb" to="." method="_on_sound_enabled_chb_toggled"]
 [connection signal="pressed" from="MarginContainer3/github_link_button" to="." method="_on_github_link_button_pressed"]
