@@ -1,5 +1,12 @@
 extends Node3D
 
+const ARENA_CRASH = "crash"
+const ARENA_FARM = "farm"
+
+const MODE_FREEPLAY = "freeplay"
+const MODE_POINTS = "points"
+const MODE_HARVEST = "harvest"
+
 signal points(player_id, point_increment, category)
 
 signal speed(player_id, speed_ms)
@@ -173,16 +180,32 @@ func create_game(player_count: int, game_mode: String, arena_name: String) -> vo
 	elif player_count == 2:
 		player_container = preload("res://player_frames/two_player.tscn")
 	else:
-		print("Unsupported number of players")
+		print("Unsupported number of players '%s'" % [player_count])
 		get_tree().quit()
 	var instance = player_container.instantiate()
 	print("Adding game instance...")
 	get_parent().add_child(instance)
 
-	print("    points")
-	var game_type = preload("res://game_rules/points.tscn")
+	print("Setting up game mode %s", [game_mode])
+	var game_type
+	if game_mode == MODE_POINTS:
+		game_type = preload("res://game_rules/points.tscn")
+	else:
+		print("Unknown game mode' %s'" % [game_mode])		
+		get_tree().quit()
 	var game_instance = game_type.instantiate()
 	game_instance.player_count = player_count
+	
+	var arena
+	if arena_name == ARENA_CRASH:
+		arena = preload("res://arenas/crash.tscn")
+	elif arena_name == ARENA_FARM:
+		arena = preload("res://arenas/farm.tscn")
+	else:
+		print("Unknown arena '%s'" % [arena_name])
+		get_tree().quit()
+	
+	game_instance.add_child(arena.instantiate())
 
 	var combine_template = preload("res://vehicles/combine.tscn")
 	for i in player_count:

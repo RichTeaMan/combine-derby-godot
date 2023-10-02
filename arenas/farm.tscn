@@ -1,0 +1,33 @@
+[gd_scene load_steps=6 format=3 uid="uid://c8v6b0371tehc"]
+
+[ext_resource type="Script" path="res://scripts/farm.gd" id="1_1beex"]
+[ext_resource type="Material" path="res://materials/mudCracked/mud.tres" id="2_qt24b"]
+[ext_resource type="PackedScene" uid="uid://baqe8nacn46t5" path="res://vehicles/combine.tscn" id="3_v7s1t"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_o336y"]
+size = Vector3(500, 1, 500)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_1qd54"]
+data = PackedVector3Array(-250, 0.5, 250, 250, 0.5, 250, -250, -0.5, 250, 250, 0.5, 250, 250, -0.5, 250, -250, -0.5, 250, 250, 0.5, -250, -250, 0.5, -250, 250, -0.5, -250, -250, 0.5, -250, -250, -0.5, -250, 250, -0.5, -250, 250, 0.5, 250, 250, 0.5, -250, 250, -0.5, 250, 250, 0.5, -250, 250, -0.5, -250, 250, -0.5, 250, -250, 0.5, -250, -250, 0.5, 250, -250, -0.5, -250, -250, 0.5, 250, -250, -0.5, 250, -250, -0.5, -250, 250, 0.5, 250, -250, 0.5, 250, 250, 0.5, -250, -250, 0.5, 250, -250, 0.5, -250, 250, 0.5, -250, -250, -0.5, 250, 250, -0.5, 250, -250, -0.5, -250, 250, -0.5, 250, 250, -0.5, -250, -250, -0.5, -250)
+
+[node name="farm" type="Node3D"]
+script = ExtResource("1_1beex")
+
+[node name="ground" type="MeshInstance3D" parent="."]
+material_override = ExtResource("2_qt24b")
+mesh = SubResource("BoxMesh_o336y")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="ground"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ground/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_1qd54")
+
+[node name="spawns" type="Node3D" parent="."]
+
+[node name="combine" parent="spawns" instance=ExtResource("3_v7s1t")]
+unique_name_in_owner = true
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 1.2, 139.006)
+
+[node name="combine2" parent="spawns" instance=ExtResource("3_v7s1t")]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, -129.807)

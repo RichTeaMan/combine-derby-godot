@@ -1,29 +1,29 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=3 format=3 uid="uid://ctdqb6bhtk4mk"]
 
-[ext_resource path="res://player_viewport.gd" type="Script" id=1]
-[ext_resource path="res://ui/player_hud.tscn" type="PackedScene" id=3]
+[ext_resource type="Script" path="res://player_viewport.gd" id="1"]
+[ext_resource type="PackedScene" uid="uid://dykwb0gmw81n2" path="res://ui/player_hud.tscn" id="3"]
 
 [node name="one_player" type="Node"]
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 
 [node name="viewport_1" type="SubViewportContainer" parent="HBoxContainer"]
-offset_right = 1920.0
-offset_bottom = 1080.0
-custom_minimum_size = Vector2( 480, 270 )
+custom_minimum_size = Vector2(480, 270)
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 stretch = true
 
-[node name="player_hud" parent="HBoxContainer/viewport_1" instance=ExtResource( 3 )]
+[node name="player_hud" parent="HBoxContainer/viewport_1" instance=ExtResource("3")]
+layout_mode = 2
 
 [node name="SubViewport" type="SubViewport" parent="HBoxContainer/viewport_1"]
-size = Vector2( 1920, 1080 )
 handle_input_locally = false
-render_target_update_mode = 3
 audio_listener_enable_3d = true
-shadow_atlas_size = 4096
-script = ExtResource( 1 )
+size = Vector2i(1920, 1080)
+render_target_update_mode = 4
+script = ExtResource("1")
 player_id = 1

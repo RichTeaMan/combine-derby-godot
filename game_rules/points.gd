@@ -12,13 +12,13 @@ func _ready():
 	var _a = Global.connect("points", Callable(self, "_on_points"))
 
 func _enter_tree():
-	var arena = preload("res://arena.tscn")
 	player_points = []
 	for i in player_count + 1:
 		var p = {}
 		p["points"] = 0
 		player_points.append(p)
-	add_child(arena.instantiate())
+	#var arena = preload("res://arenas/crash.tscn")
+	#add_child(arena.instantiate())
 
 func _on_points(player_id: int, points: int, category: String) -> void:
 	if player_id <= player_count:

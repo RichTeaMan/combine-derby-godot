@@ -1,21 +1,26 @@
 extends Control
 
-func _on_one_player_pressed():
-	start_game(1)
+func fetch_player_count() -> int:
+	var player_select: OptionButton = %"player_select"
+	return player_select.get_selected_id()
+
+func on_arena_game():
+	start_game(Global.MODE_POINTS, Global.ARENA_CRASH)
 	
-func _on_two_player_pressed():
-	start_game(2)
+func on_harvest_game():
+	start_game(Global.MODE_POINTS,Global.ARENA_CRASH)
 
 func _input(_ev):
 	if Input.is_action_just_pressed("ui_accept"):
-		start_game(1)
+		start_game(Global.MODE_POINTS, Global.ARENA_CRASH)
 
-func start_game(player_count):
+func start_game(game_mode: String, game_type: String):
+	var player_count = fetch_player_count()
 	var callback = Callable(self, "create_game")
-	Transitions.fade_func(callback, [player_count])
+	Transitions.fade_func(callback, [player_count, game_mode, game_type])
 
-func create_game(player_count: int):
-	Global.create_game(player_count, "","")
+func create_game(player_count: int, game_mode: String, game_type: String):
+	Global.create_game(player_count, game_mode, game_type)
 	Transitions.fade_back()
 	queue_free()
 
