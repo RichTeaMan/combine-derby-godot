@@ -36,7 +36,7 @@ layout_mode = 2
 [node name="player_select" type="OptionButton" parent="MarginContainer/CenterContainer/VBoxContainer/CenterContainer3"]
 unique_name_in_owner = true
 layout_mode = 2
-theme = ExtResource("4")
+theme = ExtResource("1")
 item_count = 2
 selected = 0
 popup/item_0/text = "One Player"
@@ -55,9 +55,10 @@ text = "[center]Wreck as many obstacles as you can in a minute[/center]"
 layout_mode = 2
 
 [node name="arena_game" type="Button" parent="MarginContainer/CenterContainer/VBoxContainer/CenterContainer"]
+custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 theme = ExtResource("1")
-text = "Single Player"
+text = "Arena"
 
 [node name="spacer" type="Panel" parent="MarginContainer/CenterContainer/VBoxContainer"]
 modulate = Color(1, 1, 1, 0)
@@ -69,9 +70,10 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="harvest_game" type="Button" parent="MarginContainer/CenterContainer/VBoxContainer/CenterContainer2"]
+custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 theme = ExtResource("1")
-text = "Two Players"
+text = "Farm"
 
 [node name="MarginContainer2" type="MarginContainer" parent="."]
 layout_mode = 0
