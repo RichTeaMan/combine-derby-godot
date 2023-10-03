@@ -13,8 +13,8 @@ func _ready():
 	for i in players.size():
 		players[i].transform = spawns[i]
 		print("    Set transform for player %d at %s." % [i, spawns[i]])
-	$combine.queue_free()
-	$combine2.queue_free()
+	$%combine.queue_free()
+	$%combine2.queue_free()
 	print("Arena setup done.")
 
 func fetch_player_spawns():
