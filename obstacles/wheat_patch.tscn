@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://5de4rsxc7tjx"]
+
+[ext_resource type="Script" path="res://scripts/obstacles/wheat_patch.gd" id="1_b6rjr"]
+[ext_resource type="ArrayMesh" uid="uid://npcu2vi1pd05" path="res://assets/models/wheat.res" id="2_ik38p"]
+
+[node name="wheat_patch" type="Node3D"]
+script = ExtResource("1_b6rjr")
+width = 5.0
+height = 5.0
+density = 20.0
+
+[node name="Wheat" type="MeshInstance3D" parent="."]
+visible = false
+mesh = ExtResource("2_ik38p")
+
+[node name="generated_tiles" type="Node3D" parent="."]
