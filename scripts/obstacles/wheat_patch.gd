@@ -44,7 +44,6 @@ func on_patch_body_entered(body: Node3D, multi_mesh: MultiMesh, chunk_map: Array
 	for i in chunk_map[chunk_index]:
 		var transform = multi_mesh.get_instance_transform(i)
 		multi_mesh.set_instance_transform(i, transform.scaled(Vector3.ZERO))
-	pass
 
 func create_tiles():
 	if !is_inside_tree():
@@ -111,10 +110,10 @@ func create_tile(tile_width: float, tile_height: float) -> Node3D:
 			# areas surround their position, eg the origin is the center of their area
 			area.position = Vector3(w * COLLISION_CELL_SIZE, 0.0, h * COLLISION_CELL_SIZE)
 			area.add_child(collision_shape)
-			
-			area.body_entered.connect(on_patch_body_entered)
+
 			var local_chunk_id = chunk_count
 			area.body_entered.connect(func(body): on_patch_body_entered(body, multi_mesh, chunk_map, local_chunk_id))
+
 			areas.append(area)
 			chunk_map.append([])
 			chunk_count += 1
