@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://c8v6b0371tehc"]
+[gd_scene load_steps=10 format=3 uid="uid://c8v6b0371tehc"]
 
 [ext_resource type="Script" path="res://scripts/farm.gd" id="1_1beex"]
 [ext_resource type="Material" path="res://materials/mudCracked/mud.tres" id="2_qt24b"]
 [ext_resource type="PackedScene" uid="uid://baqe8nacn46t5" path="res://vehicles/combine.tscn" id="3_v7s1t"]
+[ext_resource type="PackedScene" uid="uid://5de4rsxc7tjx" path="res://obstacles/wheat_patch.tscn" id="5_oj8ty"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_o336y"]
 size = Vector3(500, 1, 500)
@@ -25,19 +26,20 @@ sky = SubResource("Sky_mm8iy")
 script = ExtResource("1_1beex")
 
 [node name="ground" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.515525, 0)
 material_override = ExtResource("2_qt24b")
 mesh = SubResource("BoxMesh_o336y")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="ground"]
+[node name="fStaticBody3D" type="StaticBody3D" parent="ground"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="ground/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ground/fStaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_1qd54")
 
 [node name="spawns" type="Node3D" parent="."]
 
 [node name="combine" parent="spawns" instance=ExtResource("3_v7s1t")]
 unique_name_in_owner = true
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 1.1451, 139.006)
+transform = Transform3D(1, 0, 1.74846e-07, 0, 1, 0, -1.74846e-07, 0, 1, 0, 1.1451, -42.4712)
 
 [node name="combine2" parent="spawns" instance=ExtResource("3_v7s1t")]
 unique_name_in_owner = true
@@ -45,3 +47,59 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1451, -129.807)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_qgvsu")
+
+[node name="wheat_patches" type="Node3D" parent="."]
+
+[node name="1" parent="wheat_patches" instance=ExtResource("5_oj8ty")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.71002, 0.0468793, -1.81284)
+width = 20.0
+height = 20.0
+density = 20.0
+
+[node name="2" parent="wheat_patches" instance=ExtResource("5_oj8ty")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.71, 0.0468793, -1.81284)
+width = 20.0
+height = 20.0
+density = 20.0
+
+[node name="3" parent="wheat_patches" instance=ExtResource("5_oj8ty")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40.71, 0.0468793, -1.81284)
+width = 20.0
+height = 20.0
+density = 20.0
+
+[node name="4" parent="wheat_patches" instance=ExtResource("5_oj8ty")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.71002, 0.0468793, 18.1872)
+width = 20.0
+height = 20.0
+density = 20.0
+
+[node name="5" parent="wheat_patches" instance=ExtResource("5_oj8ty")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.71, 0.0468793, 18.1872)
+width = 20.0
+height = 20.0
+density = 20.0
+
+[node name="6" parent="wheat_patches" instance=ExtResource("5_oj8ty")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40.71, 0.0468793, 18.1872)
+width = 20.0
+height = 20.0
+density = 20.0
+
+[node name="7" parent="wheat_patches" instance=ExtResource("5_oj8ty")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.71002, 0.0468793, 38.1872)
+width = 20.0
+height = 20.0
+density = 20.0
+
+[node name="8" parent="wheat_patches" instance=ExtResource("5_oj8ty")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.71, 0.0468793, 38.1872)
+width = 20.0
+height = 20.0
+density = 20.0
+
+[node name="9" parent="wheat_patches" instance=ExtResource("5_oj8ty")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40.71, 0.0468793, 38.1872)
+width = 20.0
+height = 20.0
+density = 20.0
