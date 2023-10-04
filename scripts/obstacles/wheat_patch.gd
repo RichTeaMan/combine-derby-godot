@@ -20,6 +20,9 @@ const MAX_TILE_SIZE = 20.0
 @export_range(1, 20, 1) var density: float = 6.0:
 	set = set_density
 
+## The mesh to use.
+@export var mesh: Mesh
+
 func set_width(new_width):
 	if width != new_width:
 		width = new_width
@@ -39,6 +42,7 @@ func _enter_tree():
 	create_tiles()
 
 func on_patch_body_entered(body: Node3D, multi_mesh: MultiMesh, chunk_map: Array, chunk_index: int) -> void:
+	print("body???")
 	if body is StaticBody3D:
 		return
 	for i in chunk_map[chunk_index]:
@@ -46,10 +50,34 @@ func on_patch_body_entered(body: Node3D, multi_mesh: MultiMesh, chunk_map: Array
 		multi_mesh.set_instance_transform(i, transform.scaled(Vector3.ZERO))
 
 func create_tiles():
-	if !is_inside_tree():
+	if !Engine.is_editor_hint() || !is_inside_tree():
 		return
-	$generated_tiles.position = Vector3.ZERO
-	for node in $generated_tiles.get_children():
+
+	if mesh == null:
+		push_warning("Wheat patch does not have a mesh.")
+		return
+
+	print("owner")
+	print(get_tree().edited_scene_root.owner)
+	print("edit parent:")
+	print(get_tree().edited_scene_root.name)
+	print("parents:")
+	var n = get_parent()
+	while n != null:
+		print(n.name)
+		n = n.get_parent()
+
+	var owner = get_tree().edited_scene_root
+
+	var generated_tiles_name = "generated_tiles"
+	var generated_tiles = find_child(generated_tiles_name)
+	if generated_tiles == null:
+		generated_tiles = Node3D.new()
+		generated_tiles.name = generated_tiles_name
+		add_child(generated_tiles)
+		generated_tiles.owner = owner
+	generated_tiles.position = Vector3.ZERO
+	for node in generated_tiles.get_children():
 		node.queue_free()
 
 	# create array of dimensions
@@ -74,15 +102,20 @@ func create_tiles():
 		for w in widths:
 			var tile = create_tile(w, h)
 			tile.position = Vector3(width_offset, 0.0, height_offset)
-			$generated_tiles.add_child(tile)
+			generated_tiles.add_child(tile)
 			## should get automagically renamed?
 			tile.name = "wheat_tile_1"
+			tile.set_owner(owner)
+			for c in tile.get_children():
+				c.set_owner(owner)
+				for gc in c.get_children():
+					gc.set_owner(owner)
 			width_offset += w
 		height_offset += h
 
 	# centre main tile
-	$generated_tiles.position = Vector3(-width / 2.0, 0.0, -height / 2.0)
-	print("Setting at %s" % [$generated_tiles.position])
+	generated_tiles.position = Vector3(-width / 2.0, 0.0, -height / 2.0)
+	print("Setting at %s" % [generated_tiles.position])
 
 func create_tile(tile_width: float, tile_height: float) -> Node3D:
 
@@ -112,14 +145,15 @@ func create_tile(tile_width: float, tile_height: float) -> Node3D:
 			area.add_child(collision_shape)
 
 			var local_chunk_id = chunk_count
-			area.body_entered.connect(func(body): on_patch_body_entered(body, multi_mesh, chunk_map, local_chunk_id))
+			#area.body_entered.connect(func(body): on_patch_body_entered(body, multi_mesh, chunk_map, local_chunk_id))
+			area.body_entered.connect(on_patch_body_entered.bind(multi_mesh, chunk_map, local_chunk_id))
 
 			areas.append(area)
 			chunk_map.append([])
 			chunk_count += 1
 
-	multi_mesh.transform_format = MultiMesh.TRANSFORM_3D	
-	multi_mesh.mesh = $Wheat.mesh
+	multi_mesh.transform_format = MultiMesh.TRANSFORM_3D
+	multi_mesh.mesh = mesh
 
 	var unused_chunks = []
 
