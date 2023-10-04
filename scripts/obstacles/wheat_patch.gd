@@ -38,12 +38,19 @@ func set_density(new_density):
 func _enter_tree():
 	create_tiles()
 
-func on_patch_body_entered(body: Node3D, multi_mesh: MultiMesh, chunk_map: Array, chunk_index: int) -> void:
+func on_patch_body_entered(body: Node3D, multi_mesh: MultiMesh, chunk_map: Array, harvest_map: Array, chunk_index: int) -> void:
 	if body is StaticBody3D:
 		return
+	if harvest_map[chunk_index]:
+		return
+
+	print("harvested")
+	harvest_map[chunk_index] = true
 	for i in chunk_map[chunk_index]:
 		var transform = multi_mesh.get_instance_transform(i)
 		multi_mesh.set_instance_transform(i, transform.scaled(Vector3.ZERO))
+	if "player_id" in body:
+		Global.add_points(body.player_id, chunk_map[chunk_index].size(), "wheat")
 
 func create_tiles():
 	if !is_inside_tree():
@@ -101,6 +108,8 @@ func create_tile(tile_width: float, tile_height: float) -> Node3D:
 	var chunk_count = 0
 	## aray of array int. gdscript doesn't have the syntax to strongly type n-dimensional arrays
 	var chunk_map = []
+	var harvest_map = []
+
 	var multi_mesh = MultiMesh.new()
 	for h in range(chunk_h):
 		for w in range(chunk_w):
@@ -112,10 +121,11 @@ func create_tile(tile_width: float, tile_height: float) -> Node3D:
 			area.add_child(collision_shape)
 
 			var local_chunk_id = chunk_count
-			area.body_entered.connect(func(body): on_patch_body_entered(body, multi_mesh, chunk_map, local_chunk_id))
+			area.body_entered.connect(func(body): on_patch_body_entered(body, multi_mesh, chunk_map, harvest_map, local_chunk_id))
 
 			areas.append(area)
 			chunk_map.append([])
+			harvest_map.append(false)
 			chunk_count += 1
 
 	multi_mesh.transform_format = MultiMesh.TRANSFORM_3D	
@@ -146,7 +156,7 @@ func create_tile(tile_width: float, tile_height: float) -> Node3D:
 		instance_transform.origin = vec
 		chunk_map[chunk_id].append(i)
 		multi_mesh.set_instance_transform(i, instance_transform)
-	
+
 	var mmi = MultiMeshInstance3D.new()
 	mmi.multimesh = multi_mesh
 	
