@@ -44,7 +44,6 @@ func on_patch_body_entered(body: Node3D, multi_mesh: MultiMesh, chunk_map: Array
 	if harvest_map[chunk_index]:
 		return
 
-	print("harvested")
 	harvest_map[chunk_index] = true
 	for i in chunk_map[chunk_index]:
 		var transform = multi_mesh.get_instance_transform(i)

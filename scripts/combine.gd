@@ -38,7 +38,7 @@ func _physics_process(delta):
 	var right_rpm = abs($back_right_wheel.get_rpm())
 	$back_right_wheel.engine_force = acceleration * max_torque * (1 - right_rpm / max_rpm)
 
-	Global.update_speed(player_id, get_linear_velocity().length())
+	Global.update_speed(player_id, basis.tdotz(get_linear_velocity()))
 
 	if acceleration != 0:
 		$sound.volume_db = accelerating_sound_db
@@ -55,7 +55,9 @@ func _physics_process(delta):
 		roll_to_wheels()
 
 func is_reversing():
-	return $back_left_wheel.get_rpm() < 0 && $back_right_wheel.get_rpm() < 0
+	# speed that will go negative if reversing
+	var speed = basis.tdotz(get_linear_velocity())
+	return speed < 0.0
 
 func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 	if state.get_contact_count() == 0:
