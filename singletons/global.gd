@@ -9,6 +9,8 @@ const MODE_HARVEST = "harvest"
 
 signal vehicle_pickup(player_id: int, category, quantity: int)
 
+signal vehicle_body_shape_entered(player_id: int, body: Node3D)
+
 signal game_info_ui(player_id: int, message: String)
 
 signal speed(player_id: int, speed_ms: float)
@@ -45,6 +47,9 @@ func add_player(player_id: int, node: Node) -> void:
 
 func do_vehicle_pickup(player_id: int, category: String, quantity: int) -> void:
 	emit_signal("vehicle_pickup", player_id, category, quantity)
+
+func do_vehicle_body_shape_entered(player_id: int, body: Node3D) -> void:
+	emit_signal("vehicle_body_shape_entered", player_id, body)
 
 func set_game_info_ui(player_id: int, message: String) -> void:
 	emit_signal("game_info_ui", player_id, message)

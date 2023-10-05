@@ -20,6 +20,7 @@ func set_game_info(player_id: int):
 func _ready():
 	refresh_timer()
 	Global.vehicle_pickup.connect(on_vehicle_pickup)
+	Global.vehicle_body_shape_entered.connect(on_vehicle_body_shape_entered)
 	for player_id in player_count:
 		set_game_info(player_id + 1)
 
@@ -36,6 +37,15 @@ func on_vehicle_pickup(player_id: int, category: String, quantity: int) -> void:
 		player_points[player_id][PROP_WHEAT] += quantity
 		if player_points[player_id][PROP_WHEAT] > WHEAT_LIMIT:
 			player_points[player_id][PROP_WHEAT] = WHEAT_LIMIT
+		set_game_info(player_id)
+
+func on_vehicle_body_shape_entered(player_id: int, body: Node3D) -> void:
+	print("harvest: on vehicle body shape entered")
+
+	if body.has_method("deposit_wheat"):
+		print("deposit wheat")
+		body.deposit_wheat(player_points[player_id][PROP_WHEAT])
+		player_points[player_id][PROP_WHEAT] = 0
 		set_game_info(player_id)
 
 func _on_Timer_timeout():
