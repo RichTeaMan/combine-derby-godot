@@ -6,10 +6,22 @@ var current_points = 0
 var countdown_length_seconds = 60
 var game_active = true
 var player_points: Array
+var points_map = {
+	"Barrel booms": 20,
+	"Bull bounces": 5,
+	"Chickens": 1,
+	"Cow bounces": 5,
+	"Hay bales": 10
+}
+
+func set_points(player_id: int):
+	Global.set_game_info_ui(player_id, "    Points: %s" % player_points[player_id]["points"])
 
 func _ready():
 	refresh_timer()
-	var _a = Global.connect("points", Callable(self, "_on_points"))
+	Global.vehicle_pickup.connect(on_vehicle_pickup)
+	for player_id in player_count:
+		set_points(player_id + 1)
 
 func _enter_tree():
 	player_points = []
@@ -17,16 +29,18 @@ func _enter_tree():
 		var p = {}
 		p["points"] = 0
 		player_points.append(p)
-	#var arena = preload("res://arenas/crash.tscn")
-	#add_child(arena.instantiate())
 
-func _on_points(player_id: int, points: int, category: String) -> void:
+func on_vehicle_pickup(player_id: int, category: String, quantity: int) -> void:
+	if not game_active || not category in points_map:
+		return
 	if player_id <= player_count:
 		if not category in player_points[player_id]:
 			player_points[player_id][category] = 0
 			print("reset")
+		var points = points_map[category]
 		player_points[player_id][category] += 1
 		player_points[player_id]["points"] += points
+		set_points(player_id)
 
 func _on_Timer_timeout():
 	if countdown_length_seconds <= 0:

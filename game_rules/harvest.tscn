@@ -1,0 +1,29 @@
+[gd_scene load_steps=3 format=3 uid="uid://p7kkrmdu5adb"]
+
+[ext_resource type="Script" path="res://game_rules/harvest.gd" id="1_bfkep"]
+[ext_resource type="Theme" uid="uid://dnfyfchbmcxbe" path="res://themes/large_ui_theme.tres" id="2_r36ik"]
+
+[node name="harvest" type="Node3D"]
+script = ExtResource("1_bfkep")
+
+[node name="top_banner" type="MarginContainer" parent="."]
+custom_minimum_size = Vector2(0, 100)
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 50.0
+
+[node name="CenterContainer" type="CenterContainer" parent="top_banner"]
+layout_mode = 2
+
+[node name="time_label" type="RichTextLabel" parent="top_banner/CenterContainer" groups=["points_ui"]]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(400, 100)
+layout_mode = 2
+theme = ExtResource("2_r36ik")
+bbcode_enabled = true
+text = "00:00"
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

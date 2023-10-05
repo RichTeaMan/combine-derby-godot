@@ -7,13 +7,15 @@ const MODE_FREEPLAY = "freeplay"
 const MODE_POINTS = "points"
 const MODE_HARVEST = "harvest"
 
-signal points(player_id, point_increment, category)
+signal vehicle_pickup(player_id: int, category, quantity: int)
 
-signal speed(player_id, speed_ms)
+signal game_info_ui(player_id: int, message: String)
 
-signal player_added(player_id, node)
+signal speed(player_id: int, speed_ms: float)
 
-signal player_ui(player_id, node)
+signal player_added(player_id: int, node: Node3D)
+
+signal player_ui(player_id: int, node: Node3D)
 
 signal gfx_settings_updated()
 
@@ -41,8 +43,11 @@ func _ready() -> void:
 func add_player(player_id: int, node: Node) -> void:
 	emit_signal("player_added", player_id, node)
 
-func add_points(player_id: int, points_increment: int, category: String) -> void:
-	emit_signal("points", player_id, points_increment, category)
+func do_vehicle_pickup(player_id: int, category: String, quantity: int) -> void:
+	emit_signal("vehicle_pickup", player_id, category, quantity)
+
+func set_game_info_ui(player_id: int, message: String) -> void:
+	emit_signal("game_info_ui", player_id, message)
 
 func update_speed(player_id: int, speed_ms: float) -> void:
 	emit_signal("speed", player_id, speed_ms)
@@ -190,6 +195,8 @@ func create_game(player_count: int, game_mode: String, arena_name: String) -> vo
 	var game_type
 	if game_mode == MODE_POINTS:
 		game_type = preload("res://game_rules/points.tscn")
+	elif game_mode == MODE_HARVEST:
+		game_type = preload("res://game_rules/harvest.tscn")
 	else:
 		print("Unknown game mode' %s'" % [game_mode])		
 		get_tree().quit()

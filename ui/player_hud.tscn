@@ -168,7 +168,7 @@ offset_right = 1274.0
 size_flags_horizontal = 2
 size_flags_vertical = 2
 
-[node name="points_label" type="RichTextLabel" parent="gui" groups=["points_ui"]]
+[node name="game_info_label" type="RichTextLabel" parent="gui" groups=["points_ui"]]
 clip_contents = false
 layout_mode = 2
 theme = ExtResource("3_f4ltr")

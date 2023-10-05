@@ -50,7 +50,7 @@ func on_patch_body_entered(body: Node3D, multi_mesh: MultiMesh, chunk_map: Array
 		var transform = multi_mesh.get_instance_transform(i)
 		multi_mesh.set_instance_transform(i, transform.scaled(Vector3.ZERO))
 	if "player_id" in body:
-		Global.add_points(body.player_id, chunk_map[chunk_index].size(), "wheat")
+		Global.do_vehicle_pickup(body.player_id, "wheat", chunk_map[chunk_index].size())
 
 func create_tiles():
 	if !is_inside_tree():
@@ -82,7 +82,7 @@ func create_tiles():
 			var tile = create_tile(w, h)
 			tile.position = Vector3(width_offset, 0.0, height_offset)
 			$generated_tiles.add_child(tile)
-			## should get automagically renamed?
+			# should get automagically renamed?
 			tile.name = "wheat_tile_1"
 			width_offset += w
 		height_offset += h

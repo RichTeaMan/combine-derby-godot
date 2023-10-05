@@ -4,7 +4,7 @@ var exploded = false
 
 func barrel_body_entered(body: Node):
 	if not exploded and Global.is_in_vehicle_group(body):
-		Global.add_points(body.player_id, 20, "Barrel booms")
+		Global.do_vehicle_pickup(body.player_id, "Barrel booms", 1)
 		exploded = true
 
 		# start explosion particle emitter

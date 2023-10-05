@@ -8,7 +8,7 @@ func on_arena_game():
 	start_game(Global.MODE_POINTS, Global.ARENA_CRASH)
 	
 func on_harvest_game():
-	start_game(Global.MODE_POINTS,Global.ARENA_FARM)
+	start_game(Global.MODE_HARVEST, Global.ARENA_FARM)
 
 func _input(_ev):
 	if Input.is_action_just_pressed("ui_accept"):

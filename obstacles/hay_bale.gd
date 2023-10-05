@@ -7,7 +7,7 @@ func _ready():
 
 func hay_body_entered(body: Node):
 	if Global.is_in_vehicle_group(body):
-		Global.add_points(body.player_id, 10, "Hay bales")
+		Global.do_vehicle_pickup(body.player_id, "Hay bales", 1)
 
 		# create hay bale particle emitter
 		var explode_instance = bale_explode_template.instantiate()
