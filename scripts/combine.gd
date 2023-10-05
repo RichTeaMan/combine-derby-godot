@@ -1,16 +1,25 @@
 extends VehicleBody3D
 
+const UPSIDE_DOWN_ANGLE = PI * 0.75
+var UPSIDE_DOWN_FRAMES_LIMIT = Engine.physics_ticks_per_second * 2
+
+@export var player_id = 1
+
 var max_rpm = 500.0
 var max_torque = 2000
 var idle_sound_db = 0.0
 var accelerating_sound_db = 6.0
 
-@export var player_id = 1
+var upside_down_frames = 0
 
 var steering_left_input
 var steering_right_input
 var forward_input
 var back_input
+
+## Changes rotation so the combine is on its wheels.
+func roll_to_wheels():
+	rotation.z = 0.0
 
 func _ready():
 	steering_left_input = "player%d_left" % player_id
@@ -36,8 +45,14 @@ func _physics_process(delta):
 	else:
 		$sound.volume_db = idle_sound_db
 
+	if rotation.z > UPSIDE_DOWN_ANGLE || rotation.z < -UPSIDE_DOWN_ANGLE:
+		upside_down_frames += 1
+		if upside_down_frames >= UPSIDE_DOWN_FRAMES_LIMIT:
+			roll_to_wheels()
+	else:
+		upside_down_frames = 0
 	if Input.is_action_just_pressed("reset"):
-		rotation.z = 0.0
+		roll_to_wheels()
 
 func is_reversing():
 	return $back_left_wheel.get_rpm() < 0 && $back_right_wheel.get_rpm() < 0
