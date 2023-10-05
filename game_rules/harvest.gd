@@ -2,34 +2,41 @@ extends Node3D
 
 @export var player_count: int
 
+const WHEAT_LIMIT = 5000.0
+
+const PROP_WHEAT = "wheat"
+const PROP_BALES = "bales"
+
 var current_points = 0
 var countdown_length_seconds = 60
 var game_active = true
 var player_points: Array
 
 func set_game_info(player_id: int):
-	Global.set_game_info_ui(player_id, "    Harvest time!!!")
+	var wheat: int = player_points[player_id][PROP_WHEAT]
+	var filled = (wheat / WHEAT_LIMIT) * 100.0
+	Global.set_game_info_ui(player_id, "    Wheat storage: %1.0f%%" % filled)
 
 func _ready():
 	refresh_timer()
-	var _a = Global.connect("points", Callable(self, "_on_points"))
+	Global.vehicle_pickup.connect(on_vehicle_pickup)
 	for player_id in player_count:
 		set_game_info(player_id + 1)
 
 func _enter_tree():
 	player_points = []
 	for i in player_count + 1:
-		var p = {}
-		p["points"] = 0
-		player_points.append(p)
+		player_points.append({
+			PROP_WHEAT: 0,
+			PROP_BALES: 0,
+		})
 
-func _on_points(player_id: int, points: int, category: String) -> void:
-	if player_id <= player_count:
-		if not category in player_points[player_id]:
-			player_points[player_id][category] = 0
-			print("reset")
-		player_points[player_id][category] += 1
-		player_points[player_id]["points"] += points
+func on_vehicle_pickup(player_id: int, category: String, quantity: int) -> void:
+	if category == "wheat" && player_id <= player_count:
+		player_points[player_id][PROP_WHEAT] += quantity
+		if player_points[player_id][PROP_WHEAT] > WHEAT_LIMIT:
+			player_points[player_id][PROP_WHEAT] = WHEAT_LIMIT
+		set_game_info(player_id)
 
 func _on_Timer_timeout():
 	return
