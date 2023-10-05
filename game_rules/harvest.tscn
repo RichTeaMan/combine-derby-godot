@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://p7kkrmdu5adb"]
+[gd_scene load_steps=3 format=3 uid="uid://bijql3chjdqp1"]
 
 [ext_resource type="Script" path="res://game_rules/harvest.gd" id="1_bfkep"]
 [ext_resource type="Theme" uid="uid://dnfyfchbmcxbe" path="res://themes/large_ui_theme.tres" id="2_r36ik"]

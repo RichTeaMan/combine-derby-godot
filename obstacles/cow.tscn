@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://bs3dwyhycqpm1"]
+[gd_scene load_steps=5 format=3 uid="uid://dhvbh373p7vkp"]
 
 [ext_resource type="PackedScene" uid="uid://bdcapxdbd1dy6" path="res://assets/cow.glb" id="1"]
 [ext_resource type="AudioStream" uid="uid://by33qxtwh82nc" path="res://assets/sounds/moo.ogg" id="2"]

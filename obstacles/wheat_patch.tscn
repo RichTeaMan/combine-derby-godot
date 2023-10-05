@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://5de4rsxc7tjx"]
+[gd_scene load_steps=3 format=3 uid="uid://c62wobadxni15"]
 
 [ext_resource type="Script" path="res://scripts/obstacles/wheat_patch.gd" id="1_b6rjr"]
 [ext_resource type="ArrayMesh" uid="uid://npcu2vi1pd05" path="res://assets/models/wheat.res" id="2_ik38p"]
