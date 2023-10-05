@@ -37,7 +37,7 @@ func _physics_process(delta):
 		$sound.volume_db = idle_sound_db
 
 	if Input.is_action_just_pressed("reset"):
-		rotation = Vector3.UP
+		rotation.z = 0.0
 
 func is_reversing():
 	return $back_left_wheel.get_rpm() < 0 && $back_right_wheel.get_rpm() < 0
