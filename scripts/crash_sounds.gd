@@ -31,7 +31,6 @@ func play_big_sound():
 
 func play_random_sound(sound_array: Array[AudioStreamPlayer3D]):
 	var sound = pick_random_child(sound_array)
-	print("playing crash sound: %s" % sound.name)
 	sound.play()
 
 func pick_random_child(node_array: Array[AudioStreamPlayer3D]) -> AudioStreamPlayer3D:
@@ -40,8 +39,6 @@ func pick_random_child(node_array: Array[AudioStreamPlayer3D]) -> AudioStreamPla
 
 func _on_small_sound_finshed():
 	small_playing = false
-	print("small crash sound stopped playing")
 
 func _on_big_sound_finshed():
 	big_playing = false
-	print("big crash sound stopped playing")
