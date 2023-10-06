@@ -1,10 +1,11 @@
-[gd_scene load_steps=15 format=3 uid="uid://c8v6b0371tehc"]
+[gd_scene load_steps=16 format=3 uid="uid://c8v6b0371tehc"]
 
 [ext_resource type="Script" path="res://scripts/farm.gd" id="1_1beex"]
 [ext_resource type="Material" path="res://materials/mudCracked/mud.tres" id="2_qt24b"]
 [ext_resource type="PackedScene" uid="uid://baqe8nacn46t5" path="res://vehicles/combine.tscn" id="3_v7s1t"]
 [ext_resource type="Script" path="res://scripts/obstacles/baler.gd" id="5_0ef6c"]
 [ext_resource type="PackedScene" uid="uid://c62wobadxni15" path="res://obstacles/wheat_patch.tscn" id="5_oj8ty"]
+[ext_resource type="PackedScene" uid="uid://bb67p5r0ukxkd" path="res://obstacles/wall.tscn" id="6_yyvmg"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_o336y"]
 size = Vector3(500, 1, 500)
@@ -65,6 +66,7 @@ environment = SubResource("Environment_qgvsu")
 
 [node name="1" parent="wheat_patches" instance=ExtResource("5_oj8ty")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -100, 0, 0)
+visible = false
 width = 50.0
 height = 100.0
 density = 19.0
@@ -76,6 +78,7 @@ density = 19.0
 
 [node name="3" parent="wheat_patches" instance=ExtResource("5_oj8ty")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 100, 0, 0)
+visible = false
 width = 50.0
 height = 100.0
 density = 19.0
@@ -101,3 +104,21 @@ shape = SubResource("BoxShape3D_m4dqs")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="baler/1/StaticBody3D"]
 mesh = SubResource("BoxMesh_gw0iv")
 skeleton = NodePath("../..")
+
+[node name="walls" type="Node3D" parent="."]
+
+[node name="north" parent="walls" instance=ExtResource("6_yyvmg")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 239.713)
+length = 252
+
+[node name="east" parent="walls" instance=ExtResource("6_yyvmg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -126, 0, -10.287)
+length = 502
+
+[node name="south" parent="walls" instance=ExtResource("6_yyvmg")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, -246.287)
+length = 252
+
+[node name="west" parent="walls" instance=ExtResource("6_yyvmg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 125, 0, -10.287)
+length = 502

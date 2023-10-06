@@ -3,10 +3,10 @@
 [ext_resource type="Script" path="res://scripts/arena.gd" id="1_fx05n"]
 [ext_resource type="Material" path="res://materials/mudCracked/mud.tres" id="2_fqnvk"]
 [ext_resource type="PackedScene" uid="uid://dhvbh373p7vkp" path="res://obstacles/cow.tscn" id="3_vckym"]
-[ext_resource type="PackedScene" uid="uid://budi3rhx2dsn6" path="res://obstacles/ramp.tscn" id="4_2pfxj"]
+[ext_resource type="PackedScene" uid="uid://budi3rhx2dsn6" path="res://obstacles/ramp.tscn" id="4_khcj2"]
 [ext_resource type="Material" uid="uid://cvifqnb17wtk8" path="res://materials/concrete_hd/concrete.tres" id="5_gxlmf"]
 [ext_resource type="PackedScene" uid="uid://baqe8nacn46t5" path="res://vehicles/combine.tscn" id="6_c62g6"]
-[ext_resource type="PackedScene" uid="uid://bb67p5r0ukxkd" path="res://obstacles/wall.tscn" id="7_lpeww"]
+[ext_resource type="PackedScene" uid="uid://bb67p5r0ukxkd" path="res://obstacles/wall.tscn" id="7_8taq6"]
 [ext_resource type="PackedScene" uid="uid://bgooqrhuo8cgo" path="res://obstacles/hay_pyramid.tscn" id="8_7f153"]
 [ext_resource type="PackedScene" uid="uid://dbsep3bd1ah55" path="res://obstacles/barrel.tscn" id="9_h0smm"]
 [ext_resource type="PackedScene" uid="uid://dwexr6kmjify0" path="res://obstacles/bull.tscn" id="10_k563w"]
@@ -138,7 +138,7 @@ shadow_enabled = true
 [node name="cow" parent="." instance=ExtResource("3_vckym")]
 transform = Transform3D(0.217513, 0, 0.976057, 0, 1, 0, -0.976057, 0, 0.217513, 37.7952, 7.61748, 83.246)
 
-[node name="ramp" parent="." instance=ExtResource("4_2pfxj")]
+[node name="ramp" parent="." instance=ExtResource("4_khcj2")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 40, 1.2, 24)
 length = 4
 height = 3
@@ -265,13 +265,13 @@ skeleton = NodePath("../../top_landing")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="west_roof/bottom_landing/wall/StaticBody3D"]
 shape = SubResource("24")
 
-[node name="ramp_north" parent="west_roof/bottom_landing" instance=ExtResource("4_2pfxj")]
+[node name="ramp_north" parent="west_roof/bottom_landing" instance=ExtResource("4_khcj2")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 40, 1.2, -24)
 length = 4
 height = 3
 width = 5
 
-[node name="ramp_west" parent="west_roof/bottom_landing" instance=ExtResource("4_2pfxj")]
+[node name="ramp_west" parent="west_roof/bottom_landing" instance=ExtResource("4_khcj2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 1.2, -90)
 length = 4
 height = 3
@@ -343,19 +343,19 @@ mesh = SubResource("26")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="east/statue_6/StaticBody3D"]
 shape = SubResource("27")
 
-[node name="ramp_1" parent="east" instance=ExtResource("4_2pfxj")]
+[node name="ramp_1" parent="east" instance=ExtResource("4_khcj2")]
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -54, 1.2, 75)
 length = 4
 height = 3
 width = 3
 
-[node name="ramp_2" parent="east" instance=ExtResource("4_2pfxj")]
+[node name="ramp_2" parent="east" instance=ExtResource("4_khcj2")]
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -54, 1.2, 0)
 length = 4
 height = 3
 width = 10
 
-[node name="ramp_3" parent="east" instance=ExtResource("4_2pfxj")]
+[node name="ramp_3" parent="east" instance=ExtResource("4_khcj2")]
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -54, 1.2, -75)
 length = 4
 height = 3
@@ -402,19 +402,19 @@ shape = SubResource("33")
 [node name="combine" parent="." instance=ExtResource("6_c62g6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40, 6.07905, -50)
 
-[node name="north_wall" parent="." instance=ExtResource("7_lpeww")]
+[node name="north_wall" parent="." instance=ExtResource("7_8taq6")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 100)
 length = 202
 
-[node name="west_wall" parent="." instance=ExtResource("7_lpeww")]
+[node name="west_wall" parent="." instance=ExtResource("7_8taq6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 100, 0, 0)
 length = 202
 
-[node name="south_wall" parent="." instance=ExtResource("7_lpeww")]
+[node name="south_wall" parent="." instance=ExtResource("7_8taq6")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, -100)
 length = 202
 
-[node name="east_wall" parent="." instance=ExtResource("7_lpeww")]
+[node name="east_wall" parent="." instance=ExtResource("7_8taq6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -100, 0, 0)
 length = 202
 
