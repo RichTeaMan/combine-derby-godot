@@ -1,9 +1,9 @@
 [gd_scene load_steps=4 format=3 uid="uid://s0ei14raudqx"]
 
-[ext_resource type="Material" uid="uid://cvifqnb17wtk8" path="res://materials/concrete_hd/concrete.tres" id="1"]
+[ext_resource type="Material" uid="uid://cvifqnb17wtk8" path="res://materials/concrete_hd/concrete.tres" id="1_fxr6l"]
 
 [sub_resource type="BoxMesh" id="1"]
-material = ExtResource("1")
+material = ExtResource("1_fxr6l")
 size = Vector3(0.1, 20, 1)
 
 [sub_resource type="ConcavePolygonShape3D" id="2"]

@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://ctdqb6bhtk4mk"]
 
-[ext_resource type="Script" path="res://player_viewport.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/player_viewport.gd" id="1"]
 [ext_resource type="PackedScene" uid="uid://dykwb0gmw81n2" path="res://ui/player_hud.tscn" id="3"]
 
 [node name="one_player" type="Node"]

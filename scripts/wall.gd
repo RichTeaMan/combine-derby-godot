@@ -11,7 +11,7 @@ var padding = 1.0
 
 
 func _enter_tree():
-	wall_chunk_template = preload("res://wall_chunk.tscn")
+	wall_chunk_template = preload("res://obstacles/wall_chunk.tscn")
 	create_wall_chunks()
 
 func _process(_delta):
