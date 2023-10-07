@@ -1,10 +1,10 @@
-[gd_scene load_steps=16 format=3 uid="uid://c8v6b0371tehc"]
+[gd_scene load_steps=12 format=3 uid="uid://c8v6b0371tehc"]
 
 [ext_resource type="Script" path="res://scripts/farm.gd" id="1_1beex"]
 [ext_resource type="Material" path="res://materials/mudCracked/mud.tres" id="2_qt24b"]
 [ext_resource type="PackedScene" uid="uid://baqe8nacn46t5" path="res://vehicles/combine.tscn" id="3_v7s1t"]
-[ext_resource type="Script" path="res://scripts/obstacles/baler.gd" id="5_0ef6c"]
 [ext_resource type="PackedScene" uid="uid://c62wobadxni15" path="res://obstacles/wheat_patch.tscn" id="5_oj8ty"]
+[ext_resource type="PackedScene" uid="uid://tut71bgph624" path="res://obstacles/baler.tscn" id="6_xxgwn"]
 [ext_resource type="PackedScene" uid="uid://bb67p5r0ukxkd" path="res://obstacles/wall.tscn" id="6_yyvmg"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_o336y"]
@@ -23,18 +23,6 @@ sky_material = SubResource("ProceduralSkyMaterial_3ytyq")
 [sub_resource type="Environment" id="Environment_qgvsu"]
 background_mode = 2
 sky = SubResource("Sky_mm8iy")
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_3xojt"]
-size = Vector3(5, 5, 5)
-
-[sub_resource type="BoxMesh" id="BoxMesh_4raxq"]
-size = Vector3(5, 5, 5)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_m4dqs"]
-size = Vector3(5, 1, 5)
-
-[sub_resource type="BoxMesh" id="BoxMesh_gw0iv"]
-size = Vector3(5, 1, 5)
 
 [node name="farm" type="Node3D"]
 script = ExtResource("1_1beex")
@@ -83,28 +71,6 @@ width = 50.0
 height = 100.0
 density = 19.0
 
-[node name="baler" type="Node3D" parent="."]
-
-[node name="1" type="StaticBody3D" parent="baler"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -50, 2, -50)
-script = ExtResource("5_0ef6c")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="baler/1"]
-shape = SubResource("BoxShape3D_3xojt")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="baler/1"]
-mesh = SubResource("BoxMesh_4raxq")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="baler/1"]
-transform = Transform3D(-4.06872e-08, 1.59763e-08, -1, 0.365494, 0.930814, 0, 0.930814, -0.365494, -4.37114e-08, 0, 4.11967, 0)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="baler/1/StaticBody3D"]
-shape = SubResource("BoxShape3D_m4dqs")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="baler/1/StaticBody3D"]
-mesh = SubResource("BoxMesh_gw0iv")
-skeleton = NodePath("../..")
-
 [node name="walls" type="Node3D" parent="."]
 
 [node name="north" parent="walls" instance=ExtResource("6_yyvmg")]
@@ -122,3 +88,6 @@ length = 252
 [node name="west" parent="walls" instance=ExtResource("6_yyvmg")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 125, 0, -10.287)
 length = 502
+
+[node name="baler" parent="." instance=ExtResource("6_xxgwn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -68.1801, -0.0155212, 14.9081)
