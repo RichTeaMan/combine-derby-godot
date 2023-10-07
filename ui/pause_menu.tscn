@@ -180,6 +180,7 @@ layout_mode = 2
 mouse_filter = 2
 
 [node name="button_restart" type="Button" parent="colour/margin/VBoxContainer/CenterContainer3/button_row"]
+custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 theme = ExtResource("2")
 text = "Restart"
@@ -190,6 +191,7 @@ custom_minimum_size = Vector2(20, 20)
 layout_mode = 2
 
 [node name="button_quit" type="Button" parent="colour/margin/VBoxContainer/CenterContainer3/button_row" groups=["html5_disable"]]
+custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 theme = ExtResource("2")
 text = "Quit"
