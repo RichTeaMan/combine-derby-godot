@@ -41,11 +41,11 @@ shape = SubResource("ConcavePolygonShape3D_1qd54")
 
 [node name="combine" parent="spawns" instance=ExtResource("3_v7s1t")]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 1.74846e-07, 0, 1, 0, -1.74846e-07, 0, 1, 0, 1.1451, -72.4712)
+transform = Transform3D(1, 0, 1.74846e-07, 0, 1, 0, -1.74846e-07, 0, 1, -15, 1.145, -70)
 
 [node name="combine2" parent="spawns" instance=ExtResource("3_v7s1t")]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1451, -129.807)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 1.145, -70)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_qgvsu")
