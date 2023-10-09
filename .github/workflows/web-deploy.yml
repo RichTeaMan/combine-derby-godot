@@ -2,11 +2,9 @@
 
 name: "web deploy"
 on:
-  workflow_dispatch:
-# Commented until github pages supports Cross Origin Isolation and SharedArrayBuffer.
-#  push:
-#    branches:
-#      - main
+  push:
+    branches:
+      - pages
 
 env:
   GODOT_VERSION: 4.1.1.stable
@@ -42,9 +40,16 @@ jobs:
         with:
           name: combine-derby-web
           path: build/web
-      - name: Install rsync
+      - name: Install dependencies
         run: |
-          apt-get update && apt-get install -y rsync
+          apt-get update && apt-get install -y rsync curl
+      # allows GH pages to run with the correct cross domain headers.
+      - name: Install service worker script
+        run: |
+          curl https://raw.githubusercontent.com/gzuidhof/coi-serviceworker/master/coi-serviceworker.min.js > build/web/coi-serviceworker.min.js
+      - name: Add service worker reference
+        run: |
+          sed -i 's#<head>#<head>\n\t\t<script src="coi-serviceworker.min.js"></script>#' build/web/index.html
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@releases/v4
         with:
