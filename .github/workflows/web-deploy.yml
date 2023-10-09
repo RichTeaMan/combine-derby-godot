@@ -49,7 +49,7 @@ jobs:
           curl https://raw.githubusercontent.com/gzuidhof/coi-serviceworker/master/coi-serviceworker.min.js > build/web/coi-serviceworker.min.js
       - name: Add service worker reference
         run: |
-          sed -i 's#<head>#<head>\n\t\t<script src="coi-serviceworker.js"></script>#' build/web/index.html
+          sed -i 's#<head>#<head>\n\t\t<script src="coi-serviceworker.min.js"></script>#' build/web/index.html
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@releases/v4
         with:
