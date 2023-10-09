@@ -2,11 +2,9 @@
 
 name: "web deploy"
 on:
-  workflow_dispatch:
-# Commented until github pages supports Cross Origin Isolation and SharedArrayBuffer.
-#  push:
-#    branches:
-#      - main
+  push:
+    branches:
+      - main
 
 env:
   GODOT_VERSION: 4.1.1.stable
