@@ -1,7 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://bgooqrhuo8cgo"]
-
-[ext_resource type="Script" path="res://obstacles/hay_pyramid.gd" id="1"]
-
-[node name="hay_pyramid" type="Node3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00432539, 0, 0.000754833)
-script = ExtResource("1")
