@@ -40,9 +40,9 @@ jobs:
         with:
           name: combine-derby-web
           path: build/web
-      - name: Install rsync
+      - name: Install dependencies
         run: |
-          apt-get update && apt-get install -y rsync
+          apt-get update && apt-get install -y rsync curl
       # allows GH pages to run with the correct cross domain headers.
       - name: Install service worker script
         run: |
