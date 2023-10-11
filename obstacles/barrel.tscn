@@ -37,10 +37,8 @@ particles_anim_h_frames = 1
 particles_anim_v_frames = 1
 particles_anim_loop = false
 
-[sub_resource type="Curve" id="5"]
-max_value = 40.0
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.793296, 39.7297), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
-point_count = 3
+[sub_resource type="QuadMesh" id="QuadMesh_s1fkh"]
+size = Vector2(10, 20)
 
 [sub_resource type="StandardMaterial3D" id="9"]
 transparency = 1
@@ -85,16 +83,15 @@ color_ramp = SubResource("3")
 
 [node name="explosion_particles" type="CPUParticles3D" parent="RigidBody3D"]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 1.67535, 0)
+transform = Transform3D(1, 0, 0, 0, -1, 1.50996e-07, 0, -1.50996e-07, -1, 0, 1.67535, 0)
 material_override = SubResource("13")
 emitting = false
 amount = 16
-mesh = SubResource("8")
+mesh = SubResource("QuadMesh_s1fkh")
 emission_shape = 1
 emission_sphere_radius = 0.2
 spread = 0.0
 gravity = Vector3(0, 0, 0)
-scale_amount_curve = SubResource("5")
 color_ramp = SubResource("3")
 
 [node name="smoke_particles" type="CPUParticles3D" parent="RigidBody3D"]
