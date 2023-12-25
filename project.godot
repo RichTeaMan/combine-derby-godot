@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="combine-derby"
-run/main_scene="res://ui/start_screen.tscn"
+run/main_scene="res://editor/editor.tscn"
 config/features=PackedStringArray("4.2")
 boot_splash/image="res://assets/icon/icon_512.png"
 config/icon="res://icon.png"
