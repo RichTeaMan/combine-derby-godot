@@ -7,6 +7,11 @@ var prev_mouse_position
 var next_mouse_position
 
 func _process(delta):
+	
+	# cheap hack to stop gravity being a thing
+	for c: Node3D in %container.get_children():
+		c.transform = Transform3D.IDENTITY
+	
 	if (Input.is_action_just_pressed("rotate")):
 		rotating = true
 		prev_mouse_position = get_viewport().get_mouse_position()
@@ -24,4 +29,16 @@ func _process(delta):
 	
 	if (Input.is_action_just_pressed("zoom_out")):
 		%camera.position.z += zoom_constant
+	
+
+
+func _on_button_combine_pressed():
+	for c in %container.get_children():
+		c.queue_free()
+	
+	var scene = load("res://vehicles/combine.tscn")
+	var instance = scene.instantiate()
+	%container.add_child(instance)
+	instance.set_process(false)
+	instance.set_physics_process(false)
 	
