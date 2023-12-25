@@ -30,7 +30,7 @@ size = Vector3(0.01, 0.01, 1)
 [node name="Editor" type="Node3D"]
 script = ExtResource("1_nx54m")
 
-[node name="Camera3D" type="Camera3D" parent="."]
+[node name="camera" type="Camera3D" parent="."]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.31857)
 environment = SubResource("Environment_b8fgp")
