@@ -98,19 +98,49 @@ unique_name_in_owner = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer"]
+[node name="container_left" type="MarginContainer" parent="CanvasLayer" groups=["ui"]]
 anchors_preset = 9
 anchor_bottom = 1.0
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/container_left"]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 alignment = 1
 
-[node name="button_combine" type="Button" parent="CanvasLayer/MarginContainer/VBoxContainer"]
+[node name="button_clear" type="Button" parent="CanvasLayer/container_left/VBoxContainer"]
+layout_mode = 2
+text = "Clear"
+
+[node name="button_combine" type="Button" parent="CanvasLayer/container_left/VBoxContainer"]
 layout_mode = 2
 text = "Combine"
+
+[node name="button_cube" type="Button" parent="CanvasLayer/container_left/VBoxContainer"]
+layout_mode = 2
+text = "Cube"
+
+[node name="container_right" type="MarginContainer" parent="CanvasLayer" groups=["ui"]]
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="CanvasLayer/container_right"]
+layout_mode = 2
+
+[node name="ColorPicker" type="ColorPicker" parent="CanvasLayer/container_right"]
+unique_name_in_owner = true
+layout_mode = 2
+edit_alpha = false
+picker_shape = 2
+can_add_swatches = false
+sampler_visible = false
+color_modes_visible = false
+hex_visible = false
+presets_visible = false
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -10, 0)
@@ -126,4 +156,7 @@ transform = Transform3D(0.973013, -0.230752, 0.000800937, 0.230645, 0.972444, -0
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_se4ag")
 
-[connection signal="pressed" from="CanvasLayer/MarginContainer/VBoxContainer/button_combine" to="." method="_on_button_combine_pressed"]
+[connection signal="pressed" from="CanvasLayer/container_left/VBoxContainer/button_clear" to="." method="_on_button_clear_pressed"]
+[connection signal="pressed" from="CanvasLayer/container_left/VBoxContainer/button_combine" to="." method="_on_button_combine_pressed"]
+[connection signal="pressed" from="CanvasLayer/container_left/VBoxContainer/button_cube" to="." method="_on_button_cube_pressed"]
+[connection signal="color_changed" from="CanvasLayer/container_right/ColorPicker" to="." method="_on_color_picker_color_changed"]
