@@ -6,6 +6,8 @@ var zoom_constant = 0.2
 var prev_mouse_position
 var next_mouse_position
 
+var SELECTED_GRP = "selected"
+
 @onready
 var highlighted_shader = preload("res://shaders/highlighted.gdshader")
 
@@ -17,9 +19,6 @@ func _unhandled_input(event):
 		rotating = false
 
 func _process(delta):
-	# cheap hack to stop gravity being a thing
-	for c: Node3D in %container.get_children():
-		c.transform = Transform3D.IDENTITY
 	
 	if (rotating):
 		next_mouse_position = get_viewport().get_mouse_position()
@@ -41,15 +40,22 @@ func _on_button_combine_pressed():
 	var scene = load("res://vehicles/combine.tscn")
 	var instance = scene.instantiate()
 	%container.add_child(instance)
-	instance.set_process(false)
-	instance.set_physics_process(false)
+	add_selection_listener(instance, instance)
 
 func _on_button_cube_pressed():
 	var scene = load("res://vehicles/cube.tscn")
-	var instance = scene.instantiate()
+	var instance: Node3D = scene.instantiate()
+	var x = randi_range(-10, 10)
+	var y = randi_range(-10, 10)
+	var z = randi_range(-10, 10)
 	%container.add_child(instance)
-	instance.set_process(false)
-	instance.set_physics_process(false)
+	instance.scale.x = 0.3
+	instance.scale.y = 0.3
+	instance.scale.z = 0.3
+	instance.position.x = x as float
+	instance.position.y = y as float
+	instance.position.z = z as float
+	add_selection_listener(instance, instance)
 
 func override_material(container: Node3D):
 	for c in container.get_children(true):
@@ -63,24 +69,43 @@ func override_material(container: Node3D):
 				shader.set_shader_parameter("outline_color", Color.WHITE)
 				
 				mesh_instance.material_overlay = shader
-				
 		override_material(c)
+
+func remove_override_material(container: Node3D):
+	for c in container.get_children(true):
+		if c is MeshInstance3D:
+			var mesh_instance: MeshInstance3D = c
+			mesh_instance.material_overlay = null
+		remove_override_material(c)
+
+func add_selection_listener(root: Node3D, container: Node3D):
+	for c in container.get_children(true):
+		if c is CollisionObject3D:
+			var collision: CollisionObject3D = c
+			var f = func(_camera: Node, event: InputEvent, _position: Vector3, _normal: Vector3, shape_idx: int):
+				var n = root
+				_model_clicked(n, event)
+			collision.input_event.connect(f)
+		if c is RigidBody3D:
+			var rigid_body: RigidBody3D = c
+			rigid_body.freeze = true
+		add_selection_listener(root, c)
 
 func _on_color_picker_color_changed(color):
 	override_material(%container)
 
-func dir(class_instance):
-	var output = {}
-	var methods = []
-	for method in class_instance.get_method_list():
-		methods.append(method.name)
+func _model_clicked(source_node: Node3D, event: InputEvent):
+	if event is InputEventMouseMotion:
+		pass
 
-	output["METHODS"] = methods
+	if event is InputEventMouseButton:
+		var button_event: InputEventMouseButton = event
+		if button_event.button_index == MOUSE_BUTTON_LEFT && button_event.is_released():
+			clear_selected()
+			override_material(source_node)
+			source_node.add_to_group(SELECTED_GRP)
 
-	var properties = []
-	for prop in class_instance.get_property_list():
-		if prop.type == 3:
-			properties.append(prop.name)
-	output["PROPERTIES"] = properties
-
-	return output
+func clear_selected():
+	for n in %container.get_tree().get_nodes_in_group(SELECTED_GRP):
+		n.remove_from_group(SELECTED_GRP)
+		remove_override_material(n)
