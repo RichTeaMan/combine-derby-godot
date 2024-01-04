@@ -8,7 +8,9 @@ var next_mouse_position
 
 var SELECTED_GRP = "selected"
 
-var parts: Array[BodyPart] = []
+var parts: Array[VehiclePart] = []
+
+var selected_parts: Array[VehiclePart] = []
 
 @onready
 var highlighted_shader = preload("res://shaders/highlighted.gdshader")
@@ -132,9 +134,41 @@ func clear_selected():
 		n.remove_from_group(SELECTED_GRP)
 		remove_override_material(n)
 
-func part_button_pressed(part: BodyPart):
+func part_button_pressed(part: VehiclePart):
+	
 	print("Part button %s pressed." % part.name)
-	var instance = part.instantiate_scene()
-	freeze_node(instance)
-	%container.add_child(instance)
-	pass
+	if selected_parts.size() == 0 && part.part_type != Enums.PART_TYPE.BODY:
+		print("Part added with no existing body, aborting.")
+		return
+	
+	
+	if part.part_type == Enums.PART_TYPE.WHEELS:
+		var body = selected_body()
+		for wheel_anchor: WheelAnchor in body.wheel_anchors:
+			var instance: Node3D = part.instantiate_scene()
+			freeze_node(instance)
+			instance.position = wheel_anchor.attachment_point
+			instance.rotation = wheel_anchor.base_rotation
+			%container.add_child(instance)
+	else:
+		var instance = part.instantiate_scene()
+		freeze_node(instance)
+		%container.add_child(instance)
+	
+	if part.part_type == Enums.PART_TYPE.BODY || part.part_type == Enums.PART_TYPE.WHEELS:
+		remove_selected_part_of_type(part.part_type)
+	selected_parts.append(part)
+
+func remove_selected_part_of_type(part_type: Enums.PART_TYPE):
+	var parts: Array[VehiclePart] = []
+	for part in selected_parts:
+		if part.part_type != part_type:
+			parts.append(part)
+	selected_parts = parts
+
+func selected_body() -> BodyPart:
+	for part in selected_parts:
+		if part.part_type == Enums.PART_TYPE.BODY:
+			return part
+	push_warning("Selected body requested but none has been set.")
+	return null
