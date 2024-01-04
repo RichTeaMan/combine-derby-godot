@@ -103,20 +103,47 @@ anchors_preset = 9
 anchor_bottom = 1.0
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/container_left"]
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/container_left"]
+layout_mode = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/container_left/HBoxContainer"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+
+[node name="type_filter_buttons" type="VBoxContainer" parent="CanvasLayer/container_left/HBoxContainer/CenterContainer"]
+layout_mode = 2
+
+[node name="button_body_filter" type="Button" parent="CanvasLayer/container_left/HBoxContainer/CenterContainer/type_filter_buttons"]
+layout_mode = 2
+text = "Body"
+
+[node name="button_wheel_filter" type="Button" parent="CanvasLayer/container_left/HBoxContainer/CenterContainer/type_filter_buttons"]
+layout_mode = 2
+text = "Wheels"
+
+[node name="button_engine_filter" type="Button" parent="CanvasLayer/container_left/HBoxContainer/CenterContainer/type_filter_buttons"]
+layout_mode = 2
+text = "Engine"
+
+[node name="button_attachments_filter" type="Button" parent="CanvasLayer/container_left/HBoxContainer/CenterContainer/type_filter_buttons"]
+layout_mode = 2
+text = "Attachments"
+
+[node name="parts_container" type="VBoxContainer" parent="CanvasLayer/container_left/HBoxContainer"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 alignment = 1
 
-[node name="button_clear" type="Button" parent="CanvasLayer/container_left/VBoxContainer"]
+[node name="button_clear" type="Button" parent="CanvasLayer/container_left/HBoxContainer/parts_container"]
 layout_mode = 2
 text = "Clear"
 
-[node name="button_combine" type="Button" parent="CanvasLayer/container_left/VBoxContainer"]
+[node name="button_combine" type="Button" parent="CanvasLayer/container_left/HBoxContainer/parts_container"]
 layout_mode = 2
 text = "Combine"
 
-[node name="button_cube" type="Button" parent="CanvasLayer/container_left/VBoxContainer"]
+[node name="button_cube" type="Button" parent="CanvasLayer/container_left/HBoxContainer/parts_container"]
 layout_mode = 2
 text = "Cube"
 
@@ -156,7 +183,7 @@ transform = Transform3D(0.973013, -0.230752, 0.000800937, 0.230645, 0.972444, -0
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_se4ag")
 
-[connection signal="pressed" from="CanvasLayer/container_left/VBoxContainer/button_clear" to="." method="_on_button_clear_pressed"]
-[connection signal="pressed" from="CanvasLayer/container_left/VBoxContainer/button_combine" to="." method="_on_button_combine_pressed"]
-[connection signal="pressed" from="CanvasLayer/container_left/VBoxContainer/button_cube" to="." method="_on_button_cube_pressed"]
+[connection signal="pressed" from="CanvasLayer/container_left/HBoxContainer/parts_container/button_clear" to="." method="_on_button_clear_pressed"]
+[connection signal="pressed" from="CanvasLayer/container_left/HBoxContainer/parts_container/button_combine" to="." method="_on_button_combine_pressed"]
+[connection signal="pressed" from="CanvasLayer/container_left/HBoxContainer/parts_container/button_cube" to="." method="_on_button_cube_pressed"]
 [connection signal="color_changed" from="CanvasLayer/container_right/ColorPicker" to="." method="_on_color_picker_color_changed"]

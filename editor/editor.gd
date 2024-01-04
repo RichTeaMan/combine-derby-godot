@@ -8,6 +8,8 @@ var next_mouse_position
 
 var SELECTED_GRP = "selected"
 
+var parts: Array[BodyPart] = []
+
 @onready
 var highlighted_shader = preload("res://shaders/highlighted.gdshader")
 
@@ -17,6 +19,19 @@ func _unhandled_input(event):
 		prev_mouse_position = get_viewport().get_mouse_position()
 	if (Input.is_action_just_released("rotate")):
 		rotating = false
+
+func _ready():
+	var parts = VehiclePart.parts_init()
+	
+	for part in parts:
+		var part_button = Button.new()
+		part_button.text = part.name
+		
+		var f = func():
+			part_button_pressed(part)
+		part_button.pressed.connect(f)
+		
+		%parts_container.add_child(part_button)
 
 func _process(delta):
 	
@@ -91,6 +106,13 @@ func add_selection_listener(root: Node3D, container: Node3D):
 			rigid_body.freeze = true
 		add_selection_listener(root, c)
 
+func freeze_node(container: Node3D):
+	if container is RigidBody3D:
+		var rigid_body: RigidBody3D = container
+		rigid_body.freeze = true
+	for c in container.get_children(true):
+		freeze_node(c)
+
 func _on_color_picker_color_changed(color):
 	override_material(%container)
 
@@ -109,3 +131,10 @@ func clear_selected():
 	for n in %container.get_tree().get_nodes_in_group(SELECTED_GRP):
 		n.remove_from_group(SELECTED_GRP)
 		remove_override_material(n)
+
+func part_button_pressed(part: BodyPart):
+	print("Part button %s pressed." % part.name)
+	var instance = part.instantiate_scene()
+	freeze_node(instance)
+	%container.add_child(instance)
+	pass

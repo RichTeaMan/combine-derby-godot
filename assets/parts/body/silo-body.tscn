@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://dgtnte3t4xowp"]
+
+[ext_resource type="PackedScene" uid="uid://dywn1nhuw1yd7" path="res://assets/parts/body/silo-body.glb" id="1_qok6k"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_gkg5t"]
+height = 10.1946
+radius = 0.991849
+
+[node name="silo_body" type="RigidBody3D"]
+mass = 500.0
+max_contacts_reported = 4
+contact_monitor = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+shape = SubResource("CylinderShape3D_gkg5t")
+
+[node name="model" parent="CollisionShape3D" instance=ExtResource("1_qok6k")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
