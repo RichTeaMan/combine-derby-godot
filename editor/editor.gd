@@ -12,6 +12,8 @@ var parts: Array[VehiclePart] = []
 
 var selected_parts: Array[VehiclePart] = []
 
+var vehicle: VehicleBody3D
+
 @onready
 var highlighted_shader = preload("res://shaders/highlighted.gdshader")
 
@@ -23,6 +25,12 @@ func _unhandled_input(event):
 		rotating = false
 
 func _ready():
+	vehicle = VehicleBody3D.new()
+	vehicle.freeze = true
+	var script = load("res://scripts/vehicle.gd")
+	vehicle.set_script(script)
+	%container.add_child(vehicle)
+	
 	var parts = VehiclePart.parts_init()
 	
 	for part in parts:
@@ -50,7 +58,7 @@ func _process(delta):
 		%camera.position.z += zoom_constant
 
 func _on_button_clear_pressed():
-	for c in %container.get_children():
+	for c in vehicle.get_children():
 		c.queue_free()
 
 func _on_button_combine_pressed():
@@ -141,22 +149,25 @@ func part_button_pressed(part: VehiclePart):
 		print("Part added with no existing body, aborting.")
 		return
 	
-	
 	if part.part_type == Enums.PART_TYPE.WHEELS:
 		var body = selected_body()
 		for wheel_anchor: WheelAnchor in body.wheel_anchors:
+			var wheel = VehicleWheel3D.new()
 			var instance: Node3D = part.instantiate_scene()
-			freeze_node(instance)
-			instance.position = wheel_anchor.attachment_point
-			instance.rotation = wheel_anchor.base_rotation
-			%container.add_child(instance)
+			wheel.add_child(instance)
+			wheel.position = wheel_anchor.attachment_point
+			wheel.rotation = wheel_anchor.base_rotation
+			wheel.use_as_steering = wheel_anchor.is_steering
+			wheel.use_as_traction = wheel_anchor.is_traction
+			vehicle.add_child(wheel)
 	else:
 		var instance = part.instantiate_scene()
-		freeze_node(instance)
-		%container.add_child(instance)
+		vehicle.add_child(instance)
 	
+	freeze_node(vehicle)
 	if part.part_type == Enums.PART_TYPE.BODY || part.part_type == Enums.PART_TYPE.WHEELS:
 		remove_selected_part_of_type(part.part_type)
+	vehicle.rebuild_wheels()
 	selected_parts.append(part)
 
 func remove_selected_part_of_type(part_type: Enums.PART_TYPE):
@@ -164,6 +175,7 @@ func remove_selected_part_of_type(part_type: Enums.PART_TYPE):
 	for part in selected_parts:
 		if part.part_type != part_type:
 			parts.append(part)
+			# TODO somehow need to delete the thing from the scene tree
 	selected_parts = parts
 
 func selected_body() -> BodyPart:
