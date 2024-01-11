@@ -26,7 +26,6 @@ jobs:
           mkdir -v -p ~/.local/share/godot/export_templates
           mkdir -v -p ~/.config/godot
           mv ${TEMPLATE_DIRECTORY}/${GODOT_VERSION} ~/.local/share/godot/export_templates/${GODOT_VERSION}
-          mv /root/.config/godot/editor_settings-4.tres ~/.config/godot/editor_settings-4.tres
       - name: Windows Dependencies
         run: |
           dpkg --add-architecture i386 && apt-get update && apt-get install -y wine-stable && apt-get install -y wine32
@@ -63,7 +62,6 @@ jobs:
           mkdir -v -p ~/.local/share/godot/export_templates
           mkdir -v -p ~/.config/godot
           mv ${TEMPLATE_DIRECTORY}/${GODOT_VERSION} ~/.local/share/godot/export_templates/${GODOT_VERSION}
-          mv /root/.config/godot/editor_settings-4.tres ~/.config/godot/editor_settings-4.tres
       - name: Linux Build
         run: |
           mkdir -v -p build/linux
