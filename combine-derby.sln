@@ -1,0 +1,19 @@
+﻿Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "combine-derby", "combine-derby.csproj", "{8A3A2430-7B69-41A7-8D68-7045795C146E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+	Debug|Any CPU = Debug|Any CPU
+	ExportDebug|Any CPU = ExportDebug|Any CPU
+	ExportRelease|Any CPU = ExportRelease|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8A3A2430-7B69-41A7-8D68-7045795C146E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A3A2430-7B69-41A7-8D68-7045795C146E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A3A2430-7B69-41A7-8D68-7045795C146E}.ExportDebug|Any CPU.ActiveCfg = ExportDebug|Any CPU
+		{8A3A2430-7B69-41A7-8D68-7045795C146E}.ExportDebug|Any CPU.Build.0 = ExportDebug|Any CPU
+		{8A3A2430-7B69-41A7-8D68-7045795C146E}.ExportRelease|Any CPU.ActiveCfg = ExportRelease|Any CPU
+		{8A3A2430-7B69-41A7-8D68-7045795C146E}.ExportRelease|Any CPU.Build.0 = ExportRelease|Any CPU
+	EndGlobalSection
+EndGlobal

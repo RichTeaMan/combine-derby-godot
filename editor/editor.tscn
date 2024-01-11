@@ -1,6 +1,6 @@
 [gd_scene load_steps=18 format=3 uid="uid://dyd4lioy8r5o7"]
 
-[ext_resource type="Script" path="res://editor/editor.gd" id="1_nx54m"]
+[ext_resource type="Script" path="res://editor/Editor.cs" id="1_wdacw"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cfu7m"]
 albedo_color = Color(1, 0, 0, 1)
@@ -62,7 +62,7 @@ background_mode = 2
 sky = SubResource("Sky_7fhfx")
 
 [node name="Editor" type="Node3D"]
-script = ExtResource("1_nx54m")
+script = ExtResource("1_wdacw")
 
 [node name="gimbal" type="Node3D" parent="."]
 unique_name_in_owner = true
@@ -183,7 +183,7 @@ transform = Transform3D(0.973013, -0.230752, 0.000800937, 0.230645, 0.972444, -0
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_se4ag")
 
-[connection signal="pressed" from="CanvasLayer/container_left/HBoxContainer/parts_container/button_clear" to="." method="_on_button_clear_pressed"]
-[connection signal="pressed" from="CanvasLayer/container_left/HBoxContainer/parts_container/button_combine" to="." method="_on_button_combine_pressed"]
-[connection signal="pressed" from="CanvasLayer/container_left/HBoxContainer/parts_container/button_cube" to="." method="_on_button_cube_pressed"]
+[connection signal="pressed" from="CanvasLayer/container_left/HBoxContainer/parts_container/button_clear" to="." method="_onButtonClearPressed"]
+[connection signal="pressed" from="CanvasLayer/container_left/HBoxContainer/parts_container/button_combine" to="." method="_onButtonCombinePressed"]
+[connection signal="pressed" from="CanvasLayer/container_left/HBoxContainer/parts_container/button_cube" to="." method="_onButtonCubePressed"]
 [connection signal="color_changed" from="CanvasLayer/container_right/ColorPicker" to="." method="_on_color_picker_color_changed"]
