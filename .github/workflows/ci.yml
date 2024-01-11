@@ -4,8 +4,9 @@ name: "ci export"
 on: push
 
 env:
-  GODOT_VERSION: 4.2.1.stable.mono
   EXPORT_NAME: combine_derby
+  GODOT_VERSION: 4.2.1.stable.mono
+  TEMPLATE_DIRECTORY: /root/.local/share/godot/templates/
 
 jobs:
   export-windows:
@@ -24,7 +25,7 @@ jobs:
           ./setBuildConstants.sh
           mkdir -v -p ~/.local/share/godot/export_templates
           mkdir -v -p ~/.config/godot
-          mv /root/.local/share/godot/export_templates/${GODOT_VERSION} ~/.local/share/godot/export_templates/${GODOT_VERSION}
+          mv ${TEMPLATE_DIRECTORY}/${GODOT_VERSION} ~/.local/share/godot/export_templates/${GODOT_VERSION}
           mv /root/.config/godot/editor_settings-4.tres ~/.config/godot/editor_settings-4.tres
       - name: Windows Dependencies
         run: |
@@ -61,7 +62,7 @@ jobs:
           ./setBuildConstants.sh
           mkdir -v -p ~/.local/share/godot/export_templates
           mkdir -v -p ~/.config/godot
-          mv /root/.local/share/godot/export_templates/${GODOT_VERSION} ~/.local/share/godot/export_templates/${GODOT_VERSION}
+          mv ${TEMPLATE_DIRECTORY}/${GODOT_VERSION} ~/.local/share/godot/export_templates/${GODOT_VERSION}
           mv /root/.config/godot/editor_settings-4.tres ~/.config/godot/editor_settings-4.tres
       - name: Linux Build
         run: |
