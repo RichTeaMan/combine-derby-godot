@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://cnnsyli1re013"]
+
+[ext_resource type="PackedScene" uid="uid://c4k6g35o8sslo" path="res://assets/parts/body/box-body.glb" id="1_pde6h"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_svctq"]
+size = Vector3(3.06831, 3.08259, 7.85472)
+
+[node name="box-body" type="RigidBody3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00189972, 0.110615, 0.00959015)
+shape = SubResource("BoxShape3D_svctq")
+
+[node name="box-body" parent="CollisionShape3D" instance=ExtResource("1_pde6h")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00189972, -0.00181961, -0.00959015)

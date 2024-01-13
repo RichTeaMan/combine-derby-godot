@@ -15,8 +15,12 @@ public class WheelPart : VehiclePart
         var parts = new List<WheelPart>();
 
         // basic wheel
-        var basicWheel = new WheelPart("Basic Wheel", "res://assets/parts/body/basic-wheel.tscn");
+        var basicWheel = new WheelPart("Basic Wheel", "res://assets/parts/wheels/basic-wheel.tscn");
         parts.Add(basicWheel);
+
+        // disc wheel
+        var discWheel = new WheelPart("Disc Wheel", "res://assets/parts/wheels/disc-wheel.tscn");
+        parts.Add(discWheel);
 
         return parts;
     }

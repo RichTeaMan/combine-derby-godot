@@ -26,6 +26,8 @@ public partial class Editor : Node3D
 
     private VBoxContainer PartsContainer => GetNode<VBoxContainer>("%parts_container");
 
+    private VBoxContainer MaterialContainer => GetNode<VBoxContainer>("%material_container");
+
     private Node3D Gimbal => GetNode<Node3D>("%gimbal");
 
     private Node3D Camera => GetNode<Node3D>("%camera");
@@ -59,7 +61,6 @@ public partial class Editor : Node3D
 
     public override void _UnhandledInput(InputEvent _inputEvent)
     {
-
         if (Input.IsActionJustPressed("rotate"))
         {
             rotating = true;
@@ -100,38 +101,41 @@ public partial class Editor : Node3D
         }
     }
 
-    public void _onButtonCombinePressed()
+    private void RebuildMaterialContainer()
     {
-        var scene = GD.Load<PackedScene>("res://vehicles/combine.tscn");
-        var instance = scene.Instantiate() as Node3D;
-        Container.AddChild(instance);
-        add_selection_listener(instance);
+        foreach (var c in MaterialContainer.GetChildren())
+        {
+            c.Free();
+        }
+        foreach (var c in Container.ChildrenRecursive())
+        {
+            if (c is MeshInstance3D meshInstance)
+            {
+                foreach (var material in Enumerable.Range(0, meshInstance.Mesh.GetSurfaceCount()).Select(ie => meshInstance.Mesh.SurfaceGetMaterial(ie)))
+                {
+                    string colour = "unknown";
+                    if (material is StandardMaterial3D stanMaterial)
+                    {
+                        colour = stanMaterial.AlbedoColor.ToString();
+                    }
+                    Label label = new Label();
+                    label.Text = $"{c.Name}: [{colour}]";
+
+                    MaterialContainer.AddChild(label);
+                }
+            }
+        }
     }
 
-    public void _onButtonCubePressed()
-    {
-        var scene = GD.Load<PackedScene>("res://vehicles/cube.tscn");
-        var instance = scene.Instantiate() as Node3D;
-        var x = GD.RandRange(-10, 10);
-        var y = GD.RandRange(-10, 10);
-        var z = GD.RandRange(-10, 10);
-        Container.AddChild(instance);
-        instance.Scale = new Vector3(0.3f, 0.3f, 0.3f);
-        instance.Position = new Vector3(x, y, z);
-        add_selection_listener(instance);
-    }
-
-    private void override_material(Node3D container)
+    private void overrideMaterial(Node3D container)
     {
         foreach (var c in container.ChildrenRecursive())
         {
-
-            var mesh_instance = c as MeshInstance3D;
-            if (mesh_instance != null)
+            if (c is MeshInstance3D meshInstance)
             {
-                if (mesh_instance.Mesh.GetSurfaceCount() > 0)
+                if (meshInstance.Mesh.GetSurfaceCount() > 0)
                 {
-                    var material = mesh_instance.Mesh.SurfaceGetMaterial(0) as StandardMaterial3D;
+                    var material = meshInstance.Mesh.SurfaceGetMaterial(0) as StandardMaterial3D;
                     material.AlbedoColor = ColourPicker.Color;
                     var shader = new ShaderMaterial
                     {
@@ -139,7 +143,7 @@ public partial class Editor : Node3D
                     };
                     shader.SetShaderParameter("outline_color", Colors.White);
 
-                    mesh_instance.MaterialOverlay = shader;
+                    meshInstance.MaterialOverlay = shader;
                 }
             }
         }
@@ -149,10 +153,10 @@ public partial class Editor : Node3D
     {
         foreach (var c in container.ChildrenRecursive())
         {
-            var mesh_instance = c as MeshInstance3D;
-            if (mesh_instance != null)
+            var meshInstance = c as MeshInstance3D;
+            if (meshInstance != null)
             {
-                mesh_instance.MaterialOverlay = null;
+                meshInstance.MaterialOverlay = null;
             }
         }
     }
@@ -162,17 +166,15 @@ public partial class Editor : Node3D
 
         foreach (var c in root.ChildrenRecursive())
         {
-            var collision = c as CollisionObject3D;
-            if (collision != null)
+            if (c is CollisionObject3D collision)
             {
                 collision.InputEvent += (Node _camera, InputEvent inputEvent, Vector3 _position, Vector3 _normal, long _shapeIdx) => { _model_clicked(root, inputEvent); };
             }
 
-            var rigid_body = c as RigidBody3D;
-            if (rigid_body != null)
+            var rigidBody = c as RigidBody3D;
+            if (rigidBody != null)
             {
-
-                rigid_body.Freeze = true;
+                rigidBody.Freeze = true;
             }
         }
     }
@@ -182,8 +184,7 @@ public partial class Editor : Node3D
 
         foreach (var c in container.ChildrenRecursive())
         {
-            var rigid_body = c as RigidBody3D;
-            if (rigid_body != null)
+            if (c is RigidBody3D rigid_body)
             {
                 rigid_body.Freeze = true;
             }
@@ -198,7 +199,7 @@ public partial class Editor : Node3D
     private void _on_color_picker_color_changed(Color _color)
     {
 
-        override_material(Container);
+        overrideMaterial(Container);
     }
 
     private void _model_clicked(Node3D source_node, InputEvent inputEvent)
@@ -210,13 +211,11 @@ public partial class Editor : Node3D
 
         if (inputEvent is InputEventMouseButton)
         {
-
             var button_event = inputEvent as InputEventMouseButton;
             if (button_event.ButtonIndex == MouseButton.Left && button_event.IsReleased())
             {
-
                 clearSelected();
-                override_material(source_node);
+                overrideMaterial(source_node);
                 source_node.AddToGroup(SELECTED_GRP);
             }
         }
@@ -241,34 +240,40 @@ public partial class Editor : Node3D
             return;
         }
 
-        if (part.PartType == PartType.Wheels)
-        {
-            var body = SelectedBody;
-            foreach (var wheelAnchor in body.WheelAnchors)
-            {
-                var wheel = new VehicleWheel3D();
-                var instance = part.InstantiateScene();
-                wheel.AddChild(instance);
-                wheel.Position = wheelAnchor.AttachmentPoint;
-                wheel.Rotation = wheelAnchor.BaseRotation;
-                wheel.UseAsSteering = wheelAnchor.IsSteering;
-                wheel.UseAsTraction = wheelAnchor.IsTraction;
-                vehicle.AddChild(wheel);
-            }
-        }
-        else
-        {
-            var instance = part.InstantiateScene();
-            vehicle.AddChild(instance);
-        }
-
-        freezeNode(vehicle);
         if (part.PartType == PartType.Body || part.PartType == PartType.Wheels)
         {
             RemoveSelectedPartOfType(part.PartType);
         }
-        vehicle.RebuildWheels();
         selectedParts.Add(part);
+
+        vehicle.GetChildren().ToList().ForEach(c => c.Free());
+
+        foreach (var selectedPart in selectedParts)
+        {
+            if (selectedPart.PartType == PartType.Wheels)
+            {
+                var body = SelectedBody;
+                foreach (var wheelAnchor in body.WheelAnchors)
+                {
+                    var wheel = new VehicleWheel3D();
+                    var instance = selectedPart.InstantiateScene();
+                    wheel.AddChild(instance);
+                    wheel.Position = wheelAnchor.AttachmentPoint;
+                    wheel.Rotation = wheelAnchor.BaseRotation;
+                    wheel.UseAsSteering = wheelAnchor.IsSteering;
+                    wheel.UseAsTraction = wheelAnchor.IsTraction;
+                    vehicle.AddChild(wheel);
+                }
+            }
+            else
+            {
+                var instance = selectedPart.InstantiateScene();
+                vehicle.AddChild(instance);
+            }
+        }
+        vehicle.RebuildWheels();
+        freezeNode(vehicle);
+        RebuildMaterialContainer();
     }
 
     private void RemoveSelectedPartOfType(PartType part_type)
@@ -279,7 +284,6 @@ public partial class Editor : Node3D
             if (part.PartType != part_type)
             {
                 parts.Add(part);
-                // TODO somehow need to delete the thing from the scene tree
             }
         }
         selectedParts = parts;

@@ -32,6 +32,14 @@ public class BodyPart : VehiclePart
         silo.AddWheelAnchor(new Vector3(-1.5f, -0.8f, -3.0f), true, true);
         parts.Add(silo);
 
+        // box
+        var box = new BodyPart("Box", "res://assets/parts/body/box-body.tscn");
+        box.AddWheelAnchor(new Vector3(1.8f, -0.9f, 3.5f), true, true);
+        box.AddWheelAnchor(new Vector3(1.8f, -0.9f, -3.5f), true, true);
+        box.AddWheelAnchor(new Vector3(-1.8f, -0.9f, 3.5f), true, true);
+        box.AddWheelAnchor(new Vector3(-1.8f, -0.9f, -3.5f), true, true);
+        parts.Add(box);
+
         return parts;
     }
 }
