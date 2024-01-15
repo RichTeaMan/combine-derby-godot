@@ -24,6 +24,8 @@ public partial class CdVehicle : VehicleBody3D
     [Export]
     public float AcceleratingSoundDb { get; set; } = 6.0f;
 
+    public Camera3D Camera => this.ChildrenRecursive().FirstOrDefault(c => c is Camera3D) as Camera3D;
+
     private int UpsideDownFrames = 0;
 
     private string SteeringLeftInput;
@@ -72,6 +74,18 @@ public partial class CdVehicle : VehicleBody3D
         TractionWheels = tractionWheels.ToArray();
         SteeringWheels = steeringWheels.ToArray();
         GD.Print($"Found {steeringWheels.Count} steering wheels, {tractionWheels.Count} traction wheels.");
+    }
+
+    public void RebuildCamera()
+    {
+        foreach (var node in this.ChildrenRecursive())
+        {
+            if (node is VehicleCameraPivot)
+            {
+                node.QueueFree();
+            }
+        }
+        AddChild(new VehicleCameraPivot());
     }
 
     public override void _Ready()

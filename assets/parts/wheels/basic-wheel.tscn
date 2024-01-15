@@ -1,16 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://cu3cuupvdl3ne"]
+[gd_scene load_steps=2 format=3 uid="uid://cu3cuupvdl3ne"]
 
 [ext_resource type="PackedScene" uid="uid://buhkug341cp5g" path="res://assets/combine_back_wheel_2.glb" id="1_1sdkx"]
 
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_5ud0h"]
-height = 0.229609
-radius = 0.44503
-
-[node name="basic-wheel" type="RigidBody3D"]
-mass = 10.0
+[node name="basic-wheel" type="Node3D"]
 
 [node name="combine_back_wheel_2" parent="." instance=ExtResource("1_1sdkx")]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0.00675875, 0, 0)
-shape = SubResource("CylinderShape3D_5ud0h")

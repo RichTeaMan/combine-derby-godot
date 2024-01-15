@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://dyd4lioy8r5o7"]
+[gd_scene load_steps=20 format=3 uid="uid://dyd4lioy8r5o7"]
 
 [ext_resource type="Script" path="res://editor/Editor.cs" id="1_wdacw"]
 
@@ -50,6 +50,11 @@ height = 0.1
 [sub_resource type="PlaneMesh" id="PlaneMesh_ip8gj"]
 size = Vector2(100, 100)
 
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_vwy8d"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_5mf4m"]
+size = Vector3(100, 1, 100)
+
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_6ohtg"]
 sky_top_color = Color(0.329412, 0.454902, 0.635294, 1)
 sky_horizon_color = Color(0.498039, 0.666667, 0.886275, 1)
@@ -96,50 +101,65 @@ skeleton = NodePath("../../axis-x")
 [node name="container" type="Node3D" parent="gimbal"]
 unique_name_in_owner = true
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="gui" type="CanvasLayer" parent="."]
+unique_name_in_owner = true
 
-[node name="container_left" type="MarginContainer" parent="CanvasLayer" groups=["ui"]]
+[node name="container_left" type="MarginContainer" parent="gui" groups=["ui"]]
 anchors_preset = 9
 anchor_bottom = 1.0
 grow_vertical = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/container_left"]
+[node name="HBoxContainer" type="HBoxContainer" parent="gui/container_left"]
 layout_mode = 2
 
-[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/container_left/HBoxContainer"]
+[node name="CenterContainer" type="CenterContainer" parent="gui/container_left/HBoxContainer"]
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 
-[node name="type_filter_buttons" type="VBoxContainer" parent="CanvasLayer/container_left/HBoxContainer/CenterContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="gui/container_left/HBoxContainer/CenterContainer"]
 layout_mode = 2
 
-[node name="button_body_filter" type="Button" parent="CanvasLayer/container_left/HBoxContainer/CenterContainer/type_filter_buttons"]
+[node name="type_filter_buttons" type="VBoxContainer" parent="gui/container_left/HBoxContainer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="button_body_filter" type="Button" parent="gui/container_left/HBoxContainer/CenterContainer/VBoxContainer/type_filter_buttons"]
 layout_mode = 2
 text = "Body"
 
-[node name="button_wheel_filter" type="Button" parent="CanvasLayer/container_left/HBoxContainer/CenterContainer/type_filter_buttons"]
+[node name="button_wheel_filter" type="Button" parent="gui/container_left/HBoxContainer/CenterContainer/VBoxContainer/type_filter_buttons"]
 layout_mode = 2
 text = "Wheels"
 
-[node name="button_engine_filter" type="Button" parent="CanvasLayer/container_left/HBoxContainer/CenterContainer/type_filter_buttons"]
+[node name="button_engine_filter" type="Button" parent="gui/container_left/HBoxContainer/CenterContainer/VBoxContainer/type_filter_buttons"]
 layout_mode = 2
 text = "Engine"
 
-[node name="button_attachments_filter" type="Button" parent="CanvasLayer/container_left/HBoxContainer/CenterContainer/type_filter_buttons"]
+[node name="button_attachments_filter" type="Button" parent="gui/container_left/HBoxContainer/CenterContainer/VBoxContainer/type_filter_buttons"]
 layout_mode = 2
 text = "Attachments"
 
-[node name="parts_container" type="VBoxContainer" parent="CanvasLayer/container_left/HBoxContainer"]
+[node name="Control" type="Control" parent="gui/container_left/HBoxContainer/CenterContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="gui/container_left/HBoxContainer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="button_test_vehicle" type="Button" parent="gui/container_left/HBoxContainer/CenterContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Test your vehicle"
+
+[node name="parts_container" type="VBoxContainer" parent="gui/container_left/HBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 alignment = 1
 
-[node name="button_clear" type="Button" parent="CanvasLayer/container_left/HBoxContainer/parts_container"]
+[node name="button_clear" type="Button" parent="gui/container_left/HBoxContainer/parts_container"]
 layout_mode = 2
 text = "Clear"
 
-[node name="container_right" type="MarginContainer" parent="CanvasLayer" groups=["ui"]]
+[node name="container_right" type="MarginContainer" parent="gui" groups=["ui"]]
 anchors_preset = 11
 anchor_left = 1.0
 anchor_right = 1.0
@@ -147,13 +167,13 @@ anchor_bottom = 1.0
 grow_horizontal = 0
 grow_vertical = 2
 
-[node name="Panel" type="Panel" parent="CanvasLayer/container_right"]
+[node name="Panel" type="Panel" parent="gui/container_right"]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/container_right"]
+[node name="VBoxContainer" type="VBoxContainer" parent="gui/container_right"]
 layout_mode = 2
 
-[node name="ColorPicker" type="ColorPicker" parent="CanvasLayer/container_right/VBoxContainer"]
+[node name="ColorPicker" type="ColorPicker" parent="gui/container_right/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 edit_alpha = false
@@ -164,17 +184,23 @@ color_modes_visible = false
 hex_visible = false
 presets_visible = false
 
-[node name="Label" type="Label" parent="CanvasLayer/container_right/VBoxContainer"]
+[node name="Label" type="Label" parent="gui/container_right/VBoxContainer"]
 layout_mode = 2
 text = "Materials:"
 
-[node name="material_container" type="VBoxContainer" parent="CanvasLayer/container_right/VBoxContainer"]
+[node name="material_container" type="VBoxContainer" parent="gui/container_right/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -10, 0)
 mesh = SubResource("PlaneMesh_ip8gj")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D"]
+physics_material_override = SubResource("PhysicsMaterial_vwy8d")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D"]
+shape = SubResource("BoxShape3D_5mf4m")
 
 [node name="camera-pivot" type="Node3D" parent="."]
 transform = Transform3D(0.70859, -0.00359738, 0.705611, -0.219186, 0.949397, 0.224951, -0.670714, -0.314058, 0.671945, 0, 0, 0)
@@ -186,5 +212,6 @@ transform = Transform3D(0.973013, -0.230752, 0.000800937, 0.230645, 0.972444, -0
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_se4ag")
 
-[connection signal="pressed" from="CanvasLayer/container_left/HBoxContainer/parts_container/button_clear" to="." method="_onButtonClearPressed"]
-[connection signal="color_changed" from="CanvasLayer/container_right/VBoxContainer/ColorPicker" to="." method="_on_color_picker_color_changed"]
+[connection signal="pressed" from="gui/container_left/HBoxContainer/CenterContainer/VBoxContainer/VBoxContainer/button_test_vehicle" to="." method="_onButtonTestVehiclePressed"]
+[connection signal="pressed" from="gui/container_left/HBoxContainer/parts_container/button_clear" to="." method="_onButtonClearPressed"]
+[connection signal="color_changed" from="gui/container_right/VBoxContainer/ColorPicker" to="." method="_on_color_picker_color_changed"]

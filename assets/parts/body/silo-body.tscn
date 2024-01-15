@@ -6,14 +6,9 @@
 height = 10.1946
 radius = 0.991849
 
-[node name="silo_body" type="RigidBody3D"]
-mass = 500.0
-max_contacts_reported = 4
-contact_monitor = true
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="silo-body" type="CollisionShape3D"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
 shape = SubResource("CylinderShape3D_gkg5t")
 
-[node name="model" parent="CollisionShape3D" instance=ExtResource("1_qok6k")]
+[node name="model" parent="." instance=ExtResource("1_qok6k")]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)

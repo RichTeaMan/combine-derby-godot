@@ -2,6 +2,7 @@ using Godot;
 using System;
 using System.Linq;
 using System.Collections.Generic;
+using System.Collections;
 
 public partial class Editor : Node3D
 {
@@ -30,9 +31,11 @@ public partial class Editor : Node3D
 
     private Node3D Gimbal => GetNode<Node3D>("%gimbal");
 
-    private Node3D Camera => GetNode<Node3D>("%camera");
+    private Camera3D Camera => GetNode<Camera3D>("%camera");
 
     private ColorPicker ColourPicker => GetNode<ColorPicker>("%ColorPicker");
+
+    private CanvasLayer CanvasLayer => GetNode<CanvasLayer>("%gui");
 
     public override void _Ready()
     {
@@ -223,7 +226,6 @@ public partial class Editor : Node3D
 
     private void clearSelected()
     {
-
         foreach (var n in Container.GetTree().GetNodesInGroup(SELECTED_GRP))
         {
             n.RemoveFromGroup(SELECTED_GRP);
@@ -300,5 +302,19 @@ public partial class Editor : Node3D
             }
             return part;
         }
+    }
+
+    private void _onButtonTestVehiclePressed()
+    {
+        vehicle.RebuildCamera();
+        vehicle.Freeze = false;
+        vehicle.ChildrenRecursive()
+            .ToList()
+            .Select(c => c as RigidBody3D)
+            .Where(c => c != null)
+            .ToList()
+            .ForEach(c => c.Freeze = false);
+        Camera.Current = false;
+        vehicle.Camera.Current = true;
     }
 }

@@ -26,18 +26,18 @@ public class BodyPart : VehiclePart
 
         // silo
         var silo = new BodyPart("Silo", "res://assets/parts/body/silo-body.tscn");
-        silo.AddWheelAnchor(new Vector3(1.5f, -0.8f, 3.0f), true, true);
-        silo.AddWheelAnchor(new Vector3(1.5f, -0.8f, -3.0f), true, true);
-        silo.AddWheelAnchor(new Vector3(-1.5f, -0.8f, 3.0f), true, true);
-        silo.AddWheelAnchor(new Vector3(-1.5f, -0.8f, -3.0f), true, true);
+        silo.AddWheelAnchor(new Vector3(1.5f, -0.8f, 3.0f), false, true);
+        silo.AddWheelAnchor(new Vector3(1.5f, -0.8f, -3.0f), true, false);
+        silo.AddWheelAnchor(new Vector3(-1.5f, -0.8f, 3.0f), false, true);
+        silo.AddWheelAnchor(new Vector3(-1.5f, -0.8f, -3.0f), true, false);
         parts.Add(silo);
 
         // box
         var box = new BodyPart("Box", "res://assets/parts/body/box-body.tscn");
-        box.AddWheelAnchor(new Vector3(1.8f, -0.9f, 3.5f), true, true);
-        box.AddWheelAnchor(new Vector3(1.8f, -0.9f, -3.5f), true, true);
-        box.AddWheelAnchor(new Vector3(-1.8f, -0.9f, 3.5f), true, true);
-        box.AddWheelAnchor(new Vector3(-1.8f, -0.9f, -3.5f), true, true);
+        box.AddWheelAnchor(new Vector3(1.8f, -0.9f, 3.5f), false, true);
+        box.AddWheelAnchor(new Vector3(1.8f, -0.9f, -3.5f), true, false);
+        box.AddWheelAnchor(new Vector3(-1.8f, -0.9f, 3.5f), false, true);
+        box.AddWheelAnchor(new Vector3(-1.8f, -0.9f, -3.5f), true, false);
         parts.Add(box);
 
         return parts;
