@@ -59,6 +59,11 @@ sky_material = SubResource("ProceduralSkyMaterial_6ohtg")
 background_mode = 2
 sky = SubResource("Sky_7fhfx")
 
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_vwy8d"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_5mf4m"]
+size = Vector3(100, 1, 100)
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nx7gj"]
 albedo_texture = ExtResource("2_giutx")
 heightmap_enabled = true
@@ -67,11 +72,6 @@ uv1_scale = Vector3(50, 50, 50)
 [sub_resource type="PlaneMesh" id="PlaneMesh_ip8gj"]
 material = SubResource("StandardMaterial3D_nx7gj")
 size = Vector2(100, 100)
-
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_vwy8d"]
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_5mf4m"]
-size = Vector3(100, 1, 100)
 
 [node name="Editor" type="Node3D"]
 script = ExtResource("1_wdacw")
@@ -232,16 +232,19 @@ environment = SubResource("Environment_se4ag")
 [node name="test-container" type="Node3D" parent="."]
 unique_name_in_owner = true
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="test-container"]
+[node name="ground" type="Node3D" parent="test-container"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -10, 0)
-mesh = SubResource("PlaneMesh_ip8gj")
-skeleton = NodePath("../..")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="test-container/MeshInstance3D"]
+[node name="StaticBody3D" type="StaticBody3D" parent="test-container/ground"]
 physics_material_override = SubResource("PhysicsMaterial_vwy8d")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="test-container/MeshInstance3D/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="test-container/ground/StaticBody3D"]
 shape = SubResource("BoxShape3D_5mf4m")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="test-container/ground"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+mesh = SubResource("PlaneMesh_ip8gj")
+skeleton = NodePath("../../..")
 
 [connection signal="pressed" from="gui/container_left/HBoxContainer/parts_container/button_clear" to="." method="_onButtonClearPressed"]
 [connection signal="color_changed" from="gui/container_right/VBoxContainer/ColorPicker" to="." method="_on_color_picker_color_changed"]
