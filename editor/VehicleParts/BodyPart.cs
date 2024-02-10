@@ -9,6 +9,11 @@ public class BodyPart : VehiclePart
 
     private List<WheelAnchor> _wheelAnchors = new();
 
+    /// <summary>
+    /// The mass, in kg.
+    /// </summary>
+    public float Mass { get; set; } = 100.0f;
+
     public BodyPart(string name, string scenePath) : base(name, scenePath)
     {
         PartType = PartType.Body;

@@ -99,7 +99,7 @@ public partial class CdVehicle : VehicleBody3D
 
     public override void _PhysicsProcess(double delta)
     {
-        Steering = Mathf.Lerp(Steering, Input.GetAxis(SteeringRightInput, SteeringLeftInput) * -0.4f, 2.0f * (float)delta);
+        Steering = Mathf.Lerp(Steering, Input.GetAxis(SteeringLeftInput, SteeringRightInput) * -0.4f, 2.0f * (float)delta);
         var acceleration = Input.GetAxis(BackInput, ForwardInput);
 
         foreach (var wheel in TractionWheels)

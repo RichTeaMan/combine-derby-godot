@@ -1,6 +1,7 @@
-[gd_scene load_steps=20 format=3 uid="uid://dyd4lioy8r5o7"]
+[gd_scene load_steps=22 format=3 uid="uid://dyd4lioy8r5o7"]
 
 [ext_resource type="Script" path="res://editor/Editor.cs" id="1_wdacw"]
+[ext_resource type="Texture2D" uid="uid://4htfsqr8e3kl" path="res://assets/textures/blueprint.png" id="2_giutx"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cfu7m"]
 albedo_color = Color(1, 0, 0, 1)
@@ -47,14 +48,6 @@ material = SubResource("StandardMaterial3D_j54xq")
 radius = 0.05
 height = 0.1
 
-[sub_resource type="PlaneMesh" id="PlaneMesh_ip8gj"]
-size = Vector2(100, 100)
-
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_vwy8d"]
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_5mf4m"]
-size = Vector3(100, 1, 100)
-
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_6ohtg"]
 sky_top_color = Color(0.329412, 0.454902, 0.635294, 1)
 sky_horizon_color = Color(0.498039, 0.666667, 0.886275, 1)
@@ -65,6 +58,20 @@ sky_material = SubResource("ProceduralSkyMaterial_6ohtg")
 [sub_resource type="Environment" id="Environment_se4ag"]
 background_mode = 2
 sky = SubResource("Sky_7fhfx")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nx7gj"]
+albedo_texture = ExtResource("2_giutx")
+heightmap_enabled = true
+uv1_scale = Vector3(50, 50, 50)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_ip8gj"]
+material = SubResource("StandardMaterial3D_nx7gj")
+size = Vector2(100, 100)
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_vwy8d"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_5mf4m"]
+size = Vector3(100, 1, 100)
 
 [node name="Editor" type="Node3D"]
 script = ExtResource("1_wdacw")
@@ -192,16 +199,6 @@ text = "Materials:"
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -10, 0)
-mesh = SubResource("PlaneMesh_ip8gj")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D"]
-physics_material_override = SubResource("PhysicsMaterial_vwy8d")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D"]
-shape = SubResource("BoxShape3D_5mf4m")
-
 [node name="camera-pivot" type="Node3D" parent="."]
 transform = Transform3D(0.70859, -0.00359738, 0.705611, -0.219186, 0.949397, 0.224951, -0.670714, -0.314058, 0.671945, 0, 0, 0)
 
@@ -211,6 +208,20 @@ transform = Transform3D(0.973013, -0.230752, 0.000800937, 0.230645, 0.972444, -0
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_se4ag")
+
+[node name="test-container" type="Node3D" parent="."]
+unique_name_in_owner = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="test-container"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -10, 0)
+mesh = SubResource("PlaneMesh_ip8gj")
+skeleton = NodePath("../..")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="test-container/MeshInstance3D"]
+physics_material_override = SubResource("PhysicsMaterial_vwy8d")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="test-container/MeshInstance3D/StaticBody3D"]
+shape = SubResource("BoxShape3D_5mf4m")
 
 [connection signal="pressed" from="gui/container_left/HBoxContainer/CenterContainer/VBoxContainer/VBoxContainer/button_test_vehicle" to="." method="_onButtonTestVehiclePressed"]
 [connection signal="pressed" from="gui/container_left/HBoxContainer/parts_container/button_clear" to="." method="_onButtonClearPressed"]
