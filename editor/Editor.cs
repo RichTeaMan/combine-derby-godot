@@ -39,6 +39,14 @@ public partial class Editor : Node3D
 
 	private CanvasLayer CanvasLayer => GetNode<CanvasLayer>("%gui");
 
+	private Button BodyPartButton => GetNode<Button>("%button_body_filter");
+
+	private Button TestVehicleButton => GetNode<Button>("%button_test_vehicle");
+
+	private Button BuildButtonButton => GetNode<Button>("%button_build_mode");
+
+	private bool buildMode = true;
+
 	public override void _Ready()
 	{
 		base._Ready();
@@ -62,6 +70,9 @@ public partial class Editor : Node3D
 			partButton.Pressed += () => { partButtonPressed(part); };
 			PartsContainer.AddChild(partButton);
 		}
+
+		BodyPartButton.GrabFocus();
+		resetGui();
 	}
 
 	public override void _UnhandledInput(InputEvent _inputEvent)
@@ -74,6 +85,25 @@ public partial class Editor : Node3D
 		if (Input.IsActionJustReleased("rotate"))
 		{
 			rotating = false;
+		}
+		if (Input.IsActionJustReleased("ui_alt"))
+		{
+			if (buildMode)
+			{
+				_onButtonTestVehiclePressed();
+			}
+			else
+			{
+				_onButtonBuildModePressed();
+			}
+		}
+		if (Input.IsActionJustPressed("ui_confirm"))
+		{
+			var focused = GetViewport().GuiGetFocusOwner();
+			if (focused != null)
+			{
+				focused.EmitSignal("pressed");
+			}
 		}
 	}
 
@@ -104,6 +134,19 @@ public partial class Editor : Node3D
 		{
 			c.QueueFree();
 		}
+	}
+
+	private void resetGui()
+	{
+		CanvasLayer.ChildrenRecursive()
+			.Select(n => n as Control)
+			.Where(n => n != null)
+			.Where(n => n is not Godot.Container || n is ColorPicker)
+			.ToList()
+			.ForEach(n => n.Visible = buildMode);
+		Gimbal.Visible = buildMode;
+		TestVehicleButton.Visible = buildMode;
+		BuildButtonButton.Visible = !buildMode;
 	}
 
 	private void RebuildMaterialContainer()
@@ -248,10 +291,17 @@ public partial class Editor : Node3D
 		{
 			RemoveSelectedPartOfType(part.PartType);
 		}
-		if (part is BodyPart bodyPart) {
+		if (part is BodyPart bodyPart)
+		{
 			vehicle.Mass = bodyPart.Mass;
 		}
 		selectedParts.Add(part);
+
+		rebuildFromParts();
+	}
+
+	private void rebuildFromParts()
+	{
 
 		vehicle.GetChildren().ToList().ForEach(c => c.Free());
 
@@ -266,7 +316,7 @@ public partial class Editor : Node3D
 					var instance = selectedPart.InstantiateScene();
 					wheel.AddChild(instance);
 					wheel.Position = wheelAnchor.AttachmentPoint;
-					//wheel.Rotation = wheelAnchor.BaseRotation;
+					instance.Rotation = wheelAnchor.BaseRotation;
 					wheel.UseAsSteering = wheelAnchor.IsSteering;
 					wheel.UseAsTraction = wheelAnchor.IsTraction;
 					//wheel.WheelFrictionSlip = 1.0f;
@@ -313,6 +363,10 @@ public partial class Editor : Node3D
 
 	private void _onButtonTestVehiclePressed()
 	{
+		if (!buildMode)
+		{
+			return;
+		}
 		vehicle.Mass = 10.0f;
 		vehicle.RebuildCamera();
 		vehicle.Freeze = false;
@@ -326,5 +380,28 @@ public partial class Editor : Node3D
 		vehicle.Camera.Current = true;
 
 		vehicle.Reparent(TestContainer);
+		vehicle.Transform = Transform3D.Identity;
+		buildMode = false;
+
+		resetGui();
+	}
+
+	private void _onButtonBuildModePressed()
+	{
+		if (buildMode)
+		{
+			return;
+		}
+		Camera.Current = true;
+		vehicle.Camera.Current = false;
+
+		vehicle.Reparent(Container);
+		vehicle.Transform = Transform3D.Identity;
+		buildMode = true;
+		TestVehicleButton.Visible = buildMode;
+		BuildButtonButton.Visible = !buildMode;
+
+		resetGui();
+		rebuildFromParts();
 	}
 }

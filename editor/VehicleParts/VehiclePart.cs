@@ -23,9 +23,9 @@ public abstract class VehiclePart
         SceneAsset = GD.Load<PackedScene>(scenePath);
     }
 
-    public Node InstantiateScene()
+    public Node3D InstantiateScene()
     {
-        return SceneAsset.Instantiate();
+        return (Node3D)SceneAsset.Instantiate();
     }
 
     public static List<VehiclePart> PartsInit()

@@ -115,9 +115,11 @@ unique_name_in_owner = true
 anchors_preset = 9
 anchor_bottom = 1.0
 grow_vertical = 2
+theme_override_constants/margin_left = 20
 
 [node name="HBoxContainer" type="HBoxContainer" parent="gui/container_left"]
 layout_mode = 2
+theme_override_constants/separation = 10
 
 [node name="CenterContainer" type="CenterContainer" parent="gui/container_left/HBoxContainer"]
 custom_minimum_size = Vector2(80, 0)
@@ -130,11 +132,14 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="button_body_filter" type="Button" parent="gui/container_left/HBoxContainer/CenterContainer/VBoxContainer/type_filter_buttons"]
+unique_name_in_owner = true
 layout_mode = 2
+focus_neighbor_bottom = NodePath("../button_wheel_filter")
 text = "Body"
 
 [node name="button_wheel_filter" type="Button" parent="gui/container_left/HBoxContainer/CenterContainer/VBoxContainer/type_filter_buttons"]
 layout_mode = 2
+focus_neighbor_top = NodePath("../button_body_filter")
 text = "Wheels"
 
 [node name="button_engine_filter" type="Button" parent="gui/container_left/HBoxContainer/CenterContainer/VBoxContainer/type_filter_buttons"]
@@ -151,10 +156,6 @@ layout_mode = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="gui/container_left/HBoxContainer/CenterContainer/VBoxContainer"]
 layout_mode = 2
-
-[node name="button_test_vehicle" type="Button" parent="gui/container_left/HBoxContainer/CenterContainer/VBoxContainer/VBoxContainer"]
-layout_mode = 2
-text = "Test your vehicle"
 
 [node name="parts_container" type="VBoxContainer" parent="gui/container_left/HBoxContainer"]
 unique_name_in_owner = true
@@ -199,6 +200,25 @@ text = "Materials:"
 unique_name_in_owner = true
 layout_mode = 2
 
+[node name="container_top" type="MarginContainer" parent="gui"]
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+theme_override_constants/margin_top = 20
+
+[node name="CenterContainer" type="CenterContainer" parent="gui/container_top"]
+layout_mode = 2
+
+[node name="button_test_vehicle" type="Button" parent="gui/container_top/CenterContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "(Y) Test your vehicle"
+
+[node name="button_build_mode" type="Button" parent="gui/container_top/CenterContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "(Y) Back to build mode"
+
 [node name="camera-pivot" type="Node3D" parent="."]
 transform = Transform3D(0.70859, -0.00359738, 0.705611, -0.219186, 0.949397, 0.224951, -0.670714, -0.314058, 0.671945, 0, 0, 0)
 
@@ -223,6 +243,7 @@ physics_material_override = SubResource("PhysicsMaterial_vwy8d")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="test-container/MeshInstance3D/StaticBody3D"]
 shape = SubResource("BoxShape3D_5mf4m")
 
-[connection signal="pressed" from="gui/container_left/HBoxContainer/CenterContainer/VBoxContainer/VBoxContainer/button_test_vehicle" to="." method="_onButtonTestVehiclePressed"]
 [connection signal="pressed" from="gui/container_left/HBoxContainer/parts_container/button_clear" to="." method="_onButtonClearPressed"]
 [connection signal="color_changed" from="gui/container_right/VBoxContainer/ColorPicker" to="." method="_on_color_picker_color_changed"]
+[connection signal="pressed" from="gui/container_top/CenterContainer/button_test_vehicle" to="." method="_onButtonTestVehiclePressed"]
+[connection signal="pressed" from="gui/container_top/CenterContainer/button_build_mode" to="." method="_onButtonBuildModePressed"]
