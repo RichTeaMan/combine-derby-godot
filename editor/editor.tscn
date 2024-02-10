@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://dyd4lioy8r5o7"]
+[gd_scene load_steps=25 format=3 uid="uid://dyd4lioy8r5o7"]
 
 [ext_resource type="Script" path="res://editor/Editor.cs" id="1_wdacw"]
 [ext_resource type="Texture2D" uid="uid://4htfsqr8e3kl" path="res://assets/textures/blueprint.png" id="2_giutx"]
@@ -72,6 +72,19 @@ uv1_scale = Vector3(50, 50, 50)
 [sub_resource type="PlaneMesh" id="PlaneMesh_ip8gj"]
 material = SubResource("StandardMaterial3D_nx7gj")
 size = Vector2(100, 100)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_tk4w7"]
+size = Vector3(100, 5, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bfuud"]
+albedo_texture = ExtResource("2_giutx")
+heightmap_enabled = true
+uv1_scale = Vector3(50, 2.5, 50)
+uv1_offset = Vector3(0, 0.695, 0)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_cp7pa"]
+material = SubResource("StandardMaterial3D_bfuud")
+size = Vector2(100, 5)
 
 [node name="Editor" type="Node3D"]
 script = ExtResource("1_wdacw")
@@ -244,6 +257,62 @@ shape = SubResource("BoxShape3D_5mf4m")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="test-container/ground"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
 mesh = SubResource("PlaneMesh_ip8gj")
+skeleton = NodePath("../../..")
+
+[node name="wall-1" type="Node3D" parent="test-container"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -8, -50)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="test-container/wall-1"]
+physics_material_override = SubResource("PhysicsMaterial_vwy8d")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="test-container/wall-1/StaticBody3D"]
+shape = SubResource("BoxShape3D_tk4w7")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="test-container/wall-1"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, -0.5, 0)
+mesh = SubResource("PlaneMesh_cp7pa")
+skeleton = NodePath("../../..")
+
+[node name="wall-2" type="Node3D" parent="test-container"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 50, -8, 0)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="test-container/wall-2"]
+physics_material_override = SubResource("PhysicsMaterial_vwy8d")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="test-container/wall-2/StaticBody3D"]
+shape = SubResource("BoxShape3D_tk4w7")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="test-container/wall-2"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, -0.5, 0)
+mesh = SubResource("PlaneMesh_cp7pa")
+skeleton = NodePath("../../..")
+
+[node name="wall-3" type="Node3D" parent="test-container"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -50, -8, 0)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="test-container/wall-3"]
+physics_material_override = SubResource("PhysicsMaterial_vwy8d")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="test-container/wall-3/StaticBody3D"]
+shape = SubResource("BoxShape3D_tk4w7")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="test-container/wall-3"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, -0.5, 0)
+mesh = SubResource("PlaneMesh_cp7pa")
+skeleton = NodePath("../../..")
+
+[node name="wall-4" type="Node3D" parent="test-container"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, -8, 50)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="test-container/wall-4"]
+physics_material_override = SubResource("PhysicsMaterial_vwy8d")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="test-container/wall-4/StaticBody3D"]
+shape = SubResource("BoxShape3D_tk4w7")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="test-container/wall-4"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, -0.5, 0)
+mesh = SubResource("PlaneMesh_cp7pa")
 skeleton = NodePath("../../..")
 
 [connection signal="pressed" from="gui/container_left/HBoxContainer/parts_container/button_clear" to="." method="_onButtonClearPressed"]
