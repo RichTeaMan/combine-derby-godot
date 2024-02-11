@@ -4,7 +4,8 @@
 
 [sub_resource type="Environment" id="Environment_cidhj"]
 background_mode = 1
-background_color = Color(1, 1, 1, 0)
+background_color = Color(1, 0, 1, 1)
+ambient_light_source = 2
 ambient_light_color = Color(1, 1, 1, 1)
 
 [node name="RenderStudio" type="Node3D"]
@@ -19,3 +20,28 @@ environment = SubResource("Environment_cidhj")
 
 [node name="container" type="Node3D" parent="."]
 unique_name_in_owner = true
+
+[node name="ui" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="MarginContainer" type="MarginContainer" parent="ui"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 40
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ui/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ui/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+text = "Press F12 to take a screenshot."
+
+[node name="label_status" type="Label" parent="ui/MarginContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
