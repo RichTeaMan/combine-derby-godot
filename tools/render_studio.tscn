@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://qnjjgi372vgl"]
+
+[ext_resource type="Script" path="res://tools/scripts/RenderStudio.cs" id="1_hk13v"]
+
+[sub_resource type="Environment" id="Environment_cidhj"]
+background_mode = 1
+background_color = Color(1, 1, 1, 0)
+ambient_light_color = Color(1, 1, 1, 1)
+
+[node name="RenderStudio" type="Node3D"]
+script = ExtResource("1_hk13v")
+
+[node name="camera" type="Camera3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3.83224)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_cidhj")
+
+[node name="container" type="Node3D" parent="."]
+unique_name_in_owner = true

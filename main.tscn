@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://2hc0yq32ifwb"]
+
+[ext_resource type="Script" path="res://scripts/ProgStart.cs" id="1_4h1pq"]
+
+[node name="Main" type="Node"]
+script = ExtResource("1_4h1pq")

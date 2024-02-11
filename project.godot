@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="combine-derby"
-run/main_scene="res://editor/editor.tscn"
+run/main_scene="res://main.tscn"
 config/features=PackedStringArray("4.2", "C#")
 boot_splash/image="res://assets/icon/icon_512.png"
 config/icon="res://icon.png"
@@ -30,6 +30,10 @@ window/size/viewport_height=1080
 [dotnet]
 
 project/assembly_name="combine-derby"
+
+[editor]
+
+run/main_run_args="--render=assets/parts/wheels/disc-wheel.tscn"
 
 [global]
 
@@ -129,6 +133,11 @@ ui_back={
 ui_alt={
 "deadzone": 0.5,
 "events": [Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"button_index":3,"pressure":0.0,"pressed":true,"script":null)
+]
+}
+screenshot={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194343,"key_label":0,"unicode":0,"echo":false,"script":null)
 ]
 }
 
