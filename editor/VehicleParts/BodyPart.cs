@@ -9,11 +9,6 @@ public class BodyPart : VehiclePart
 
     private List<WheelAnchor> _wheelAnchors = new();
 
-    /// <summary>
-    /// The mass, in kg.
-    /// </summary>
-    public float Mass { get; set; } = 100.0f;
-
     public BodyPart(string name, string scenePath) : base(name, scenePath)
     {
         PartType = PartType.Body;
@@ -30,7 +25,10 @@ public class BodyPart : VehiclePart
         var parts = new List<BodyPart>();
 
         // silo
-        var silo = new BodyPart("Silo", "res://assets/parts/body/silo-body.tscn");
+        var silo = new BodyPart("Silo", "res://assets/parts/body/silo-body.tscn") {
+            Description = "An old corn silo, bravely and tragically repurposed into a chassis.",
+            Mass = 100.0f
+        };
         silo.AddWheelAnchor(new Vector3(1.5f, -0.8f, 3.0f), false, true);
         silo.AddWheelAnchor(new Vector3(1.5f, -0.8f, -3.0f), true, false);
         silo.AddWheelAnchor(new Vector3(-1.5f, -0.8f, 3.0f), false, true);
@@ -38,7 +36,10 @@ public class BodyPart : VehiclePart
         parts.Add(silo);
 
         // box
-        var box = new BodyPart("Box", "res://assets/parts/body/box-body.tscn");
+        var box = new BodyPart("Box", "res://assets/parts/body/box-body.tscn"){
+            Description = "A box. For boxing?",
+            Mass = 200.0f
+        };
         box.AddWheelAnchor(new Vector3(1.8f, -0.9f, 3.5f), false, true);
         box.AddWheelAnchor(new Vector3(1.8f, -0.9f, -3.5f), true, false);
         box.AddWheelAnchor(new Vector3(-1.8f, -0.9f, 3.5f), false, true);

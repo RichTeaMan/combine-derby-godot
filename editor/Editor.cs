@@ -45,6 +45,10 @@ public partial class Editor : Node3D
 
 	private Button BuildButtonButton => GetNode<Button>("%button_build_mode");
 
+	private Label PartMass => GetNode<Label>("%part_mass");
+
+	private Label PartDescription => GetNode<Label>("%part_description");
+
 	private bool buildMode = true;
 
 	public override void _Ready()
@@ -68,11 +72,19 @@ public partial class Editor : Node3D
 				Text = part.Name
 			};
 			partButton.Pressed += () => { partButtonPressed(part); };
+			partButton.FocusEntered += () => { partHovered(part); };
+			partButton.MouseEntered += () => { partHovered(part); };
 			PartsContainer.AddChild(partButton);
 		}
 
 		BodyPartButton.GrabFocus();
 		resetGui();
+	}
+
+	private void partHovered(VehiclePart vehiclePart)
+	{
+		PartDescription.Text = vehiclePart.Description;
+		PartMass.Text = $"{vehiclePart.Mass} kg";
 	}
 
 	public override void _UnhandledInput(InputEvent _inputEvent)

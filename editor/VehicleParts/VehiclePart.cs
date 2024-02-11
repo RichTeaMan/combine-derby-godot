@@ -16,6 +16,13 @@ public abstract class VehiclePart
     public PartType PartType { get; protected set; }
     public PackedScene SceneAsset { get; protected set; }
 
+    /// <summary>
+    /// The mass, in kg.
+    /// </summary>
+    public float Mass { get; protected set; } = 1.0f;
+
+    public string Description { get; protected set; }
+
     protected VehiclePart(string name, string scenePath)
     {
 

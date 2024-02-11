@@ -170,13 +170,31 @@ layout_mode = 2
 [node name="VBoxContainer" type="VBoxContainer" parent="gui/container_left/HBoxContainer/CenterContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="parts_container" type="VBoxContainer" parent="gui/container_left/HBoxContainer"]
+[node name="MarginContainer" type="VBoxContainer" parent="gui/container_left/HBoxContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="gui/container_left/HBoxContainer/MarginContainer"]
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="gui/container_left/HBoxContainer/MarginContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="part_mass" type="Label" parent="gui/container_left/HBoxContainer/MarginContainer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="part_description" type="Label" parent="gui/container_left/HBoxContainer/MarginContainer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="parts_container" type="VBoxContainer" parent="gui/container_left/HBoxContainer/MarginContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 alignment = 1
 
-[node name="button_clear" type="Button" parent="gui/container_left/HBoxContainer/parts_container"]
+[node name="button_clear" type="Button" parent="gui/container_left/HBoxContainer/MarginContainer/parts_container"]
 layout_mode = 2
 text = "Clear"
 
@@ -315,7 +333,7 @@ transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, -0.
 mesh = SubResource("PlaneMesh_cp7pa")
 skeleton = NodePath("../../..")
 
-[connection signal="pressed" from="gui/container_left/HBoxContainer/parts_container/button_clear" to="." method="_onButtonClearPressed"]
+[connection signal="pressed" from="gui/container_left/HBoxContainer/MarginContainer/parts_container/button_clear" to="." method="_onButtonClearPressed"]
 [connection signal="color_changed" from="gui/container_right/VBoxContainer/ColorPicker" to="." method="_on_color_picker_color_changed"]
 [connection signal="pressed" from="gui/container_top/CenterContainer/button_test_vehicle" to="." method="_onButtonTestVehiclePressed"]
 [connection signal="pressed" from="gui/container_top/CenterContainer/button_build_mode" to="." method="_onButtonBuildModePressed"]
