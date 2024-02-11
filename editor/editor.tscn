@@ -139,6 +139,7 @@ custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="gui/container_left/HBoxContainer/CenterContainer"]
+custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 
 [node name="type_filter_buttons" type="VBoxContainer" parent="gui/container_left/HBoxContainer/CenterContainer/VBoxContainer"]
@@ -174,17 +175,19 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="gui/container_left/HBoxContainer/MarginContainer"]
-custom_minimum_size = Vector2(0, 200)
 layout_mode = 2
+theme_override_constants/margin_top = 200
 
 [node name="VBoxContainer" type="VBoxContainer" parent="gui/container_left/HBoxContainer/MarginContainer/MarginContainer"]
 layout_mode = 2
 
-[node name="part_mass" type="Label" parent="gui/container_left/HBoxContainer/MarginContainer/MarginContainer/VBoxContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-
 [node name="part_description" type="Label" parent="gui/container_left/HBoxContainer/MarginContainer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(300, 200)
+layout_mode = 2
+autowrap_mode = 3
+
+[node name="part_mass" type="Label" parent="gui/container_left/HBoxContainer/MarginContainer/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 
@@ -237,18 +240,28 @@ anchor_right = 1.0
 grow_horizontal = 2
 theme_override_constants/margin_top = 20
 
-[node name="CenterContainer" type="CenterContainer" parent="gui/container_top"]
+[node name="VBoxContainer" type="VBoxContainer" parent="gui/container_top"]
 layout_mode = 2
 
-[node name="button_test_vehicle" type="Button" parent="gui/container_top/CenterContainer"]
+[node name="CenterContainer" type="CenterContainer" parent="gui/container_top/VBoxContainer"]
+layout_mode = 2
+
+[node name="button_test_vehicle" type="Button" parent="gui/container_top/VBoxContainer/CenterContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "(Y) Test your vehicle"
 
-[node name="button_build_mode" type="Button" parent="gui/container_top/CenterContainer"]
+[node name="button_build_mode" type="Button" parent="gui/container_top/VBoxContainer/CenterContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "(Y) Back to build mode"
+
+[node name="CenterContainer2" type="CenterContainer" parent="gui/container_top/VBoxContainer"]
+layout_mode = 2
+
+[node name="label_mass" type="Label" parent="gui/container_top/VBoxContainer/CenterContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
 
 [node name="camera-pivot" type="Node3D" parent="."]
 transform = Transform3D(0.70859, -0.00359738, 0.705611, -0.219186, 0.949397, 0.224951, -0.670714, -0.314058, 0.671945, 0, 0, 0)
@@ -335,5 +348,5 @@ skeleton = NodePath("../../..")
 
 [connection signal="pressed" from="gui/container_left/HBoxContainer/MarginContainer/parts_container/button_clear" to="." method="_onButtonClearPressed"]
 [connection signal="color_changed" from="gui/container_right/VBoxContainer/ColorPicker" to="." method="_on_color_picker_color_changed"]
-[connection signal="pressed" from="gui/container_top/CenterContainer/button_test_vehicle" to="." method="_onButtonTestVehiclePressed"]
-[connection signal="pressed" from="gui/container_top/CenterContainer/button_build_mode" to="." method="_onButtonBuildModePressed"]
+[connection signal="pressed" from="gui/container_top/VBoxContainer/CenterContainer/button_test_vehicle" to="." method="_onButtonTestVehiclePressed"]
+[connection signal="pressed" from="gui/container_top/VBoxContainer/CenterContainer/button_build_mode" to="." method="_onButtonBuildModePressed"]

@@ -49,6 +49,8 @@ public partial class Editor : Node3D
 
 	private Label PartDescription => GetNode<Label>("%part_description");
 
+	private Label MassLabel => GetNode<Label>("%label_mass");
+
 	private bool buildMode = true;
 
 	public override void _Ready()
@@ -316,6 +318,7 @@ public partial class Editor : Node3D
 	{
 
 		vehicle.GetChildren().ToList().ForEach(c => c.Free());
+		float mass = 0;
 
 		foreach (var selectedPart in selectedParts)
 		{
@@ -334,15 +337,19 @@ public partial class Editor : Node3D
 					//wheel.WheelFrictionSlip = 1.0f;
 					GD.Print($"friction: {wheel.WheelFrictionSlip}");
 					vehicle.AddChild(wheel);
+					mass += selectedPart.Mass;
 				}
 			}
 			else
 			{
 				var instance = selectedPart.InstantiateScene();
 				vehicle.AddChild(instance);
+				mass += selectedPart.Mass;
 			}
 		}
 		vehicle.RebuildWheels();
+		vehicle.Mass = mass;
+		MassLabel.Text = $"{vehicle.Mass} kg";
 		freezeNode(vehicle);
 		RebuildMaterialContainer();
 	}
