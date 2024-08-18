@@ -69,14 +69,33 @@ public partial class Editor : Node3D
         var parts = VehiclePart.PartsInit();
         foreach (var part in parts)
         {
+            var img = Image.LoadFromFile(part.ImageUri ?? "res://assets/unknown.png");
+            var tex = ImageTexture.CreateFromImage(img);
+            var imageButton = new TextureButton
+            {
+                TextureNormal = tex,
+                CustomMinimumSize = new Vector2(128.0f, 128.0f),
+                IgnoreTextureSize = true,
+                StretchMode = TextureButton.StretchModeEnum.Scale,
+                SizeFlagsHorizontal = Control.SizeFlags.ShrinkBegin,
+                SizeFlagsVertical = Control.SizeFlags.ShrinkBegin
+            };
+            imageButton.Pressed += () => { partButtonPressed(part); };
+            imageButton.FocusEntered += () => { partHovered(part); };
+            imageButton.MouseEntered += () => { partHovered(part); };
             var partButton = new Button
             {
-                Text = part.Name
+                Text = $"{part.Name}\n\n{part.Description}",
+                CustomMinimumSize = new Vector2(512.0f, 128.0f),
+                TextOverrunBehavior = TextServer.OverrunBehavior.TrimEllipsis
             };
             partButton.Pressed += () => { partButtonPressed(part); };
             partButton.FocusEntered += () => { partHovered(part); };
             partButton.MouseEntered += () => { partHovered(part); };
-            PartsContainer.AddChild(partButton);
+            var row = new HBoxContainer();
+            row.AddChild(imageButton);
+            row.AddChild(partButton);
+            PartsContainer.AddChild(row);
         }
 
         BodyPartButton.GrabFocus();

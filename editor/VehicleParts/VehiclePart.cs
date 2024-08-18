@@ -23,6 +23,8 @@ public abstract class VehiclePart
 
     public string Description { get; protected set; }
 
+    public string ImageUri { get; protected set; } = null;
+
     protected VehiclePart(string name, string scenePath)
     {
 
