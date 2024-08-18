@@ -121,6 +121,19 @@ public partial class Editor : Node3D
         resetGui();
     }
 
+    public override void _ExitTree()
+    {
+        base._ExitTree();
+    }
+
+    protected override void Dispose(bool disposing)
+    {
+        foreach(var pair in partControlPairs) {
+            pair.Value.QueueFree();
+        }
+        base.Dispose(disposing);
+    }
+
     private void FilterPressed(PartType partType)
     {
         foreach (var control in PartsContainer.GetChildren())
