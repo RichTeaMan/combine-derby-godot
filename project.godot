@@ -33,7 +33,7 @@ project/assembly_name="combine-derby"
 
 [editor]
 
-run/main_run_args="--render=assets/parts/wheels/disc-wheel.tscn"
+run/main_run_args="--vehicle-editor"
 
 [global]
 
