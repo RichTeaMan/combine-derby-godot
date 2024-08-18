@@ -37,6 +37,15 @@ public abstract class VehiclePart
         return (Node3D)SceneAsset.Instantiate();
     }
 
+    /// <summary>
+    /// Fetches cells that should be displayed in tabular for for a particular part.
+    /// </summary>
+    /// <returns></returns>
+    public virtual string[] FetchEditorDataCells()
+    {
+        return Array.Empty<string>();
+    }
+
     public static List<VehiclePart> PartsInit()
     {
 

@@ -20,6 +20,11 @@ public class BodyPart : VehiclePart
         _wheelAnchors.Add(anchor);
     }
 
+    public override string[] FetchEditorDataCells()
+    {
+        return new []{ $"{Mass} kg" };
+    }
+
     public static List<BodyPart> BodyPartsInit()
     {
         var parts = new List<BodyPart>();

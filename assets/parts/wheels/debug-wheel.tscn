@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://yk3uyg4lyt0r"]
+
+[ext_resource type="PackedScene" uid="uid://b4kxhpgayt005" path="res://assets/parts/wheels/debug-wheel.glb" id="1_vk2fj"]
+
+[node name="debug-wheel" type="Node3D"]
+
+[node name="debug-wheel" parent="." instance=ExtResource("1_vk2fj")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)

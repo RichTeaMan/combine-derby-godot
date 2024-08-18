@@ -106,6 +106,12 @@ public partial class Editor : Node3D
             var row = new HBoxContainer();
             row.AddChild(imageButton);
             row.AddChild(partButton);
+            foreach (var data in part.FetchEditorDataCells()) {
+                var label = new Label() {
+                    Text = data
+                };
+                row.AddChild(label);
+            }
 
             partControlPairs.Add(part, row);
         }

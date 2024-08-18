@@ -1,8 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://vfmfmawykf16"]
-
-[ext_resource type="PackedScene" uid="uid://cm2dwhcvmkt0j" path="res://assets/parts/wheels/disc-wheel.glb" id="1_gucl8"]
-
-[node name="disc-wheel" type="Node3D"]
-
-[node name="disc-wheel" parent="." instance=ExtResource("1_gucl8")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)

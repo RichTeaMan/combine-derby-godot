@@ -23,7 +23,7 @@ public class WheelPart : VehiclePart
         parts.Add(basicWheel);
 
         // disc wheel
-        var discWheel = new WheelPart("Disc Wheel", "res://assets/parts/wheels/disc-wheel.tscn")
+        var discWheel = new WheelPart("Debug Wheel", "res://assets/parts/wheels/debug-wheel.tscn")
         {
             Description = "Only for debugging. Hopefully.",
             Mass = 10.0f
