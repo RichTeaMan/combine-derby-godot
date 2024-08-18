@@ -152,17 +152,29 @@ focus_neighbor_bottom = NodePath("../button_wheel_filter")
 text = "Body"
 
 [node name="button_wheel_filter" type="Button" parent="gui/container_left/HBoxContainer/CenterContainer/VBoxContainer/type_filter_buttons"]
+unique_name_in_owner = true
 layout_mode = 2
 focus_neighbor_top = NodePath("../button_body_filter")
 text = "Wheels"
 
 [node name="button_engine_filter" type="Button" parent="gui/container_left/HBoxContainer/CenterContainer/VBoxContainer/type_filter_buttons"]
+unique_name_in_owner = true
 layout_mode = 2
 text = "Engine"
 
 [node name="button_attachments_filter" type="Button" parent="gui/container_left/HBoxContainer/CenterContainer/VBoxContainer/type_filter_buttons"]
+unique_name_in_owner = true
 layout_mode = 2
 text = "Attachments"
+
+[node name="Panel" type="Panel" parent="gui/container_left/HBoxContainer/CenterContainer/VBoxContainer/type_filter_buttons"]
+modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="button_clear" type="Button" parent="gui/container_left/HBoxContainer/CenterContainer/VBoxContainer/type_filter_buttons"]
+layout_mode = 2
+text = "Clear"
 
 [node name="Control" type="Control" parent="gui/container_left/HBoxContainer/CenterContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 20)
@@ -196,10 +208,6 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 alignment = 1
-
-[node name="button_clear" type="Button" parent="gui/container_left/HBoxContainer/MarginContainer/parts_container"]
-layout_mode = 2
-text = "Clear"
 
 [node name="container_right" type="MarginContainer" parent="gui" groups=["ui"]]
 anchors_preset = 11
@@ -346,7 +354,7 @@ transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, -0.
 mesh = SubResource("PlaneMesh_cp7pa")
 skeleton = NodePath("../../..")
 
-[connection signal="pressed" from="gui/container_left/HBoxContainer/MarginContainer/parts_container/button_clear" to="." method="_onButtonClearPressed"]
+[connection signal="pressed" from="gui/container_left/HBoxContainer/CenterContainer/VBoxContainer/type_filter_buttons/button_clear" to="." method="_onButtonClearPressed"]
 [connection signal="color_changed" from="gui/container_right/VBoxContainer/ColorPicker" to="." method="_on_color_picker_color_changed"]
 [connection signal="pressed" from="gui/container_top/VBoxContainer/CenterContainer/button_test_vehicle" to="." method="_onButtonTestVehiclePressed"]
 [connection signal="pressed" from="gui/container_top/VBoxContainer/CenterContainer/button_build_mode" to="." method="_onButtonBuildModePressed"]

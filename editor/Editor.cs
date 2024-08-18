@@ -15,7 +15,7 @@ public partial class Editor : Node3D
 
     const string SELECTED_GRP = "selected";
 
-    private List<VehiclePart> parts = new();
+    private Dictionary<VehiclePart, Control> partControlPairs = new();
 
     private List<VehiclePart> selectedParts = new();
 
@@ -41,6 +41,12 @@ public partial class Editor : Node3D
 
     private Button BodyPartButton => GetNode<Button>("%button_body_filter");
 
+    private Button WheelPartButton => GetNode<Button>("%button_wheel_filter");
+
+    private Button EnginePartButton => GetNode<Button>("%button_engine_filter");
+
+    private Button AttachmentsPartButton => GetNode<Button>("%button_attachments_filter");
+
     private Button TestVehicleButton => GetNode<Button>("%button_test_vehicle");
 
     private Button BuildButtonButton => GetNode<Button>("%button_build_mode");
@@ -62,6 +68,11 @@ public partial class Editor : Node3D
         {
             Freeze = true
         };
+
+        BodyPartButton.Pressed += () => { FilterPressed(PartType.Body); };
+        WheelPartButton.Pressed += () => { FilterPressed(PartType.Wheels); };
+        EnginePartButton.Pressed += () => { FilterPressed(PartType.Engine); };
+        AttachmentsPartButton.Pressed += () => { FilterPressed(PartType.Attachment); };
 
         Container.AddChild(vehicle);
 
@@ -95,11 +106,26 @@ public partial class Editor : Node3D
             var row = new HBoxContainer();
             row.AddChild(imageButton);
             row.AddChild(partButton);
-            PartsContainer.AddChild(row);
+
+            partControlPairs.Add(part, row);
         }
 
+        FilterPressed(PartType.Body);
         BodyPartButton.GrabFocus();
         resetGui();
+    }
+
+    private void FilterPressed(PartType partType)
+    {
+        foreach (var control in PartsContainer.GetChildren())
+        {
+            PartsContainer.RemoveChild(control);
+        }
+
+        foreach (var pair in partControlPairs.Where(pair => pair.Key.PartType == partType))
+        {
+            PartsContainer.AddChild(pair.Value);
+        }
     }
 
     private void partHovered(VehiclePart vehiclePart)
