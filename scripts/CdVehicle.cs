@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using Godot;
 
 public partial class CdVehicle : VehicleBody3D
@@ -24,7 +25,7 @@ public partial class CdVehicle : VehicleBody3D
     [Export]
     public float AcceleratingSoundDb { get; set; } = 6.0f;
 
-    public Camera3D Camera => this.ChildrenRecursive().FirstOrDefault(c => c is Camera3D) as Camera3D;
+    public Camera3D Camera => this.ChildrenRecursive().FirstOrDefault(c => c is Camera3D && c != FreeCamera) as Camera3D;
 
     private int UpsideDownFrames = 0;
 
@@ -36,6 +37,45 @@ public partial class CdVehicle : VehicleBody3D
     private VehicleWheel3D[] TractionWheels = Array.Empty<VehicleWheel3D>();
 
     private VehicleWheel3D[] SteeringWheels = Array.Empty<VehicleWheel3D>();
+
+    private Node3D CameraGimbal;
+
+    private Camera3D FreeCamera;
+
+    private bool rotating = false;
+
+
+    private Vector2 prevMousePosition;
+    private Vector2 nextMousePosition;
+    private float rotation_constant = 0.5f;
+	private float zoom_constant = 0.2f;
+
+    public enum VehicleCameraMode
+    {
+        FREE_ROTATE,
+        CHASE
+    }
+
+    private VehicleCameraMode _cameraMode = VehicleCameraMode.CHASE;
+    public VehicleCameraMode CameraMode
+    {
+        get
+        {
+            return _cameraMode;
+        }
+        set
+        {
+            _cameraMode = value;
+            if (_cameraMode == VehicleCameraMode.FREE_ROTATE)
+            {
+                FreeCamera.Current = true;
+            }
+            else
+            {
+                Camera.Current = true;
+            }
+        }
+    }
 
     /// <summary>
     /// Changes rotation so the combine is on its wheels. 
@@ -86,6 +126,12 @@ public partial class CdVehicle : VehicleBody3D
             }
         }
         AddChild(new VehicleCameraPivot());
+        CameraGimbal = new Node3D();
+        AddChild(CameraGimbal);
+        FreeCamera = new Camera3D();
+        CameraGimbal.AddChild(FreeCamera);
+        FreeCamera.Position = new Vector3(0.0f, 0.0f, 20.0f);
+        CameraGimbal.RotateY(Mathf.DegToRad(180.0f));
     }
 
     public override void _Ready()
@@ -94,7 +140,55 @@ public partial class CdVehicle : VehicleBody3D
         SteeringRightInput = $"player{PlayerId}_right";
         ForwardInput = $"player{PlayerId}_forward";
         BackInput = $"player{PlayerId}_back";
+
+
         //$sound.play()
+    }
+
+    public override void _UnhandledInput(InputEvent _inputEvent)
+    {
+        if (Input.IsActionJustPressed("rotate"))
+        {
+            rotating = true;
+            prevMousePosition = GetViewport().GetMousePosition();
+        }
+        if (Input.IsActionJustReleased("rotate"))
+        {
+            rotating = false;
+        }
+        if (Input.IsActionJustPressed("change_camera_mode"))
+        {
+            GD.Print("Camera Mode");
+            if (CameraMode == VehicleCameraMode.CHASE)
+            {
+                CameraMode = VehicleCameraMode.FREE_ROTATE;
+            }
+            else
+            {
+                CameraMode = VehicleCameraMode.CHASE;
+            }
+        }
+    }
+
+    public override void _Process(double delta)
+    {
+        if (rotating)
+        {
+            nextMousePosition = GetViewport().GetMousePosition();
+            CameraGimbal.RotateY((nextMousePosition.X - prevMousePosition.X) * rotation_constant * (float)delta);
+            CameraGimbal.RotateX((nextMousePosition.Y - prevMousePosition.Y) * rotation_constant * (float)delta);
+            prevMousePosition = nextMousePosition;
+        }
+
+		if (Input.IsActionJustPressed("zoom_in"))
+		{
+			FreeCamera.Position = new Vector3(FreeCamera.Position.X, FreeCamera.Position.Y, FreeCamera.Position.Z - zoom_constant);
+		}
+
+		if (Input.IsActionJustPressed("zoom_out"))
+		{
+			FreeCamera.Position = new Vector3(FreeCamera.Position.X, FreeCamera.Position.Y, FreeCamera.Position.Z + zoom_constant);
+		}
     }
 
     public override void _PhysicsProcess(double delta)
