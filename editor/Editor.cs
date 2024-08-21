@@ -389,6 +389,7 @@ public partial class Editor : Node3D
 			if (selectedPart.PartType == PartType.Wheels)
 			{
 				var body = SelectedBody;
+				var wheelPart = (WheelPart)selectedPart;
 				foreach (var wheelAnchor in body.WheelAnchors)
 				{
 					var wheel = new VehicleWheel3D();
@@ -398,7 +399,8 @@ public partial class Editor : Node3D
 					instance.Rotation = wheelAnchor.BaseRotation;
 					wheel.UseAsSteering = wheelAnchor.IsSteering;
 					wheel.UseAsTraction = wheelAnchor.IsTraction;
-					//wheel.WheelFrictionSlip = 1.0f;
+					wheel.SuspensionStiffness = 50.0f;
+					wheel.WheelRadius = wheelPart.Radius;
 					GD.Print($"friction: {wheel.WheelFrictionSlip}");
 					vehicle.AddChild(wheel);
 					mass += selectedPart.Mass;
@@ -450,7 +452,6 @@ public partial class Editor : Node3D
 		{
 			return;
 		}
-		vehicle.Mass = 10.0f;
 		vehicle.RebuildCamera();
 		vehicle.Freeze = false;
 		vehicle.ChildrenRecursive()

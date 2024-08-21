@@ -32,7 +32,7 @@ public class BodyPart : VehiclePart
         // silo
         var silo = new BodyPart("Silo", "res://assets/parts/body/silo-body.tscn") {
             Description = "An old corn silo, bravely and tragically repurposed into a chassis.",
-            Mass = 100.0f,
+            Mass = 800.0f,
             ImageUri = "res://assets/parts/body/silo-body-icon.png"
         };
         silo.AddWheelAnchor(new Vector3(1.5f, -0.8f, 3.0f), false, true);
