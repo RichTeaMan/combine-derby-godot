@@ -404,7 +404,7 @@ public partial class Editor : Node3D
                     wheel.UseAsTraction = wheelAnchor.IsTraction;
                     wheel.SuspensionStiffness = 50.0f;
                     wheel.WheelRadius = wheelPart.Radius;
-                    GD.Print($"friction: {wheel.WheelFrictionSlip}");
+
                     vehicle.AddChild(wheel);
                     mass += selectedPart.Mass;
                 }
@@ -417,7 +417,11 @@ public partial class Editor : Node3D
             }
         }
         vehicle.RebuildWheels();
+        vehicle.CenterOfMass = SelectedBody.CalculateCenterOfMass();
+        vehicle.CenterOfMassMode = RigidBody3D.CenterOfMassModeEnum.Custom;
         vehicle.Mass = mass;
+        vehicle.MaxRpm = SelectedBody.BaseRpm;
+        vehicle.MaxTorque = SelectedBody.BaseTorque;
         MassLabel.Text = $"{vehicle.Mass} kg";
         freezeNode(vehicle);
         RebuildMaterialContainer();

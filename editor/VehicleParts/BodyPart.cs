@@ -1,11 +1,17 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Godot;
 
 public class BodyPart : VehiclePart
 {
 
     public IReadOnlyList<WheelAnchor> WheelAnchors => _wheelAnchors.AsReadOnly();
+
+    public float BaseRpm { get; protected set; } = 500.0f;
+
+    public float BaseTorque { get; protected set; } = 2000.0f;
+
 
     private List<WheelAnchor> _wheelAnchors = new();
 
@@ -20,9 +26,19 @@ public class BodyPart : VehiclePart
         _wheelAnchors.Add(anchor);
     }
 
+    public Vector3 CalculateCenterOfMass()
+    {
+        if (!WheelAnchors.Any())
+        {
+            return Vector3.Zero;
+        }
+
+        return new Vector3(0.0f, WheelAnchors.Average(wa => wa.AttachmentPoint.Y), 0.0f);
+    }
+
     public override string[] FetchEditorDataCells()
     {
-        return new []{ $"{Mass} kg" };
+        return new[] { $"{Mass} kg" };
     }
 
     public static List<BodyPart> BodyPartsInit()
@@ -30,9 +46,12 @@ public class BodyPart : VehiclePart
         var parts = new List<BodyPart>();
 
         // silo
-        var silo = new BodyPart("Silo", "res://assets/parts/body/silo-body.tscn") {
+        var silo = new BodyPart("Silo", "res://assets/parts/body/silo-body.tscn")
+        {
             Description = "An old corn silo, bravely and tragically repurposed into a chassis.",
             Mass = 800.0f,
+            BaseRpm = 500.0f,
+            BaseTorque = 2000.0f,
             ImageUri = "res://assets/parts/body/silo-body-icon.png"
         };
         silo.AddWheelAnchor(new Vector3(1.5f, -0.8f, 3.0f), false, true);
@@ -41,8 +60,23 @@ public class BodyPart : VehiclePart
         silo.AddWheelAnchor(new Vector3(-1.5f, -0.8f, -3.0f), true, false);
         parts.Add(silo);
 
+        // hay
+        var hay = new BodyPart("Hay Bale", "res://assets/parts/body/hay-body.tscn")
+        {
+            Description = "Just a hollowed out bale of hay.",
+            BaseRpm = 500.0f,
+            BaseTorque = 800.0f,
+            Mass = 100.0f,
+        };
+        hay.AddWheelAnchor(new Vector3(1.0f, -0.5f, 0.6f), false, true);
+        hay.AddWheelAnchor(new Vector3(1.0f, -0.5f, -0.6f), true, false);
+        hay.AddWheelAnchor(new Vector3(-1.0f, -0.5f, 0.6f), false, true);
+        hay.AddWheelAnchor(new Vector3(-1.0f, -0.5f, -0.6f), true, false);
+        parts.Add(hay);
+
         // box
-        var box = new BodyPart("Box", "res://assets/parts/body/box-body.tscn"){
+        var box = new BodyPart("Box", "res://assets/parts/body/box-body.tscn")
+        {
             Description = "A box. For boxing?",
             Mass = 200.0f
         };

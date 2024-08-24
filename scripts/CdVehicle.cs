@@ -203,9 +203,8 @@ public partial class CdVehicle : VehicleBody3D
                 continue;
             }
             var rpm = Math.Abs(wheel.GetRpm());
-            wheel.EngineForce = acceleration * MaxTorque * (1 - rpm / MaxRpm);
+            wheel.EngineForce = acceleration * MaxTorque * (1.0f - rpm / MaxRpm);
         }
-
         // TODO
         // Global.update_speed(player_id, basis.tdotz(get_linear_velocity()))
 

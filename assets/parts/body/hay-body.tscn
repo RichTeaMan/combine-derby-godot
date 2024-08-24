@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://hwf1a8w01fhg"]
+
+[ext_resource type="PackedScene" uid="uid://dxogu74w2gjcb" path="res://assets/parts/body/hay-body.glb" id="1_cbe3y"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_xaxtr"]
+radius = 0.75
+
+[node name="Hay-body" type="CollisionShape3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+shape = SubResource("CylinderShape3D_xaxtr")
+
+[node name="hay-body" parent="." instance=ExtResource("1_cbe3y")]
+transform = Transform3D(1.91069e-15, 4.37114e-08, -1, 1, -4.37114e-08, 0, -4.37114e-08, -1, -4.37114e-08, 0, 0, 0)
