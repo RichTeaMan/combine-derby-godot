@@ -7,7 +7,9 @@ public enum PartType
     Body,
     Wheels,
     Engine,
-    Attachment
+    Attachment,
+
+    Accessory
 }
 
 public abstract class VehiclePart
@@ -52,6 +54,7 @@ public abstract class VehiclePart
         var parts = new List<VehiclePart>();
         parts.AddRange(BodyPart.BodyPartsInit());
         parts.AddRange(WheelPart.WheelPartsInit());
+        parts.AddRange(AccessoryPart.AccessoryPartsInit());
 
         GD.Print("Loaded parts:");
         foreach (var p in parts)

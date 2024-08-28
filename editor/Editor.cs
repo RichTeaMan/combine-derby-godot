@@ -3,6 +3,7 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 using System.Collections;
+using System.Runtime.CompilerServices;
 
 public partial class Editor : Node3D
 {
@@ -47,6 +48,8 @@ public partial class Editor : Node3D
 
     private Button AttachmentsPartButton => GetNode<Button>("%button_attachments_filter");
 
+    private Button AccessoriesPartButton => GetNode<Button>("%button_accessories_filter");
+
     private Button TestVehicleButton => GetNode<Button>("%button_test_vehicle");
 
     private Button BuildButtonButton => GetNode<Button>("%button_build_mode");
@@ -57,7 +60,13 @@ public partial class Editor : Node3D
 
     private Label MassLabel => GetNode<Label>("%label_mass");
 
+    private Node3D FreePlacementContainer => GetNode<Node3D>("%free-placement-container");
+
     private bool buildMode = true;
+
+    private bool freePlacement = false;
+
+    private VehiclePart selectedFreePlacementPart = null;
 
     public override void _Ready()
     {
@@ -73,6 +82,7 @@ public partial class Editor : Node3D
         WheelPartButton.Pressed += () => { FilterPressed(PartType.Wheels); };
         EnginePartButton.Pressed += () => { FilterPressed(PartType.Engine); };
         AttachmentsPartButton.Pressed += () => { FilterPressed(PartType.Attachment); };
+        AccessoriesPartButton.Pressed += () => { FilterPressed(PartType.Accessory); };
 
         Container.AddChild(vehicle);
 
@@ -137,6 +147,48 @@ public partial class Editor : Node3D
         base.Dispose(disposing);
     }
 
+    private Calc3dMousePositionResult Calc3dMousePosition()
+    {
+        var mouse_pos = GetViewport().GetMousePosition();
+        var ray_length = 100;
+        var from = Camera.ProjectRayOrigin(mouse_pos);
+        var to = from + Camera.ProjectRayNormal(mouse_pos) * ray_length;
+        var space = GetWorld3D().DirectSpaceState;
+        var ray_query = new PhysicsRayQueryParameters3D()
+        {
+            From = from,
+            To = to,
+            CollideWithAreas = true,
+            CollideWithBodies = true,
+        };
+        var raycast_result = space.IntersectRay(ray_query);
+        var position = Vector3.Zero;
+        var normal = Vector3.Zero;
+        bool positionFound = false;
+        if (raycast_result.TryGetValue("position", out Variant positionVariant))
+        {
+            position = positionVariant.AsVector3();
+            positionFound = true;
+        }
+        if (raycast_result.TryGetValue("normal", out Variant normalVariant))
+        {
+            normal = normalVariant.AsVector3();
+        }
+        return new Calc3dMousePositionResult
+        {
+            PositionFound = positionFound,
+            Position = position,
+            Normal = normal,
+        };
+    }
+
+    class Calc3dMousePositionResult
+    {
+        public bool PositionFound { get; set; }
+        public Vector3 Position { get; set; }
+        public Vector3 Normal { get; set; }
+    }
+
     private void FilterPressed(PartType partType)
     {
         foreach (var control in PartsContainer.GetChildren())
@@ -148,6 +200,7 @@ public partial class Editor : Node3D
         {
             PartsContainer.AddChild(pair.Value);
         }
+        freePlacement = partType == PartType.Accessory;
     }
 
     private void partHovered(VehiclePart vehiclePart)
@@ -206,6 +259,24 @@ public partial class Editor : Node3D
         if (Input.IsActionJustPressed("zoom_out"))
         {
             Camera.Position = new Vector3(Camera.Position.X, Camera.Position.Y, Camera.Position.Z + zoom_constant);
+        }
+
+        if (freePlacement && selectedFreePlacementPart != null)
+        {
+            GD.Print("freePlacement");
+            var positionResult = Calc3dMousePosition();
+            if (positionResult.PositionFound)
+            {
+                GD.Print("freePlacement W");
+                FreePlacementContainer.Position = positionResult.Position;
+                FreePlacementContainer.Rotation = positionResult.Normal;
+                FreePlacementContainer.Visible = true;
+            }
+            else
+            {
+                GD.Print("freePlacement L");
+                FreePlacementContainer.Visible = false;
+            }
         }
     }
 
@@ -362,6 +433,8 @@ public partial class Editor : Node3D
     private void partButtonPressed(VehiclePart part)
     {
         GD.Print($"Part button {part.Name} pressed.");
+        FreePlacementContainer.ChildrenRecursive().ForEach(c => c.QueueFree());
+        selectedFreePlacementPart = null;
         if (selectedParts.Count == 0 && part.PartType != PartType.Body)
         {
             GD.Print("Part added with no existing body, aborting.");
@@ -376,7 +449,15 @@ public partial class Editor : Node3D
         {
             vehicle.Mass = bodyPart.Mass;
         }
-        selectedParts.Add(part);
+        if (freePlacement)
+        {
+            selectedFreePlacementPart = part;
+            FreePlacementContainer.AddChild(part.InstantiateScene());
+        }
+        else
+        {
+            selectedParts.Add(part);
+        }
 
         rebuildFromParts();
     }
