@@ -74,6 +74,18 @@ public class BodyPart : VehiclePart
         hay.AddWheelAnchor(new Vector3(-1.0f, -0.5f, -0.6f), true, false);
         parts.Add(hay);
 
+        // sphere
+        var sphere = new BodyPart("Sphere", "res://assets/parts/body/sphere-body.tscn")
+        {
+            Description = "Behold the smoothness.",
+            Mass = 400.0f
+        };
+        sphere.AddWheelAnchor(new Vector3(1.8f, -0.9f, 3.5f), false, true);
+        sphere.AddWheelAnchor(new Vector3(1.8f, -0.9f, -3.5f), true, false);
+        sphere.AddWheelAnchor(new Vector3(-1.8f, -0.9f, 3.5f), false, true);
+        sphere.AddWheelAnchor(new Vector3(-1.8f, -0.9f, -3.5f), true, false);
+        parts.Add(sphere);
+
         // box
         var box = new BodyPart("Box", "res://assets/parts/body/box-body.tscn")
         {

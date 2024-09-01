@@ -37,8 +37,8 @@ size = Vector3(0.1, 0.1, 0)
 [node name="vehicle" type="VehicleBody3D" groups=["vehicle"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 0)
 mass = 800.0
-max_contacts_reported = 4
 contact_monitor = true
+max_contacts_reported = 4
 angular_velocity = Vector3(1, 0, 0.5)
 angular_damp = 2.0
 script = ExtResource("2")

@@ -48,7 +48,7 @@ public partial class CdVehicle : VehicleBody3D
     private Vector2 prevMousePosition;
     private Vector2 nextMousePosition;
     private float rotation_constant = 0.5f;
-	private float zoom_constant = 0.2f;
+    private float zoom_constant = 0.2f;
 
     public enum VehicleCameraMode
     {
@@ -172,7 +172,7 @@ public partial class CdVehicle : VehicleBody3D
 
     public override void _Process(double delta)
     {
-        if (rotating)
+        if (rotating && CameraGimbal != null)
         {
             nextMousePosition = GetViewport().GetMousePosition();
             CameraGimbal.RotateY((nextMousePosition.X - prevMousePosition.X) * rotation_constant * (float)delta);
@@ -180,15 +180,18 @@ public partial class CdVehicle : VehicleBody3D
             prevMousePosition = nextMousePosition;
         }
 
-		if (Input.IsActionJustPressed("zoom_in"))
-		{
-			FreeCamera.Position = new Vector3(FreeCamera.Position.X, FreeCamera.Position.Y, FreeCamera.Position.Z - zoom_constant);
-		}
+        if (FreeCamera != null)
+        {
+            if (Input.IsActionJustPressed("zoom_in"))
+            {
+                FreeCamera.Position = new Vector3(FreeCamera.Position.X, FreeCamera.Position.Y, FreeCamera.Position.Z - zoom_constant);
+            }
 
-		if (Input.IsActionJustPressed("zoom_out"))
-		{
-			FreeCamera.Position = new Vector3(FreeCamera.Position.X, FreeCamera.Position.Y, FreeCamera.Position.Z + zoom_constant);
-		}
+            if (Input.IsActionJustPressed("zoom_out"))
+            {
+                FreeCamera.Position = new Vector3(FreeCamera.Position.X, FreeCamera.Position.Y, FreeCamera.Position.Z + zoom_constant);
+            }
+        }
     }
 
     public override void _PhysicsProcess(double delta)

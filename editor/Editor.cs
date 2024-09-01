@@ -154,7 +154,7 @@ public partial class Editor : Node3D
         var from = Camera.ProjectRayOrigin(mouse_pos);
         var to = from + Camera.ProjectRayNormal(mouse_pos) * ray_length;
         var space = GetWorld3D().DirectSpaceState;
-        var ray_query = new PhysicsRayQueryParameters3D()
+        using var ray_query = new PhysicsRayQueryParameters3D()
         {
             From = from,
             To = to,
@@ -169,10 +169,10 @@ public partial class Editor : Node3D
         {
             position = positionVariant.AsVector3();
             positionFound = true;
-        }
-        if (raycast_result.TryGetValue("normal", out Variant normalVariant))
-        {
-            normal = normalVariant.AsVector3();
+            if (raycast_result.TryGetValue("normal", out Variant normalVariant))
+            {
+                normal = normalVariant.AsVector3();
+            }
         }
         return new Calc3dMousePositionResult
         {
@@ -263,21 +263,26 @@ public partial class Editor : Node3D
 
         if (freePlacement && selectedFreePlacementPart != null)
         {
-            GD.Print("freePlacement");
             var positionResult = Calc3dMousePosition();
             if (positionResult.PositionFound)
             {
-                GD.Print("freePlacement W");
                 FreePlacementContainer.Position = positionResult.Position;
-                FreePlacementContainer.Rotation = positionResult.Normal;
+                FreePlacementContainer.Transform = AlignWithY(FreePlacementContainer.Transform, positionResult.Normal);
                 FreePlacementContainer.Visible = true;
             }
             else
             {
-                GD.Print("freePlacement L");
                 FreePlacementContainer.Visible = false;
             }
         }
+    }
+
+    // taken from https://kidscancode.org/godot_recipes/3.x/3d/3d_align_surface/index.html
+    private Transform3D AlignWithY(Transform3D xform, Vector3 new_y) {
+        xform.Basis.Y = new_y;
+        xform.Basis.X = -xform.Basis.Z.Cross(new_y);
+        xform.Basis = xform.Basis.Orthonormalized();
+        return xform;
     }
 
     public void _onButtonClearPressed()

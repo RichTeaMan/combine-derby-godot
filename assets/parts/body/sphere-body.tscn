@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://22yo1w3nkj4"]
+
+[ext_resource type="PackedScene" uid="uid://drajbe05jx8s6" path="res://assets/parts/body/sphere-body.glb" id="1_2vumi"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_li5ha"]
+radius = 2.0
+
+[node name="Sphere-body" type="CollisionShape3D"]
+shape = SubResource("SphereShape3D_li5ha")
+
+[node name="sphere-body" parent="." instance=ExtResource("1_2vumi")]

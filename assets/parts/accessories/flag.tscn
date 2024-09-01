@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://dfhkq37rwhnsd"]
+
+[ext_resource type="PackedScene" uid="uid://2h2h6qn1ywvo" path="res://assets/parts/accessories/flag.glb" id="1_wiik7"]
+
+[node name="Flag" type="Node3D"]
+
+[node name="flag2" parent="." instance=ExtResource("1_wiik7")]
