@@ -80,10 +80,10 @@ public class BodyPart : VehiclePart
             Description = "Behold the smoothness.",
             Mass = 400.0f
         };
-        sphere.AddWheelAnchor(new Vector3(1.8f, -0.9f, 3.5f), false, true);
-        sphere.AddWheelAnchor(new Vector3(1.8f, -0.9f, -3.5f), true, false);
-        sphere.AddWheelAnchor(new Vector3(-1.8f, -0.9f, 3.5f), false, true);
-        sphere.AddWheelAnchor(new Vector3(-1.8f, -0.9f, -3.5f), true, false);
+        sphere.AddWheelAnchor(new Vector3(1.8f, -1.5f, 1.8f), false, true);
+        sphere.AddWheelAnchor(new Vector3(1.8f, -1.5f, -1.8f), true, false);
+        sphere.AddWheelAnchor(new Vector3(-1.8f, -1.5f, 1.8f), false, true);
+        sphere.AddWheelAnchor(new Vector3(-1.8f, -1.5f, -1.8f), true, false);
         parts.Add(sphere);
 
         // box
@@ -96,6 +96,7 @@ public class BodyPart : VehiclePart
         box.AddWheelAnchor(new Vector3(1.8f, -0.9f, -3.5f), true, false);
         box.AddWheelAnchor(new Vector3(-1.8f, -0.9f, 3.5f), false, true);
         box.AddWheelAnchor(new Vector3(-1.8f, -0.9f, -3.5f), true, false);
+
         parts.Add(box);
 
         return parts;
