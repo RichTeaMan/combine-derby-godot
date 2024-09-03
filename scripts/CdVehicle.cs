@@ -285,6 +285,7 @@ public partial class CdVehicle : VehicleBody3D
         if (Model.BodyId != null)
         {
             body = (BodyPart)parts.Single(p => p.Name == Model.BodyId);
+            mass += body.Mass;
             AddChild(body.InstantiateScene());
 
 
@@ -314,6 +315,7 @@ public partial class CdVehicle : VehicleBody3D
             var instance = accessoryTransform.InstantiateScene();
             AddChild(instance);
             instance.Transform = accessoryPartTransform.Transform;
+            mass += accessoryTransform.Mass;
         }
 
         RebuildWheels();
