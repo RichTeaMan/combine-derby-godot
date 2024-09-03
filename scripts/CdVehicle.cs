@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Runtime.InteropServices;
 using Godot;
@@ -37,6 +38,8 @@ public partial class CdVehicle : VehicleBody3D
     private VehicleWheel3D[] TractionWheels = Array.Empty<VehicleWheel3D>();
 
     private VehicleWheel3D[] SteeringWheels = Array.Empty<VehicleWheel3D>();
+
+    private List<PartTransform<AccessoryPart>> AccessoryParts = new List<PartTransform<AccessoryPart>>();
 
     private Node3D CameraGimbal;
 
@@ -132,6 +135,10 @@ public partial class CdVehicle : VehicleBody3D
         CameraGimbal.AddChild(FreeCamera);
         FreeCamera.Position = new Vector3(0.0f, 0.0f, 20.0f);
         CameraGimbal.RotateY(Mathf.DegToRad(180.0f));
+    }
+
+    public void AddAccessoryPart(PartTransform<AccessoryPart> accessoryPart) {
+        AccessoryParts.Add(accessoryPart);
     }
 
     public override void _Ready()

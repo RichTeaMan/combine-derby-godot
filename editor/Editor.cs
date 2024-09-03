@@ -274,11 +274,27 @@ public partial class Editor : Node3D
             {
                 FreePlacementContainer.Visible = false;
             }
+
+            if (Input.IsActionJustPressed("left_click"))
+            {
+                if (selectedFreePlacementPart is AccessoryPart accessoryPart)
+                {
+                    var clone = accessoryPart.InstantiateScene();
+                    vehicle.AddChild(clone);
+                    clone.GlobalTransform = FreePlacementContainer.GlobalTransform;
+                    vehicle.AddAccessoryPart(new PartTransform<AccessoryPart>()
+                    {
+                        Transform = clone.Transform,
+                        VehiclePart = accessoryPart
+                    });
+                }
+            }
         }
     }
 
     // taken from https://kidscancode.org/godot_recipes/3.x/3d/3d_align_surface/index.html
-    private Transform3D AlignWithY(Transform3D xform, Vector3 new_y) {
+    private Transform3D AlignWithY(Transform3D xform, Vector3 new_y)
+    {
         xform.Basis.Y = new_y;
         xform.Basis.X = -xform.Basis.Z.Cross(new_y);
         xform.Basis = xform.Basis.Orthonormalized();
