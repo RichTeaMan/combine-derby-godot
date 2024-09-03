@@ -2,8 +2,6 @@ using Godot;
 using System;
 using System.Linq;
 using System.Collections.Generic;
-using System.Collections;
-using System.Runtime.CompilerServices;
 
 public partial class Editor : Node3D
 {
@@ -17,8 +15,6 @@ public partial class Editor : Node3D
     const string SELECTED_GRP = "selected";
 
     private Dictionary<VehiclePart, Control> partControlPairs = new();
-
-    private List<VehiclePart> selectedParts = new();
 
     private CdVehicle vehicle;
 
@@ -282,11 +278,12 @@ public partial class Editor : Node3D
                     var clone = accessoryPart.InstantiateScene();
                     vehicle.AddChild(clone);
                     clone.GlobalTransform = FreePlacementContainer.GlobalTransform;
-                    vehicle.AddAccessoryPart(new PartTransform<AccessoryPart>()
-                    {
-                        Transform = clone.Transform,
-                        VehiclePart = accessoryPart
-                    });
+                    vehicle.Model.Accessories.Add(
+                        new CdVehicle.CdVehicleModelTransform
+                        {
+                            PartId = accessoryPart.Name,
+                            Transform = clone.Transform
+                        });
                 }
             }
         }
@@ -456,20 +453,16 @@ public partial class Editor : Node3D
         GD.Print($"Part button {part.Name} pressed.");
         FreePlacementContainer.ChildrenRecursive().ForEach(c => c.QueueFree());
         selectedFreePlacementPart = null;
-        if (selectedParts.Count == 0 && part.PartType != PartType.Body)
+
+        if (part.PartType == PartType.Body)
         {
-            GD.Print("Part added with no existing body, aborting.");
-            return;
+            vehicle.Model.BodyId = part.Name;
+        }
+        else if (part.PartType == PartType.Wheels)
+        {
+            vehicle.Model.WheelsId = part.Name;
         }
 
-        if (part.PartType == PartType.Body || part.PartType == PartType.Wheels)
-        {
-            RemoveSelectedPartOfType(part.PartType);
-        }
-        if (part is BodyPart bodyPart)
-        {
-            vehicle.Mass = bodyPart.Mass;
-        }
         if (freePlacement)
         {
             selectedFreePlacementPart = part;
@@ -477,82 +470,16 @@ public partial class Editor : Node3D
         }
         else
         {
-            selectedParts.Add(part);
+            rebuildFromParts();
         }
-
-        rebuildFromParts();
     }
 
     private void rebuildFromParts()
     {
 
-        vehicle.GetChildren().ToList().ForEach(c => c.Free());
-        float mass = 0;
-
-        foreach (var selectedPart in selectedParts)
-        {
-            if (selectedPart.PartType == PartType.Wheels)
-            {
-                var body = SelectedBody;
-                var wheelPart = (WheelPart)selectedPart;
-                foreach (var wheelAnchor in body.WheelAnchors)
-                {
-                    var wheel = new VehicleWheel3D();
-                    var instance = selectedPart.InstantiateScene();
-                    wheel.AddChild(instance);
-                    wheel.Position = wheelAnchor.AttachmentPoint;
-                    instance.Rotation = wheelAnchor.BaseRotation;
-                    wheel.UseAsSteering = wheelAnchor.IsSteering;
-                    wheel.UseAsTraction = wheelAnchor.IsTraction;
-                    wheel.SuspensionStiffness = 50.0f;
-                    wheel.WheelRadius = wheelPart.Radius;
-
-                    vehicle.AddChild(wheel);
-                    mass += selectedPart.Mass;
-                }
-            }
-            else
-            {
-                var instance = selectedPart.InstantiateScene();
-                vehicle.AddChild(instance);
-                mass += selectedPart.Mass;
-            }
-        }
-        vehicle.RebuildWheels();
-        vehicle.CenterOfMass = SelectedBody.CalculateCenterOfMass();
-        vehicle.CenterOfMassMode = RigidBody3D.CenterOfMassModeEnum.Custom;
-        vehicle.Mass = mass;
-        vehicle.MaxRpm = SelectedBody.BaseRpm;
-        vehicle.MaxTorque = SelectedBody.BaseTorque;
-        MassLabel.Text = $"{vehicle.Mass} kg";
+        vehicle.RebuildFromParts(partControlPairs.Select(kv => kv.Key).ToArray());
         freezeNode(vehicle);
         RebuildMaterialContainer();
-    }
-
-    private void RemoveSelectedPartOfType(PartType part_type)
-    {
-        var parts = new List<VehiclePart>();
-        foreach (var part in selectedParts)
-        {
-            if (part.PartType != part_type)
-            {
-                parts.Add(part);
-            }
-        }
-        selectedParts = parts;
-    }
-
-    public BodyPart SelectedBody
-    {
-        get
-        {
-            var part = selectedParts.FirstOrDefault(part => part.PartType == PartType.Body) as BodyPart;
-            if (part == null)
-            {
-                GD.PushWarning("Selected body requested but none has been set.");
-            }
-            return part;
-        }
     }
 
     private void _onButtonTestVehiclePressed()

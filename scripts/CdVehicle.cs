@@ -11,6 +11,8 @@ public partial class CdVehicle : VehicleBody3D
     private const float UPSIDE_DOWN_ANGLE = (float)Math.PI * 0.75f;
     private static float UPSIDE_DOWN_FRAMES_LIMIT = Engine.PhysicsTicksPerSecond * 2.0f;
 
+    public CdVehicleModel Model { get; } = new CdVehicleModel();
+
     [Export]
     public int PlayerId { get; set; } = 1;
 
@@ -38,8 +40,6 @@ public partial class CdVehicle : VehicleBody3D
     private VehicleWheel3D[] TractionWheels = Array.Empty<VehicleWheel3D>();
 
     private VehicleWheel3D[] SteeringWheels = Array.Empty<VehicleWheel3D>();
-
-    private List<PartTransform<AccessoryPart>> AccessoryParts = new List<PartTransform<AccessoryPart>>();
 
     private Node3D CameraGimbal;
 
@@ -135,10 +135,6 @@ public partial class CdVehicle : VehicleBody3D
         CameraGimbal.AddChild(FreeCamera);
         FreeCamera.Position = new Vector3(0.0f, 0.0f, 20.0f);
         CameraGimbal.RotateY(Mathf.DegToRad(180.0f));
-    }
-
-    public void AddAccessoryPart(PartTransform<AccessoryPart> accessoryPart) {
-        AccessoryParts.Add(accessoryPart);
     }
 
     public override void _Ready()
@@ -278,5 +274,68 @@ public partial class CdVehicle : VehicleBody3D
     //crash_sounds.play_big_sound()
     //Global.do_vehicle_body_shape_entered(player_id, body)
     //}
+
+    public void RebuildFromParts(VehiclePart[] parts)
+    {
+
+        GetChildren().ToList().ForEach(c => c.Free());
+        float mass = 0;
+
+        BodyPart body = null;
+        if (Model.BodyId != null)
+        {
+            body = (BodyPart)parts.Single(p => p.Name == Model.BodyId);
+            AddChild(body.InstantiateScene());
+
+
+            if (Model.WheelsId != null)
+            {
+                var wheelPart = (WheelPart)parts.Single(p => p.Name == Model.WheelsId);
+                foreach (var wheelAnchor in body.WheelAnchors)
+                {
+                    var wheel = new VehicleWheel3D();
+                    var instance = wheelPart.InstantiateScene();
+                    wheel.AddChild(instance);
+                    wheel.Position = wheelAnchor.AttachmentPoint;
+                    instance.Rotation = wheelAnchor.BaseRotation;
+                    wheel.UseAsSteering = wheelAnchor.IsSteering;
+                    wheel.UseAsTraction = wheelAnchor.IsTraction;
+                    wheel.SuspensionStiffness = 50.0f;
+                    wheel.WheelRadius = wheelPart.Radius;
+
+                    AddChild(wheel);
+                    mass += wheelPart.Mass;
+                }
+            }
+        }
+        foreach (var accessoryPartTransform in Model.Accessories)
+        {
+            var accessoryTransform = (AccessoryPart)parts.Single(p => p.Name == accessoryPartTransform.PartId);
+            var instance = accessoryTransform.InstantiateScene();
+            AddChild(instance);
+            instance.Transform = accessoryPartTransform.Transform;
+        }
+
+        RebuildWheels();
+        CenterOfMass = body.CalculateCenterOfMass();
+        CenterOfMassMode = CenterOfMassModeEnum.Custom;
+        Mass = mass;
+        MaxRpm = body.BaseRpm;
+        MaxTorque = body.BaseTorque;
+    }
+
+    public class CdVehicleModel
+    {
+        public string Name { get; set; }
+        public string BodyId { get; set; }
+        public string WheelsId { get; set; }
+        public List<CdVehicleModelTransform> Accessories { get; set; } = new List<CdVehicleModelTransform>();
+    }
+
+    public class CdVehicleModelTransform
+    {
+        public string PartId { get; set; }
+        public Transform3D Transform { get; set; }
+    }
 
 }
