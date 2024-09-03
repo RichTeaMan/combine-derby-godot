@@ -2,9 +2,13 @@ using Godot;
 using System;
 using System.Linq;
 using System.Collections.Generic;
+using System.Text.Json;
 
 public partial class Editor : Node3D
 {
+    const string EDIT_MODE_GROUP = "edit_mode_ui";
+
+    const string TEST_MODE_GROUP = "test_mode_ui";
 
     private bool rotating = false;
     private float rotation_constant = 0.5f;
@@ -38,6 +42,12 @@ public partial class Editor : Node3D
 
     private VBoxContainer FilterContainer => GetNode<VBoxContainer>("%type_filter_buttons");
 
+    private TextEdit VehicleNameTextEdit => GetNode<TextEdit>("%text_vehicle_name");
+
+    private Button SaveButton => GetNode<Button>("%button_save");
+
+    private Button LoadButton => GetNode<Button>("%button_load");
+
     private Button TestVehicleButton => GetNode<Button>("%button_test_vehicle");
 
     private Button BuildButtonButton => GetNode<Button>("%button_build_mode");
@@ -59,6 +69,10 @@ public partial class Editor : Node3D
     public override void _Ready()
     {
         base._Ready();
+
+        SaveButton.Pressed += SavePressed;
+        LoadButton.Pressed += LoadPressed;
+
         highlightedShader = GD.Load<Shader>("res://shaders/highlighted.gdshader");
 
         vehicle = new CdVehicle
@@ -203,6 +217,57 @@ public partial class Editor : Node3D
         freePlacement = partType == PartType.Accessory;
     }
 
+    private void SavePressed()
+    {
+        GD.Print("Saving file...");
+        if (string.IsNullOrWhiteSpace(VehicleNameTextEdit.Text))
+        {
+            GD.Print("Did not save, no vehicle name.");
+            return;
+        }
+        string filepath = $"user://vehicles/{VehicleNameTextEdit.Text}.json";
+        GD.Print($"Saving file at {filepath}.");
+        DirAccess.MakeDirRecursiveAbsolute("user://vehicles");
+        using var saveFile = FileAccess.Open(filepath, FileAccess.ModeFlags.Write);
+        vehicle.Model.Name = VehicleNameTextEdit.Text;
+        var options = new JsonSerializerOptions { IncludeFields = true };
+        string json = JsonSerializer.Serialize(vehicle.Model, options);
+        saveFile.StoreLine(json);
+        GD.Print(json);
+        saveFile.Close();
+        GD.Print("File saved.");
+    }
+
+    private void LoadPressed()
+    {
+        FileDialog dialog = new()
+        {
+            Access = FileDialog.AccessEnum.Userdata,
+            CurrentDir = "user://vehicles",
+            FileMode = FileDialog.FileModeEnum.OpenFile,
+        };
+        AddChild(dialog);
+        dialog.Show();
+
+        dialog.Confirmed += () =>
+        {
+            PerformLoad(dialog.CurrentPath);
+            dialog.QueueFree();
+        };
+    }
+
+    private void PerformLoad(string filepath)
+    {
+        GD.Print($"Loading {filepath}...");
+        using var saveFile = FileAccess.Open(filepath, FileAccess.ModeFlags.Read);
+        string json = saveFile.GetAsText();
+        var options = new JsonSerializerOptions { IncludeFields = true };
+        var model = JsonSerializer.Deserialize<CdVehicle.CdVehicleModel>(json, options);
+        vehicle.Model = model;
+        rebuildFromParts();
+        GD.Print("Load complete");
+    }
+
     private void partHovered(VehiclePart vehiclePart)
     {
         PartDescription.Text = vehiclePart.Description;
@@ -283,6 +348,7 @@ public partial class Editor : Node3D
                                 PartId = accessoryPart.Name,
                                 Transform = clone.Transform
                             });
+                            GD.Print(clone.Transform);
                     }
                 }
             }
@@ -319,6 +385,16 @@ public partial class Editor : Node3D
             .ToList()
             .ForEach(n => n.Visible = buildMode);
         Gimbal.Visible = buildMode;
+        if (buildMode)
+        {
+            GetTree().HideByGroupName(TEST_MODE_GROUP);
+            GetTree().ShowByGroupName(EDIT_MODE_GROUP);
+        }
+        else
+        {
+            GetTree().ShowByGroupName(TEST_MODE_GROUP);
+            GetTree().HideByGroupName(EDIT_MODE_GROUP);
+        }
         TestVehicleButton.Visible = buildMode;
         BuildButtonButton.Visible = !buildMode;
     }
@@ -522,8 +598,6 @@ public partial class Editor : Node3D
         vehicle.Reparent(Container);
         vehicle.Transform = Transform3D.Identity;
         buildMode = true;
-        TestVehicleButton.Visible = buildMode;
-        BuildButtonButton.Visible = !buildMode;
 
         resetGui();
         rebuildFromParts();

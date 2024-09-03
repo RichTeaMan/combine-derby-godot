@@ -236,12 +236,31 @@ layout_mode = 2
 [node name="CenterContainer" type="CenterContainer" parent="gui/container_top/VBoxContainer"]
 layout_mode = 2
 
-[node name="button_test_vehicle" type="Button" parent="gui/container_top/VBoxContainer/CenterContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="gui/container_top/VBoxContainer/CenterContainer"]
+layout_mode = 2
+
+[node name="text_vehicle_name" type="TextEdit" parent="gui/container_top/VBoxContainer/CenterContainer/HBoxContainer" groups=["edit_mode_ui"]]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 36)
+layout_mode = 2
+placeholder_text = "Vehicle name"
+
+[node name="button_save" type="Button" parent="gui/container_top/VBoxContainer/CenterContainer/HBoxContainer" groups=["edit_mode_ui"]]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Save"
+
+[node name="button_load" type="Button" parent="gui/container_top/VBoxContainer/CenterContainer/HBoxContainer" groups=["edit_mode_ui"]]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Load"
+
+[node name="button_test_vehicle" type="Button" parent="gui/container_top/VBoxContainer/CenterContainer/HBoxContainer" groups=["edit_mode_ui"]]
 unique_name_in_owner = true
 layout_mode = 2
 text = "(Y) Test your vehicle"
 
-[node name="button_build_mode" type="Button" parent="gui/container_top/VBoxContainer/CenterContainer"]
+[node name="button_build_mode" type="Button" parent="gui/container_top/VBoxContainer/CenterContainer/HBoxContainer" groups=["test_mode_ui"]]
 unique_name_in_owner = true
 layout_mode = 2
 text = "(Y) Back to build mode"
@@ -338,5 +357,5 @@ skeleton = NodePath("../../..")
 
 [connection signal="pressed" from="gui/container_left/HBoxContainer/CenterContainer/VBoxContainer/VBoxContainer/button_clear" to="." method="_onButtonClearPressed"]
 [connection signal="color_changed" from="gui/container_right/VBoxContainer/ColorPicker" to="." method="_on_color_picker_color_changed"]
-[connection signal="pressed" from="gui/container_top/VBoxContainer/CenterContainer/button_test_vehicle" to="." method="_onButtonTestVehiclePressed"]
-[connection signal="pressed" from="gui/container_top/VBoxContainer/CenterContainer/button_build_mode" to="." method="_onButtonBuildModePressed"]
+[connection signal="pressed" from="gui/container_top/VBoxContainer/CenterContainer/HBoxContainer/button_test_vehicle" to="." method="_onButtonTestVehiclePressed"]
+[connection signal="pressed" from="gui/container_top/VBoxContainer/CenterContainer/HBoxContainer/button_build_mode" to="." method="_onButtonBuildModePressed"]

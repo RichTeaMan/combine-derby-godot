@@ -11,7 +11,7 @@ public partial class CdVehicle : VehicleBody3D
     private const float UPSIDE_DOWN_ANGLE = (float)Math.PI * 0.75f;
     private static float UPSIDE_DOWN_FRAMES_LIMIT = Engine.PhysicsTicksPerSecond * 2.0f;
 
-    public CdVehicleModel Model { get; } = new CdVehicleModel();
+    public CdVehicleModel Model { get; set; } = new CdVehicleModel();
 
     [Export]
     public int PlayerId { get; set; } = 1;
@@ -319,8 +319,8 @@ public partial class CdVehicle : VehicleBody3D
         }
 
         RebuildWheels();
-        CenterOfMass = body.CalculateCenterOfMass();
         CenterOfMassMode = CenterOfMassModeEnum.Custom;
+        CenterOfMass = body.CalculateCenterOfMass();
         Mass = mass;
         MaxRpm = body.BaseRpm;
         MaxTorque = body.BaseTorque;

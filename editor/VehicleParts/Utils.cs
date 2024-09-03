@@ -25,6 +25,22 @@ public static class Utils
         return ChildrenRecursive(node).Select(n => n.GetInstanceId()).Contains(id);
     }
 
+    public static void HideByGroupName(this SceneTree sceneTree, string groupName) {
+        foreach(var node in sceneTree.GetNodesInGroup(groupName)) {
+            if (node is CanvasItem canvasItem) {
+                canvasItem.Visible = false;
+            }
+        }
+    }
+
+    public static void ShowByGroupName(this SceneTree sceneTree, string groupName) {
+        foreach(var node in sceneTree.GetNodesInGroup(groupName)) {
+            if (node is CanvasItem canvasItem) {
+                canvasItem.Visible = true;
+            }
+        }
+    }
+
     /// <summary>
     /// Hides all visible descendant nodes, returning ones that were changed.
     /// </summary>
