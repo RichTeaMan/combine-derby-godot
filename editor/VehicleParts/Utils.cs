@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Godot;
 
 public static class Utils
@@ -14,6 +15,14 @@ public static class Utils
             children.AddRange(c.ChildrenRecursive());
         }
         return children;
+    }
+
+    public static bool ContainsId(this Node node, ulong id)
+    {
+        if (node.GetInstanceId() == id) {
+            return true;
+        }
+        return ChildrenRecursive(node).Select(n => n.GetInstanceId()).Contains(id);
     }
 
     /// <summary>

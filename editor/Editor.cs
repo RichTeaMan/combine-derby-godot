@@ -36,15 +36,7 @@ public partial class Editor : Node3D
 
     private CanvasLayer CanvasLayer => GetNode<CanvasLayer>("%gui");
 
-    private Button BodyPartButton => GetNode<Button>("%button_body_filter");
-
-    private Button WheelPartButton => GetNode<Button>("%button_wheel_filter");
-
-    private Button EnginePartButton => GetNode<Button>("%button_engine_filter");
-
-    private Button AttachmentsPartButton => GetNode<Button>("%button_attachments_filter");
-
-    private Button AccessoriesPartButton => GetNode<Button>("%button_accessories_filter");
+    private VBoxContainer FilterContainer => GetNode<VBoxContainer>("%type_filter_buttons");
 
     private Button TestVehicleButton => GetNode<Button>("%button_test_vehicle");
 
@@ -74,16 +66,21 @@ public partial class Editor : Node3D
             Freeze = true
         };
 
-        BodyPartButton.Pressed += () => { FilterPressed(PartType.Body); };
-        WheelPartButton.Pressed += () => { FilterPressed(PartType.Wheels); };
-        EnginePartButton.Pressed += () => { FilterPressed(PartType.Engine); };
-        AttachmentsPartButton.Pressed += () => { FilterPressed(PartType.Attachment); };
-        AccessoriesPartButton.Pressed += () => { FilterPressed(PartType.Accessory); };
-
         Container.AddChild(vehicle);
 
         GD.Print("Getting parts...");
         var parts = VehiclePart.PartsInit();
+
+        foreach (var partType in parts.Select(p => p.PartType).Distinct().OrderBy(pt => pt))
+        {
+            var partButton = new Button()
+            {
+                Text = partType.ToString()
+            };
+            partButton.Pressed += () => { FilterPressed(partType); };
+            FilterContainer.AddChild(partButton);
+        }
+
         foreach (var part in parts)
         {
             var img = Image.LoadFromFile(part.ImageUri ?? "res://assets/unknown.png");
@@ -125,7 +122,7 @@ public partial class Editor : Node3D
         }
 
         FilterPressed(PartType.Body);
-        BodyPartButton.GrabFocus();
+        (FilterContainer.GetChildren().FirstOrDefault(n => n is Button) as Button)?.GrabFocus();
         resetGui();
     }
 
@@ -154,20 +151,27 @@ public partial class Editor : Node3D
         {
             From = from,
             To = to,
-            CollideWithAreas = true,
+            CollideWithAreas = false,
             CollideWithBodies = true,
         };
         var raycast_result = space.IntersectRay(ray_query);
         var position = Vector3.Zero;
         var normal = Vector3.Zero;
         bool positionFound = false;
-        if (raycast_result.TryGetValue("position", out Variant positionVariant))
+        if (raycast_result.TryGetValue("collider_id", out Variant colliderIdVariant))
         {
-            position = positionVariant.AsVector3();
-            positionFound = true;
-            if (raycast_result.TryGetValue("normal", out Variant normalVariant))
+            ulong colliderId = colliderIdVariant.AsUInt64();
+            if (vehicle.ContainsId(colliderId))
             {
-                normal = normalVariant.AsVector3();
+                if (raycast_result.TryGetValue("position", out Variant positionVariant))
+                {
+                    position = positionVariant.AsVector3();
+                    positionFound = true;
+                    if (raycast_result.TryGetValue("normal", out Variant normalVariant))
+                    {
+                        normal = normalVariant.AsVector3();
+                    }
+                }
             }
         }
         return new Calc3dMousePositionResult
@@ -265,26 +269,26 @@ public partial class Editor : Node3D
                 FreePlacementContainer.Position = positionResult.Position;
                 FreePlacementContainer.Transform = AlignWithY(FreePlacementContainer.Transform, positionResult.Normal);
                 FreePlacementContainer.Visible = true;
+
+                if (Input.IsActionJustPressed("left_click"))
+                {
+                    if (selectedFreePlacementPart is AccessoryPart accessoryPart)
+                    {
+                        var clone = accessoryPart.InstantiateScene();
+                        vehicle.AddChild(clone);
+                        clone.GlobalTransform = FreePlacementContainer.GlobalTransform;
+                        vehicle.Model.Accessories.Add(
+                            new CdVehicle.CdVehicleModelTransform
+                            {
+                                PartId = accessoryPart.Name,
+                                Transform = clone.Transform
+                            });
+                    }
+                }
             }
             else
             {
                 FreePlacementContainer.Visible = false;
-            }
-
-            if (Input.IsActionJustPressed("left_click"))
-            {
-                if (selectedFreePlacementPart is AccessoryPart accessoryPart)
-                {
-                    var clone = accessoryPart.InstantiateScene();
-                    vehicle.AddChild(clone);
-                    clone.GlobalTransform = FreePlacementContainer.GlobalTransform;
-                    vehicle.Model.Accessories.Add(
-                        new CdVehicle.CdVehicleModelTransform
-                        {
-                            PartId = accessoryPart.Name,
-                            Transform = clone.Transform
-                        });
-                }
             }
         }
     }

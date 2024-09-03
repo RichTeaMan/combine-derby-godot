@@ -2,16 +2,6 @@ using System;
 using System.Collections.Generic;
 using Godot;
 
-public enum PartType
-{
-    Body,
-    Wheels,
-    Engine,
-    Attachment,
-
-    Accessory
-}
-
 public abstract class VehiclePart
 {
     public string Name { get; protected set; }
