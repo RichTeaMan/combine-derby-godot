@@ -351,6 +351,14 @@ public partial class Editor : Node3D
                             GD.Print(clone.Transform);
                     }
                 }
+
+                if (Input.IsActionPressed("rotate_part_clockwise")) {
+                    FreePlacementContainer.Rotate(Vector3.Up, -0.1f);
+                }
+
+                if (Input.IsActionPressed("rotate_part_anti_clockwise")) {
+                    FreePlacementContainer.Rotate(Vector3.Up, 0.1f);
+                }
             }
             else
             {
