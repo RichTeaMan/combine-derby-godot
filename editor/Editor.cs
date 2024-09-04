@@ -52,10 +52,6 @@ public partial class Editor : Node3D
 
     private Button BuildButtonButton => GetNode<Button>("%button_build_mode");
 
-    private Label PartMass => GetNode<Label>("%part_mass");
-
-    private Label PartDescription => GetNode<Label>("%part_description");
-
     private Label MassLabel => GetNode<Label>("%label_mass");
 
     private Node3D FreePlacementContainer => GetNode<Node3D>("%free-placement-container");
@@ -138,6 +134,7 @@ public partial class Editor : Node3D
         FilterPressed(PartType.Body);
         (FilterContainer.GetChildren().FirstOrDefault(n => n is Button) as Button)?.GrabFocus();
         resetGui();
+        MassLabel.Text = "Vehicle mass: 0 kg";
     }
 
     public override void _ExitTree()
@@ -270,8 +267,7 @@ public partial class Editor : Node3D
 
     private void partHovered(VehiclePart vehiclePart)
     {
-        PartDescription.Text = vehiclePart.Description;
-        PartMass.Text = $"{vehiclePart.Mass} kg";
+        
     }
 
     public override void _UnhandledInput(InputEvent _inputEvent)
@@ -560,11 +556,12 @@ public partial class Editor : Node3D
         vehicle.RebuildFromParts(partControlPairs.Select(kv => kv.Key).ToArray());
         freezeNode(vehicle);
         RebuildMaterialContainer();
+        MassLabel.Text = $"Vehicle mass: {vehicle.Mass} kg";
     }
 
     private void _onButtonTestVehiclePressed()
     {
-        if (!buildMode)
+        if (!buildMode || vehicle.Model.BodyId == null)
         {
             return;
         }
