@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://bq3by3mw787u8"]
+
+[ext_resource type="PackedScene" uid="uid://bjk1f1en7uama" path="res://assets/parts/accessories/basic-lamp.glb" id="1_lvblt"]
+
+[node name="Basic-lamp" type="Node3D"]
+
+[node name="basic-lamp" parent="." instance=ExtResource("1_lvblt")]
+
+[node name="SpotLight3D" type="SpotLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -0.999783, 0.0208553, 0, -0.0208553, -0.999783, 0, 0.156042, -0.0227756)
+light_color = Color(1, 1, 0.4, 1)
+spot_range = 8.0
+spot_angle = 53.03

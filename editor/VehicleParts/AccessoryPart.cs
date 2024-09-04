@@ -17,6 +17,12 @@ public class AccessoryPart : VehiclePart
             Mass = 2.0f
         };
         parts.Add(flag);
+        
+        var basicLamp = new AccessoryPart("Basic lamp", "res://assets/parts/accessories/basic-lamp.tscn") {
+            Description = "Light it up, but basic.",
+            Mass = 2.0f
+        };
+        parts.Add(basicLamp);
 
         return parts;
     }
