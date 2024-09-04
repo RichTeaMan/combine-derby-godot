@@ -348,7 +348,6 @@ public partial class Editor : Node3D
                                 PartId = accessoryPart.Name,
                                 Transform = clone.Transform
                             });
-                            GD.Print(clone.Transform);
                     }
                 }
 

@@ -100,7 +100,6 @@ public partial class CdVehicle : VehicleBody3D
         var childNodes = Utils.ChildrenRecursive(this);
         foreach (var node in childNodes)
         {
-            GD.Print(node);
             if (node is VehicleWheel3D)
             {
                 var wheel = node as VehicleWheel3D;
