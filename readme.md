@@ -18,6 +18,15 @@ You may need to install git lfs manually for this to work, search for instructio
 
 This project should be opened in Godot 4 (.NET is not required). Download it from [godotengine.org](https://godotengine.org/download/).
 
+## Command Line Arguments
+
+Command line arguments can be set in the Godot editor in project settings at editor/run/main_run_args.
+
+* `--vehicle-editor`. Starts the vehicle editor.
+* `--render <scene file path>`. Starts render studio for taking a screenshot of parts. The file path must be to a valid tscn file. `res://` will be preprended if it's not in the path.
+
+No command line arguments will make the game to go the normal start screen. Command line parsing is done in `ProgStart.cs`.
+
 ## Attributions
 
 * Wet mud texture: https://godotengine.org/asset-library/asset/334
