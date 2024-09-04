@@ -286,7 +286,23 @@ public partial class CdVehicle : VehicleBody3D
         {
             body = (BodyPart)parts.Single(p => p.Name == Model.BodyId);
             mass += body.Mass;
-            AddChild(body.InstantiateScene());
+            var bodyScene = body.InstantiateScene();
+            AddChild(bodyScene);
+            // colliders only work when they're a direct child of a character node, so move conents of 'collisions' up
+            var collisionNode = bodyScene.FindChild("collisions");
+            if (collisionNode != null) {
+                GD.Print("collisions node found.");
+                int reparents = 0;
+                foreach (var sub in collisionNode.GetChildren()) {
+                    sub.Reparent(this);
+                    reparents++;
+                }
+                GD.Print($"Reparented {reparents} nodes.");
+            }
+            else {
+                GD.Print("collisions node not found.");
+            }
+            
 
 
             if (Model.WheelsId != null)

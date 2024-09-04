@@ -72,7 +72,22 @@ public class BodyPart : VehiclePart
         hay.AddWheelAnchor(new Vector3(1.0f, -0.5f, -0.6f), true, false);
         hay.AddWheelAnchor(new Vector3(-1.0f, -0.5f, 0.6f), false, true);
         hay.AddWheelAnchor(new Vector3(-1.0f, -0.5f, -0.6f), true, false);
+
         parts.Add(hay);
+
+        // combine
+        var combine = new BodyPart("Combine Harvester", "res://assets/parts/body/combine-body.tscn")
+        {
+            Description = "The thing from the title screen!",
+            BaseRpm = 500.0f,
+            BaseTorque = 800.0f,
+            Mass = 800.0f,
+        };
+        combine.AddWheelAnchor(new Vector3(1.31f, 0.0f, 1.45f), true, false);
+        combine.AddWheelAnchor(new Vector3(1.16f, 0.0f, -1.0f), false, true);
+        combine.AddWheelAnchor(new Vector3(-1.31f, 0.0f, 1.45f), true, false);
+        combine.AddWheelAnchor(new Vector3(-1.16f, 0.0f, -1.0f), false, true);
+        parts.Add(combine);
 
         // sphere
         var sphere = new BodyPart("Sphere", "res://assets/parts/body/sphere-body.tscn")
