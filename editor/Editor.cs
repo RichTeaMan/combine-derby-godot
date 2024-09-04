@@ -105,6 +105,7 @@ public partial class Editor : Node3D
                 StretchMode = TextureButton.StretchModeEnum.Scale,
                 SizeFlagsHorizontal = Control.SizeFlags.ShrinkBegin,
                 SizeFlagsVertical = Control.SizeFlags.ShrinkBegin,
+                FocusMode = Control.FocusModeEnum.None,
             };
             imageButton.Pressed += () => { partButtonPressed(part); };
             imageButton.FocusEntered += () => { partHovered(part); };
