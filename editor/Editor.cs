@@ -242,13 +242,17 @@ public partial class Editor : Node3D
             Access = FileDialog.AccessEnum.Userdata,
             CurrentDir = "user://vehicles",
             FileMode = FileDialog.FileModeEnum.OpenFile,
+            MinSize = new Vector2I(800, 800),
         };
         AddChild(dialog);
         dialog.Show();
 
-        dialog.Confirmed += () =>
+        dialog.FileSelected += (selectedPath) =>
         {
-            PerformLoad(dialog.CurrentPath);
+            PerformLoad(selectedPath);
+            dialog.QueueFree();
+        };
+        dialog.Canceled += () => {
             dialog.QueueFree();
         };
     }
