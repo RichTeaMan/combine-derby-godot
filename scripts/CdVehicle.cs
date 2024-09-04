@@ -285,7 +285,7 @@ public partial class CdVehicle : VehicleBody3D
     //Global.do_vehicle_body_shape_entered(player_id, body)
     //}
 
-    public void RebuildFromParts(VehiclePart[] parts)
+    public void RebuildFromParts(Dictionary<string, VehiclePart> parts)
     {
 
         GetChildren().ToList().ForEach(c => c.Free());
@@ -294,7 +294,7 @@ public partial class CdVehicle : VehicleBody3D
         BodyPart body = null;
         if (Model.BodyId != null)
         {
-            body = (BodyPart)parts.Single(p => p.Name == Model.BodyId);
+            body = (BodyPart)parts[Model.BodyId];
             mass += body.Mass;
             var bodyScene = body.InstantiateScene();
             AddChild(bodyScene);
@@ -320,7 +320,7 @@ public partial class CdVehicle : VehicleBody3D
 
             if (Model.WheelsId != null)
             {
-                var wheelPart = (WheelPart)parts.Single(p => p.Name == Model.WheelsId);
+                var wheelPart = (WheelPart)parts[Model.WheelsId];
                 foreach (var wheelAnchor in body.WheelAnchors)
                 {
                     var wheel = new VehicleWheel3D();
@@ -340,7 +340,7 @@ public partial class CdVehicle : VehicleBody3D
         }
         foreach (var accessoryPartTransform in Model.Accessories)
         {
-            var accessoryTransform = (AccessoryPart)parts.Single(p => p.Name == accessoryPartTransform.PartId);
+            var accessoryTransform = (AccessoryPart)parts[accessoryPartTransform.PartId];
             var instance = accessoryTransform.InstantiateScene();
             AddChild(instance);
             instance.Transform = accessoryPartTransform.Transform;

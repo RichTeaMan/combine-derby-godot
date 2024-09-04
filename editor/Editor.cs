@@ -10,6 +10,8 @@ public partial class Editor : Node3D
 
     const string TEST_MODE_GROUP = "test_mode_ui";
 
+    const string PARTS_BUTTON_GROUP = "parts_buttons";
+
     private bool rotating = false;
     private float rotation_constant = 0.5f;
     private float zoom_constant = 0.2f;
@@ -18,7 +20,7 @@ public partial class Editor : Node3D
 
     const string SELECTED_GRP = "selected";
 
-    private Dictionary<VehiclePart, Control> partControlPairs = new();
+    private Dictionary<string, VehiclePart> parts = new();
 
     private CdVehicle vehicle;
 
@@ -79,9 +81,9 @@ public partial class Editor : Node3D
         Container.AddChild(vehicle);
 
         GD.Print("Getting parts...");
-        var parts = VehiclePart.PartsInit();
+        var partsList = VehiclePart.PartsInit();
 
-        foreach (var partType in parts.Select(p => p.PartType).Distinct().OrderBy(pt => pt))
+        foreach (var partType in partsList.Select(p => p.PartType).Distinct().OrderBy(pt => pt))
         {
             var partButton = new Button()
             {
@@ -91,7 +93,7 @@ public partial class Editor : Node3D
             FilterContainer.AddChild(partButton);
         }
 
-        foreach (var part in parts)
+        foreach (var part in partsList)
         {
             var img = Image.LoadFromFile(part.ImageUri ?? "res://assets/unknown.png");
             var tex = ImageTexture.CreateFromImage(img);
@@ -102,7 +104,7 @@ public partial class Editor : Node3D
                 IgnoreTextureSize = true,
                 StretchMode = TextureButton.StretchModeEnum.Scale,
                 SizeFlagsHorizontal = Control.SizeFlags.ShrinkBegin,
-                SizeFlagsVertical = Control.SizeFlags.ShrinkBegin
+                SizeFlagsVertical = Control.SizeFlags.ShrinkBegin,
             };
             imageButton.Pressed += () => { partButtonPressed(part); };
             imageButton.FocusEntered += () => { partHovered(part); };
@@ -128,7 +130,11 @@ public partial class Editor : Node3D
                 row.AddChild(label);
             }
 
-            partControlPairs.Add(part, row);
+            PartsContainer.AddChild(row);
+            row.AddToGroup(PARTS_BUTTON_GROUP);
+            row.AddToGroup(part.PartType.GroupName());
+
+            parts.Add(part.Name, part);
         }
 
         FilterPressed(PartType.Body);
@@ -140,15 +146,6 @@ public partial class Editor : Node3D
     public override void _ExitTree()
     {
         base._ExitTree();
-    }
-
-    protected override void Dispose(bool disposing)
-    {
-        foreach (var pair in partControlPairs)
-        {
-            pair.Value.QueueFree();
-        }
-        base.Dispose(disposing);
     }
 
     private Calc3dMousePositionResult Calc3dMousePosition()
@@ -202,15 +199,8 @@ public partial class Editor : Node3D
 
     private void FilterPressed(PartType partType)
     {
-        foreach (var control in PartsContainer.GetChildren())
-        {
-            PartsContainer.RemoveChild(control);
-        }
-
-        foreach (var pair in partControlPairs.Where(pair => pair.Key.PartType == partType))
-        {
-            PartsContainer.AddChild(pair.Value);
-        }
+        GetTree().HideByGroupName(PARTS_BUTTON_GROUP);
+        GetTree().ShowByGroupName(partType.GroupName());
         freePlacement = partType == PartType.Accessory;
     }
 
@@ -564,7 +554,7 @@ public partial class Editor : Node3D
     private void rebuildFromParts()
     {
 
-        vehicle.RebuildFromParts(partControlPairs.Select(kv => kv.Key).ToArray());
+        vehicle.RebuildFromParts(parts);
         freezeNode(vehicle);
         RebuildMaterialContainer();
         MassLabel.Text = $"Vehicle mass: {vehicle.Mass} kg";
