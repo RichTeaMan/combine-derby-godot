@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
-using System.Runtime.InteropServices;
 using Godot;
 
 public partial class CdVehicle : VehicleBody3D
@@ -36,6 +34,8 @@ public partial class CdVehicle : VehicleBody3D
     private string SteeringRightInput;
     private string ForwardInput;
     private string BackInput;
+
+    private float SteeringAngle = 0.0f;
 
     private VehicleWheel3D[] TractionWheels = Array.Empty<VehicleWheel3D>();
 
@@ -199,7 +199,7 @@ public partial class CdVehicle : VehicleBody3D
 
     public override void _PhysicsProcess(double delta)
     {
-        Steering = Mathf.Lerp(Steering, Input.GetAxis(SteeringLeftInput, SteeringRightInput) * -0.4f, 2.0f * (float)delta);
+        SteeringAngle = Mathf.Lerp(SteeringAngle, Input.GetAxis(SteeringLeftInput, SteeringRightInput) * -0.4f, 2.0f * (float)delta);
         var acceleration = Input.GetAxis(BackInput, ForwardInput);
 
         foreach (var wheel in TractionWheels)
@@ -210,6 +210,17 @@ public partial class CdVehicle : VehicleBody3D
             }
             var rpm = Math.Abs(wheel.GetRpm());
             wheel.EngineForce = acceleration * MaxTorque * (1.0f - rpm / MaxRpm);
+        }
+        foreach (var wheel in SteeringWheels)
+        {
+            if (wheel.Position.Z > 0.0f)
+            {
+                wheel.Steering = SteeringAngle;
+            }
+            else
+            {
+                wheel.Steering = -SteeringAngle;
+            }
         }
         // TODO
         // Global.update_speed(player_id, basis.tdotz(get_linear_velocity()))
@@ -288,21 +299,24 @@ public partial class CdVehicle : VehicleBody3D
             mass += body.Mass;
             var bodyScene = body.InstantiateScene();
             AddChild(bodyScene);
-            // colliders only work when they're a direct child of a character node, so move conents of 'collisions' up
+            // colliders only work when they're a direct child of a character node, so move contents of 'collisions' up
             var collisionNode = bodyScene.FindChild("collisions");
-            if (collisionNode != null) {
+            if (collisionNode != null)
+            {
                 GD.Print("collisions node found.");
                 int reparents = 0;
-                foreach (var sub in collisionNode.GetChildren()) {
+                foreach (var sub in collisionNode.GetChildren())
+                {
                     sub.Reparent(this);
                     reparents++;
                 }
                 GD.Print($"Reparented {reparents} nodes.");
             }
-            else {
+            else
+            {
                 GD.Print("collisions node not found.");
             }
-            
+
 
 
             if (Model.WheelsId != null)
