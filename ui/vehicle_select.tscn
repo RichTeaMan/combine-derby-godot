@@ -1,0 +1,111 @@
+[gd_scene load_steps=4 format=3 uid="uid://d0t4cfgbcbeii"]
+
+[ext_resource type="Script" path="res://ui/VehicleSelect.cs" id="1_htiis"]
+[ext_resource type="Theme" uid="uid://dnfyfchbmcxbe" path="res://themes/large_ui_theme.tres" id="2_a8gyt"]
+[ext_resource type="Theme" uid="uid://crxug62ulgqui" path="res://themes/ui_theme.tres" id="2_jjl6y"]
+
+[node name="VehicleSelect" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_htiis")
+
+[node name="selection_root" type="Control" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="container_sub_views" type="SubViewportContainer" parent="selection_root"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+
+[node name="sub_view" type="SubViewport" parent="selection_root/container_sub_views"]
+unique_name_in_owner = true
+handle_input_locally = false
+size = Vector2i(1920, 1080)
+render_target_update_mode = 4
+
+[node name="left_ui_root" type="MarginContainer" parent="selection_root/container_sub_views"]
+z_index = 1
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="selection_root/container_sub_views/left_ui_root"]
+layout_direction = 3
+layout_mode = 2
+size_flags_horizontal = 8
+
+[node name="HBoxContainer" type="HBoxContainer" parent="selection_root/container_sub_views/left_ui_root"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="selection_root/container_sub_views/left_ui_root/HBoxContainer"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="selection_root/container_sub_views/left_ui_root/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_jjl6y")
+text = "Custom vehicles:"
+
+[node name="container_user_vehicles" type="VBoxContainer" parent="selection_root/container_sub_views/left_ui_root/HBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Panel" type="Panel" parent="selection_root/container_sub_views/left_ui_root/HBoxContainer/VBoxContainer"]
+self_modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(0, 12)
+layout_mode = 2
+
+[node name="button_editor" type="Button" parent="selection_root/container_sub_views/left_ui_root/HBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("2_jjl6y")
+text = "Editor"
+
+[node name="right_ui_root" type="MarginContainer" parent="selection_root/container_sub_views"]
+layout_direction = 3
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="selection_root/container_sub_views/right_ui_root"]
+layout_mode = 2
+
+[node name="button_play" type="Button" parent="selection_root/container_sub_views/right_ui_root/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+theme = ExtResource("2_a8gyt")
+text = "Play"
+
+[node name="finished_selection_root" type="Control" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="finished_selection_root"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="finished_selection_root/CenterContainer"]
+layout_mode = 2
+theme = ExtResource("2_a8gyt")
+text = "Waiting for players"

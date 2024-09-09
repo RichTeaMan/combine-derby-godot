@@ -14,6 +14,12 @@ public partial class CdVehicle : VehicleBody3D
     [Export]
     public int PlayerId { get; set; } = 1;
 
+    /// <summary>
+    /// Compaitibilty for older GD script that still uses pre C# code.
+    /// </summary>
+    [Obsolete]
+    public int player_id => PlayerId;
+
     [Export]
     public float MaxRpm { get; set; } = 500.0f;
 
@@ -138,13 +144,18 @@ public partial class CdVehicle : VehicleBody3D
 
     public override void _Ready()
     {
+        base._Ready();
+        AddToGroup("vehicle");
         SteeringLeftInput = $"player{PlayerId}_left";
         SteeringRightInput = $"player{PlayerId}_right";
         ForwardInput = $"player{PlayerId}_forward";
         BackInput = $"player{PlayerId}_back";
 
+        ContactMonitor = true;
+        MaxContactsReported = 4;
 
         //$sound.play()
+        UnpackCollisions();
     }
 
     public override void _UnhandledInput(InputEvent _inputEvent)
@@ -298,25 +309,7 @@ public partial class CdVehicle : VehicleBody3D
             mass += body.Mass;
             var bodyScene = body.InstantiateScene();
             AddChild(bodyScene);
-            // colliders only work when they're a direct child of a character node, so move contents of 'collisions' up
-            var collisionNode = bodyScene.FindChild("collisions");
-            if (collisionNode != null)
-            {
-                GD.Print("collisions node found.");
-                int reparents = 0;
-                foreach (var sub in collisionNode.GetChildren())
-                {
-                    sub.Reparent(this);
-                    reparents++;
-                }
-                GD.Print($"Reparented {reparents} nodes.");
-            }
-            else
-            {
-                GD.Print("collisions node not found.");
-            }
-
-
+            UnpackCollisions();
 
             if (Model.WheelsId != null)
             {
@@ -353,6 +346,32 @@ public partial class CdVehicle : VehicleBody3D
         Mass = mass;
         MaxRpm = body.BaseRpm;
         MaxTorque = body.BaseTorque;
+    }
+
+    private void UnpackCollisions()
+    {
+        if (!IsInsideTree())
+        {
+            return;
+        }
+        // colliders only work when they're a direct child of a character node, so move contents of 'collisions' up
+        var collisionNode = GetChild(0)?.FindChild("collisions");
+        if (collisionNode != null)
+        {
+            GD.Print("collisions node found.");
+            int reparents = 0;
+            foreach (var sub in collisionNode.GetChildren())
+            {
+                // TODO: causes warnings if the vehicle isn't yet in the scene tree.
+                sub.Reparent(this);
+                reparents++;
+            }
+            GD.Print($"Reparented {reparents} nodes.");
+        }
+        else
+        {
+            GD.Print($"collisions node not found. {GetChild(0)?.Name}/collisions");
+        }
     }
 
     public class CdVehicleModel

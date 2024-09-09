@@ -3,14 +3,16 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 using System.Text.Json;
+using System.Diagnostics.Tracing;
 
 public partial class Editor : Node3D
 {
-    const string EDIT_MODE_GROUP = "edit_mode_ui";
+    private string UNIQUE_PREFIX = Guid.NewGuid().ToString();
+    private string EDIT_MODE_GROUP => $"{UNIQUE_PREFIX}-edit_mode_ui";
 
-    const string TEST_MODE_GROUP = "test_mode_ui";
+    private string TEST_MODE_GROUP => $"{UNIQUE_PREFIX}-test_mode_ui";
 
-    const string PARTS_BUTTON_GROUP = "parts_buttons";
+    private string PARTS_BUTTON_GROUP => $"{UNIQUE_PREFIX}-parts_buttons";
 
     private bool rotating = false;
     private float rotation_constant = 0.5f;
@@ -18,7 +20,7 @@ public partial class Editor : Node3D
     private Vector2 prevMousePosition;
     private Vector2 nextMousePosition;
 
-    const string SELECTED_GRP = "selected";
+    private string SELECTED_GROUP => $"{UNIQUE_PREFIX}-selected";
 
     private Dictionary<string, VehiclePart> parts = new();
 
@@ -54,6 +56,24 @@ public partial class Editor : Node3D
 
     private Button BuildButtonButton => GetNode<Button>("%button_build_mode");
 
+    private Button LeaveEditorButton => GetNode<Button>("%button_leave_editor");
+
+    private bool _leaveEditorButtonEnabled = false;
+
+    [Export]
+    public bool LeaveEditorButtonEnabled
+    {
+        get { return _leaveEditorButtonEnabled; }
+        set
+        {
+            LeaveEditorButton.Visible = value;
+            _leaveEditorButtonEnabled = value;
+        }
+    }
+
+    public delegate void LeaveEditorRequestedHandler();
+    public event LeaveEditorRequestedHandler LeaveEditorRequested;
+
     private Label MassLabel => GetNode<Label>("%label_mass");
 
     private Node3D FreePlacementContainer => GetNode<Node3D>("%free-placement-container");
@@ -64,12 +84,20 @@ public partial class Editor : Node3D
 
     private VehiclePart selectedFreePlacementPart = null;
 
+    /// <summary>
+    /// Gets the name of named vehicle currently loaded.
+    /// 
+    /// Note that this is not guarantee that a vehicle was saved.
+    /// </summary>
+    public string VehicleName => VehicleNameTextEdit.Text;
+
     public override void _Ready()
     {
         base._Ready();
 
         SaveButton.Pressed += SavePressed;
         LoadButton.Pressed += LoadPressed;
+        LeaveEditorButton.Pressed += leaveEditorButtonPressed;
 
         highlightedShader = GD.Load<Shader>("res://shaders/highlighted.gdshader");
 
@@ -133,7 +161,7 @@ public partial class Editor : Node3D
 
             PartsContainer.AddChild(row);
             row.AddToGroup(PARTS_BUTTON_GROUP);
-            row.AddToGroup(part.PartType.GroupName());
+            row.AddToGroup(part.PartType.GroupName(UNIQUE_PREFIX));
 
             parts.Add(part.Name, part);
         }
@@ -142,6 +170,7 @@ public partial class Editor : Node3D
         (FilterContainer.GetChildren().FirstOrDefault(n => n is Button) as Button)?.GrabFocus();
         resetGui();
         MassLabel.Text = "Vehicle mass: 0 kg";
+
     }
 
     public override void _ExitTree()
@@ -201,7 +230,7 @@ public partial class Editor : Node3D
     private void FilterPressed(PartType partType)
     {
         GetTree().HideByGroupName(PARTS_BUTTON_GROUP);
-        GetTree().ShowByGroupName(partType.GroupName());
+        GetTree().ShowByGroupName(partType.GroupName(UNIQUE_PREFIX));
         freePlacement = partType == PartType.Accessory;
     }
 
@@ -243,7 +272,8 @@ public partial class Editor : Node3D
             PerformLoad(selectedPath);
             dialog.QueueFree();
         };
-        dialog.Canceled += () => {
+        dialog.Canceled += () =>
+        {
             dialog.QueueFree();
         };
     }
@@ -251,18 +281,17 @@ public partial class Editor : Node3D
     private void PerformLoad(string filepath)
     {
         GD.Print($"Loading {filepath}...");
-        using var saveFile = FileAccess.Open(filepath, FileAccess.ModeFlags.Read);
-        string json = saveFile.GetAsText();
-        var options = new JsonSerializerOptions { IncludeFields = true };
-        var model = JsonSerializer.Deserialize<CdVehicle.CdVehicleModel>(json, options);
+        var vehicleLoader = new VehicleLoader();
+        var model = vehicleLoader.LoadUserVehicleModelFromFilepath(filepath);
         vehicle.Model = model;
         rebuildFromParts();
+        VehicleNameTextEdit.Text = model.Name;
         GD.Print("Load complete");
     }
 
     private void partHovered(VehiclePart vehiclePart)
     {
-        
+
     }
 
     public override void _UnhandledInput(InputEvent _inputEvent)
@@ -342,11 +371,13 @@ public partial class Editor : Node3D
                     }
                 }
 
-                if (Input.IsActionPressed("rotate_part_clockwise")) {
+                if (Input.IsActionPressed("rotate_part_clockwise"))
+                {
                     FreePlacementContainer.Rotate(Vector3.Up, -0.1f);
                 }
 
-                if (Input.IsActionPressed("rotate_part_anti_clockwise")) {
+                if (Input.IsActionPressed("rotate_part_anti_clockwise"))
+                {
                     FreePlacementContainer.Rotate(Vector3.Up, 0.1f);
                 }
             }
@@ -512,16 +543,16 @@ public partial class Editor : Node3D
             {
                 clearSelected();
                 overrideMaterial(source_node);
-                source_node.AddToGroup(SELECTED_GRP);
+                source_node.AddToGroup(SELECTED_GROUP);
             }
         }
     }
 
     private void clearSelected()
     {
-        foreach (var n in Container.GetTree().GetNodesInGroup(SELECTED_GRP))
+        foreach (var n in Container.GetTree().GetNodesInGroup(SELECTED_GROUP))
         {
-            n.RemoveFromGroup(SELECTED_GRP);
+            n.RemoveFromGroup(SELECTED_GROUP);
             remove_override_material(n as Node3D);
         }
     }
@@ -600,5 +631,16 @@ public partial class Editor : Node3D
 
         resetGui();
         rebuildFromParts();
+    }
+
+    private void leaveEditorButtonPressed()
+    {
+        GD.Print($"leave? {LeaveEditorButtonEnabled}");
+
+        if (!LeaveEditorButtonEnabled)
+        {
+            return;
+        }
+        LeaveEditorRequested?.Invoke();
     }
 }

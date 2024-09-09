@@ -1,6 +1,7 @@
-[gd_scene load_steps=25 format=3 uid="uid://dyd4lioy8r5o7"]
+[gd_scene load_steps=23 format=3 uid="uid://dyd4lioy8r5o7"]
 
 [ext_resource type="Script" path="res://editor/Editor.cs" id="1_wdacw"]
+[ext_resource type="Environment" uid="uid://g5lksdi3o06q" path="res://outdoor_environment.tres" id="2_artjy"]
 [ext_resource type="Texture2D" uid="uid://4htfsqr8e3kl" path="res://assets/textures/blueprint.png" id="2_giutx"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cfu7m"]
@@ -47,20 +48,6 @@ albedo_color = Color(0, 0, 1, 1)
 material = SubResource("StandardMaterial3D_j54xq")
 radius = 0.05
 height = 0.1
-
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_6ohtg"]
-sky_top_color = Color(0.329412, 0.454902, 0.635294, 1)
-sky_horizon_color = Color(0.498039, 0.666667, 0.886275, 1)
-
-[sub_resource type="Sky" id="Sky_7fhfx"]
-sky_material = SubResource("ProceduralSkyMaterial_6ohtg")
-
-[sub_resource type="Environment" id="Environment_se4ag"]
-background_mode = 2
-background_energy_multiplier = 1.5
-sky = SubResource("Sky_7fhfx")
-sky_custom_fov = 179.0
-sky_rotation = Vector3(0, 3.14159, 0)
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_vwy8d"]
 
@@ -228,44 +215,63 @@ theme_override_constants/margin_top = 20
 [node name="VBoxContainer" type="VBoxContainer" parent="gui/container_top"]
 layout_mode = 2
 
-[node name="CenterContainer" type="CenterContainer" parent="gui/container_top/VBoxContainer"]
-layout_mode = 2
-
-[node name="HBoxContainer" type="HBoxContainer" parent="gui/container_top/VBoxContainer/CenterContainer"]
-layout_mode = 2
-
-[node name="text_vehicle_name" type="TextEdit" parent="gui/container_top/VBoxContainer/CenterContainer/HBoxContainer" groups=["edit_mode_ui"]]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(200, 36)
-layout_mode = 2
-placeholder_text = "Vehicle name"
-
-[node name="button_save" type="Button" parent="gui/container_top/VBoxContainer/CenterContainer/HBoxContainer" groups=["edit_mode_ui"]]
-unique_name_in_owner = true
-layout_mode = 2
-text = "Save"
-
-[node name="button_load" type="Button" parent="gui/container_top/VBoxContainer/CenterContainer/HBoxContainer" groups=["edit_mode_ui"]]
-unique_name_in_owner = true
-layout_mode = 2
-text = "Load"
-
-[node name="button_test_vehicle" type="Button" parent="gui/container_top/VBoxContainer/CenterContainer/HBoxContainer" groups=["edit_mode_ui"]]
-unique_name_in_owner = true
-layout_mode = 2
-text = "(Y) Test your vehicle"
-
-[node name="button_build_mode" type="Button" parent="gui/container_top/VBoxContainer/CenterContainer/HBoxContainer" groups=["test_mode_ui"]]
-unique_name_in_owner = true
-layout_mode = 2
-text = "(Y) Back to build mode"
-
 [node name="CenterContainer2" type="CenterContainer" parent="gui/container_top/VBoxContainer"]
 layout_mode = 2
 
 [node name="label_mass" type="Label" parent="gui/container_top/VBoxContainer/CenterContainer2"]
 unique_name_in_owner = true
 layout_mode = 2
+
+[node name="HFlowContainer" type="HFlowContainer" parent="gui/container_top/VBoxContainer"]
+layout_mode = 2
+
+[node name="GridContainer" type="GridContainer" parent="gui/container_top/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+columns = 3
+
+[node name="Panel" type="Panel" parent="gui/container_top/VBoxContainer/GridContainer"]
+self_modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+
+[node name="button_leave_editor" type="Button" parent="gui/container_top/VBoxContainer/GridContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Leave Editor"
+
+[node name="CenterContainer" type="CenterContainer" parent="gui/container_top/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="gui/container_top/VBoxContainer/GridContainer/CenterContainer"]
+layout_mode = 2
+
+[node name="text_vehicle_name" type="TextEdit" parent="gui/container_top/VBoxContainer/GridContainer/CenterContainer/HBoxContainer" groups=["edit_mode_ui"]]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 36)
+layout_mode = 2
+placeholder_text = "Vehicle name"
+
+[node name="button_save" type="Button" parent="gui/container_top/VBoxContainer/GridContainer/CenterContainer/HBoxContainer" groups=["edit_mode_ui"]]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Save"
+
+[node name="button_load" type="Button" parent="gui/container_top/VBoxContainer/GridContainer/CenterContainer/HBoxContainer" groups=["edit_mode_ui"]]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Load"
+
+[node name="button_test_vehicle" type="Button" parent="gui/container_top/VBoxContainer/GridContainer/CenterContainer/HBoxContainer" groups=["edit_mode_ui"]]
+unique_name_in_owner = true
+layout_mode = 2
+text = "(Y) Test your vehicle"
+
+[node name="button_build_mode" type="Button" parent="gui/container_top/VBoxContainer/GridContainer/CenterContainer/HBoxContainer" groups=["test_mode_ui"]]
+unique_name_in_owner = true
+layout_mode = 2
+text = "(Y) Back to build mode"
 
 [node name="camera-pivot" type="Node3D" parent="."]
 transform = Transform3D(0.70859, -0.00359738, 0.705611, -0.219186, 0.949397, 0.224951, -0.670714, -0.314058, 0.671945, 0, 0, 0)
@@ -275,7 +281,7 @@ unique_name_in_owner = true
 transform = Transform3D(0.973013, -0.230752, 0.000800937, 0.230645, 0.972444, -0.0339973, 0.00706616, 0.0332645, 0.999422, 9.53674e-07, -8.34465e-07, 6)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_se4ag")
+environment = ExtResource("2_artjy")
 
 [node name="test-container" type="Node3D" parent="."]
 unique_name_in_owner = true
@@ -352,5 +358,5 @@ skeleton = NodePath("../../..")
 
 [connection signal="pressed" from="gui/container_left/HBoxContainer/CenterContainer/VBoxContainer/VBoxContainer/button_clear" to="." method="_onButtonClearPressed"]
 [connection signal="color_changed" from="gui/container_right/VBoxContainer/ColorPicker" to="." method="_on_color_picker_color_changed"]
-[connection signal="pressed" from="gui/container_top/VBoxContainer/CenterContainer/HBoxContainer/button_test_vehicle" to="." method="_onButtonTestVehiclePressed"]
-[connection signal="pressed" from="gui/container_top/VBoxContainer/CenterContainer/HBoxContainer/button_build_mode" to="." method="_onButtonBuildModePressed"]
+[connection signal="pressed" from="gui/container_top/VBoxContainer/GridContainer/CenterContainer/HBoxContainer/button_test_vehicle" to="." method="_onButtonTestVehiclePressed"]
+[connection signal="pressed" from="gui/container_top/VBoxContainer/GridContainer/CenterContainer/HBoxContainer/button_build_mode" to="." method="_onButtonBuildModePressed"]

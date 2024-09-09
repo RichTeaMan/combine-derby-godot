@@ -17,4 +17,8 @@ public static class PartTypeUtility
     {
         return $"{type}_PART_ GROUP";
     }
+
+    public static string GroupName(this PartType type, string prefix) {
+        return $"{prefix}_{type}_PART_ GROUP";
+    }
 }

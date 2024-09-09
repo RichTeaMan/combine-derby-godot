@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://d3n1mdixudhnp"]
+
+[ext_resource type="PackedScene" uid="uid://bbsjgpclk45uf" path="res://assets/props/podium-steps.glb" id="1_fea5o"]
+[ext_resource type="Environment" uid="uid://g5lksdi3o06q" path="res://outdoor_environment.tres" id="2_8jb86"]
+
+[node name="Display-podium" type="Node3D"]
+
+[node name="Node3D" type="Node3D" parent="."]
+
+[node name="podium-steps" parent="Node3D" instance=ExtResource("1_fea5o")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.304558, 0)
+
+[node name="Node3D2" type="Node3D" parent="."]
+transform = Transform3D(0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, -5, 2, 5)
+
+[node name="Camera3D" type="Camera3D" parent="Node3D2"]
+transform = Transform3D(1, 0, 0, 0, 0.990268, 0.139173, 0, -0.139173, 0.990268, 0, 0, 0)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = ExtResource("2_8jb86")

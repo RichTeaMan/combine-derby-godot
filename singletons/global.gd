@@ -194,7 +194,7 @@ func create_game(player_count: int, game_mode: String, arena_name: String) -> vo
 		get_tree().quit()
 	var instance = player_container.instantiate()
 	print("Adding game instance...")
-	get_parent().add_child(instance)
+	add_node_to_global_root(instance)
 
 	print("Setting up game mode %s", [game_mode])
 	var game_type
@@ -231,3 +231,6 @@ func create_game(player_count: int, game_mode: String, arena_name: String) -> vo
 	instance.add_child(game_instance)
 	current_game_scene = instance
 	current_player_count = player_count
+
+func add_node_to_global_root(node: Node):
+	get_parent().add_child(node)

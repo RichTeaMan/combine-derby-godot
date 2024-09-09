@@ -79,8 +79,8 @@ public class BodyPart : VehiclePart
         var combine = new BodyPart("Combine Harvester", "res://assets/parts/body/combine-body.tscn")
         {
             Description = "The thing from the title screen!",
-            BaseRpm = 500.0f,
-            BaseTorque = 800.0f,
+            BaseRpm = 1000.0f,
+            BaseTorque = 2000.0f,
             Mass = 800.0f,
         };
         combine.AddWheelAnchor(new Vector3(1.31f, 0.0f, 1.45f), true, false);

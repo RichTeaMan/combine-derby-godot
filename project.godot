@@ -19,6 +19,7 @@ config/icon="res://icon.png"
 [autoload]
 
 Global="*res://singletons/global.tscn"
+GlobalCs="*res://singletons/global_cs.tscn"
 BuildInfo="*res://singletons/build_info.tscn"
 Transitions="*res://singletons/transitions.tscn"
 
@@ -30,10 +31,6 @@ window/size/viewport_height=1080
 [dotnet]
 
 project/assembly_name="combine-derby"
-
-[editor]
-
-run/main_run_args="--vehicle-editor"
 
 [filesystem]
 

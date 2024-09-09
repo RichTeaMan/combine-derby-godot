@@ -19,26 +19,32 @@ public static class Utils
 
     public static bool ContainsId(this Node node, ulong id)
     {
-        if (node.GetInstanceId() == id) {
+        if (node.GetInstanceId() == id)
+        {
             return true;
         }
         return ChildrenRecursive(node).Select(n => n.GetInstanceId()).Contains(id);
     }
 
-    public static void HideByGroupName(this SceneTree sceneTree, string groupName) {
-        foreach(var node in sceneTree.GetNodesInGroup(groupName)) {
-            if (node is CanvasItem canvasItem) {
-                canvasItem.Visible = false;
+    public static void VisibleByGroupName(this SceneTree sceneTree, string groupName, bool visible)
+    {
+        foreach (var node in sceneTree.GetNodesInGroup(groupName))
+        {
+            if (node is CanvasItem canvasItem)
+            {
+                canvasItem.Visible = visible;
             }
         }
     }
 
-    public static void ShowByGroupName(this SceneTree sceneTree, string groupName) {
-        foreach(var node in sceneTree.GetNodesInGroup(groupName)) {
-            if (node is CanvasItem canvasItem) {
-                canvasItem.Visible = true;
-            }
-        }
+    public static void HideByGroupName(this SceneTree sceneTree, string groupName)
+    {
+        sceneTree.VisibleByGroupName(groupName, false);
+    }
+
+    public static void ShowByGroupName(this SceneTree sceneTree, string groupName)
+    {
+        sceneTree.VisibleByGroupName(groupName, true);
     }
 
     /// <summary>
