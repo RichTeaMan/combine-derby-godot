@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://c8681i5be263t"]
 
-[ext_resource type="Theme" uid="uid://dnfyfchbmcxbe" path="res://themes/large_ui_theme.tres" id="1_bpfa7"]
 [ext_resource type="Script" path="res://ui/GameSelectScreen.cs" id="1_dncbs"]
+[ext_resource type="Theme" uid="uid://crxug62ulgqui" path="res://themes/ui_theme.tres" id="2_oh5yf"]
 [ext_resource type="PackedScene" uid="uid://d0t4cfgbcbeii" path="res://ui/vehicle_select.tscn" id="3_s7h0c"]
 
 [node name="GameSelectScreen" type="Control"]
@@ -28,20 +28,32 @@ text = "Game Type:"
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
 
-[node name="Button" type="Button" parent="VBoxContainer/HBoxContainer"]
+[node name="button_arena" type="CheckButton" parent="VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
+theme = ExtResource("2_oh5yf")
 text = "Arena"
 
-[node name="Button2" type="Button" parent="VBoxContainer/HBoxContainer"]
+[node name="RichTextLabel" type="Label" parent="VBoxContainer/HBoxContainer"]
 layout_mode = 2
-text = "Farm"
+theme = ExtResource("2_oh5yf")
+text = "Wreck as many obstacles as you can in a minute"
 
-[node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(800, 120)
+[node name="Panel" type="Panel" parent="VBoxContainer/HBoxContainer"]
+modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(40, 0)
 layout_mode = 2
-theme = ExtResource("1_bpfa7")
-bbcode_enabled = true
-text = "[center]Wreck as many obstacles as you can in a minute[/center]"
+
+[node name="button_harvest" type="CheckButton" parent="VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("2_oh5yf")
+text = "Harvest"
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_oh5yf")
+text = "Farming, but fast (and very experimental)."
 
 [node name="ReferenceRect2" type="ReferenceRect" parent="VBoxContainer"]
 layout_mode = 2
