@@ -13,14 +13,16 @@ public partial class GameSelectScreen : Control
 
     private int readyPlayers = 0;
 
-    private int players = 2;
+    private int players = 1;
 
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
-        vehicleSelect1.PlayRequested += onVehicleSelected;
-        vehicleSelect2.PlayRequested += onVehicleSelected;
+        vehicleSelect1.OnPlayRequested += onVehicleSelected;
+        vehicleSelect2.OnPlayRequested += onVehicleSelected;
+        // vehicle 1 is already joined
+        vehicleSelect2.OnPlayerJoined += (sender) => { players++; };
 
         buttonArena.ButtonPressed = true;
         buttonHarvest.ButtonPressed = false;

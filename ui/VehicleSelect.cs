@@ -10,9 +10,27 @@ public partial class VehicleSelect : Control
     [Export]
     public string SelectedVehicleName { get; set; } = "";
 
-    private string unqiueGroupPrefix = Guid.NewGuid().ToString();
+    private bool _playerJoined = false;
 
-    private string uiGroupName => $"{unqiueGroupPrefix}_VEHICLE_SELECT";
+    [Export]
+    public bool PlayerJoined
+    {
+        get { return _playerJoined; }
+        set
+        {
+            _playerJoined = value;
+            confirmPlayerControl.Visible = !_playerJoined;
+            selectionRoot.Visible = _playerJoined;
+        }
+    }
+
+    private string uniqueGroupPrefix = Guid.NewGuid().ToString();
+
+    private string uiGroupName => $"{uniqueGroupPrefix}_VEHICLE_SELECT";
+
+    private Control confirmPlayerControl => GetNode<Control>("%confirm_player");
+
+    private Button buttonJoin => GetNode<Button>("%button_join");
 
     private VBoxContainer containerUserVehicles => GetNode<VBoxContainer>("%container_user_vehicles");
 
@@ -42,11 +60,15 @@ public partial class VehicleSelect : Control
     }
 
     public delegate void PlayRequestedHandler(VehicleSelect sender);
-    public event PlayRequestedHandler PlayRequested;
+    public event PlayRequestedHandler OnPlayRequested;
+
+    public delegate void PlayerJoinedHandler(VehicleSelect sender);
+    public event PlayerJoinedHandler OnPlayerJoined;
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
+        PlayerJoined = _playerJoined;
         foreach (var node in containerSubViews.GetChildren())
         {
             if (node is Control control)
@@ -69,9 +91,16 @@ public partial class VehicleSelect : Control
 
         buttonEditor.Pressed += openEditor;
         buttonPlay.Pressed += onPlayButton;
+        buttonJoin.Pressed += onJoinButton;
         UiVisible = true;
         finishedSelectionRoot.Visible = false;
         previewVehicle();
+    }
+
+    private void onJoinButton()
+    {
+        PlayerJoined = true;
+        OnPlayerJoined?.Invoke(this);
     }
 
     private void previewVehicle()
@@ -107,15 +136,17 @@ public partial class VehicleSelect : Control
         modulate.A = 0.5f;
         selectionRoot.Modulate = modulate;
 
-        foreach(var node in selectionRoot.ChildrenRecursive()) {
-            if (node is BaseButton button) {
+        foreach (var node in selectionRoot.ChildrenRecursive())
+        {
+            if (node is BaseButton button)
+            {
                 button.Disabled = true;
             }
         }
 
         finishedSelectionRoot.Visible = true;
 
-        PlayRequested?.Invoke(this);
+        OnPlayRequested?.Invoke(this);
     }
 
     private void openEditor()

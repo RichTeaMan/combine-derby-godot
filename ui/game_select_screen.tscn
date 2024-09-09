@@ -74,6 +74,7 @@ size_flags_horizontal = 3
 [node name="vehicle_select_1" parent="VBoxContainer/ReferenceRect2/HBoxContainer/ReferenceRect" instance=ExtResource("3_s7h0c")]
 unique_name_in_owner = true
 layout_mode = 1
+PlayerJoined = true
 
 [node name="ReferenceRect2" type="ReferenceRect" parent="VBoxContainer/ReferenceRect2/HBoxContainer"]
 layout_mode = 2

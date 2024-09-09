@@ -13,6 +13,30 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_htiis")
 
+[node name="confirm_player" type="Control" parent="."]
+unique_name_in_owner = true
+z_index = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="confirm_player"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="button_join" type="Button" parent="confirm_player/CenterContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("2_a8gyt")
+text = "Join Game"
+
 [node name="selection_root" type="Control" parent="."]
 unique_name_in_owner = true
 layout_mode = 1
@@ -90,6 +114,7 @@ text = "Play"
 
 [node name="finished_selection_root" type="Control" parent="."]
 unique_name_in_owner = true
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -108,4 +133,4 @@ grow_vertical = 2
 [node name="Label" type="Label" parent="finished_selection_root/CenterContainer"]
 layout_mode = 2
 theme = ExtResource("2_a8gyt")
-text = "Waiting for players"
+text = "Waiting for other players..."
