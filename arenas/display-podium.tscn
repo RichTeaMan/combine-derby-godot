@@ -1,14 +1,22 @@
-[gd_scene load_steps=3 format=3 uid="uid://d3n1mdixudhnp"]
+[gd_scene load_steps=4 format=3 uid="uid://d3n1mdixudhnp"]
 
+[ext_resource type="Script" path="res://arenas/DisplayPodium.cs" id="1_15hre"]
 [ext_resource type="PackedScene" uid="uid://bbsjgpclk45uf" path="res://assets/props/podium-steps.glb" id="1_fea5o"]
 [ext_resource type="Environment" uid="uid://g5lksdi3o06q" path="res://outdoor_environment.tres" id="2_8jb86"]
 
 [node name="Display-podium" type="Node3D"]
+script = ExtResource("1_15hre")
 
-[node name="Node3D" type="Node3D" parent="."]
+[node name="gimbal" type="Node3D" parent="."]
+unique_name_in_owner = true
 
-[node name="podium-steps" parent="Node3D" instance=ExtResource("1_fea5o")]
+[node name="Node3D" type="Node3D" parent="gimbal"]
+
+[node name="podium-steps" parent="gimbal/Node3D" instance=ExtResource("1_fea5o")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.304558, 0)
+
+[node name="display_node" type="Node3D" parent="gimbal"]
+unique_name_in_owner = true
 
 [node name="Node3D2" type="Node3D" parent="."]
 transform = Transform3D(0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, -5, 2, 5)

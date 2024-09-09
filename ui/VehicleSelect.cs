@@ -106,7 +106,7 @@ public partial class VehicleSelect : Control
     private void previewVehicle()
     {
         var displayPodium = GD.Load<PackedScene>("res://arenas/display-podium.tscn");
-        var displayPodiumInstance = (Node3D)displayPodium.Instantiate();
+        var displayPodiumInstance = (DisplayPodium)displayPodium.Instantiate();
         displayPodiumInstance.Position = calcPlayerPositionOffset(displayPodiumInstance.Position);
         subViewNode.GetChildren().ToList().ForEach(n => n.QueueFree());
         subViewNode.AddChild(displayPodiumInstance);
@@ -121,12 +121,8 @@ public partial class VehicleSelect : Control
             }
             var vehicle = vehicleLoader.LoadUserVehicleFromModel(vehicleModel);
             vehicle.Freeze = true;
-            var position = vehicle.Position;
-            // TODO: set this better so small vehicles don't float and large ones don't intersect the stage
-            position.Y = 1.0f;
-            vehicle.Position = position;
             buttonPlay.Disabled = false;
-            displayPodiumInstance.AddChild(vehicle);
+            displayPodiumInstance.AddNodeToPodium(vehicle);
         }
     }
 
