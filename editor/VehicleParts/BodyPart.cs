@@ -54,7 +54,8 @@ public class BodyPart : VehiclePart
             Mass = 800.0f,
             BaseRpm = 500.0f,
             BaseTorque = 2000.0f,
-            ImageUri = "res://assets/parts/body/silo-body-icon.png"
+            ImageUri = "res://assets/parts/body/silo-body-icon.png",
+            SoundPart = new Engine1SoundPart(),
         };
         silo.AddWheelAnchor(new Vector3(1.5f, -0.8f, 3.0f), false, true);
         silo.AddWheelAnchor(new Vector3(1.5f, -0.8f, -3.0f), true, false);
@@ -84,7 +85,7 @@ public class BodyPart : VehiclePart
             BaseRpm = 1000.0f,
             BaseTorque = 2000.0f,
             Mass = 800.0f,
-            SoundPart = new Engine1SoundPart()
+            SoundPart = new Engine1SoundPart(),
         };
         combine.AddWheelAnchor(new Vector3(1.31f, 0.0f, 1.45f), true, false);
         combine.AddWheelAnchor(new Vector3(1.16f, 0.0f, -1.0f), false, true);
@@ -96,7 +97,8 @@ public class BodyPart : VehiclePart
         var sphere = new BodyPart("Sphere", "res://assets/parts/body/sphere-body.tscn")
         {
             Description = "Behold the smoothness.",
-            Mass = 400.0f
+            Mass = 400.0f,
+            SoundPart = new Engine1SoundPart(),
         };
         sphere.AddWheelAnchor(new Vector3(1.8f, -1.5f, 1.8f), false, true);
         sphere.AddWheelAnchor(new Vector3(1.8f, -1.5f, -1.8f), true, false);
@@ -108,7 +110,8 @@ public class BodyPart : VehiclePart
         var box = new BodyPart("Box", "res://assets/parts/body/box-body.tscn")
         {
             Description = "A box. For boxing?",
-            Mass = 200.0f
+            Mass = 200.0f,
+            SoundPart = new Engine1SoundPart(),
         };
         box.AddWheelAnchor(new Vector3(1.8f, -0.9f, 3.5f), false, true);
         box.AddWheelAnchor(new Vector3(1.8f, -0.9f, -3.5f), true, false);
