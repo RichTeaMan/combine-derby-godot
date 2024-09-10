@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 public partial class GameSelectScreen : Control
 {
@@ -20,8 +21,8 @@ public partial class GameSelectScreen : Control
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
-        vehicleSelect1.OnPlayRequested += onVehicleSelected;
-        vehicleSelect2.OnPlayRequested += onVehicleSelected;
+        vehicleSelect1.OnPlayRequested += async (vehicleSelect) => { await onVehicleSelected(vehicleSelect); };
+        vehicleSelect2.OnPlayRequested += async (vehicleSelect) => { await onVehicleSelected(vehicleSelect); };
         // vehicle 1 is already joined
         vehicleSelect2.OnPlayerJoined += (sender) => { players++; };
 
@@ -41,12 +42,11 @@ public partial class GameSelectScreen : Control
         button.ButtonPressed = true;
     }
 
-    private void onVehicleSelected(VehicleSelect vehicleSelect)
+    private async Task onVehicleSelected(VehicleSelect vehicleSelect)
     {
         readyPlayers++;
         if (readyPlayers == players)
         {
-            QueueFree();
             var players = new List<Player>();
             if (vehicleSelect1.PlayerJoined)
             {
@@ -56,7 +56,10 @@ public partial class GameSelectScreen : Control
             {
                 players.Add(new Player(2, vehicleSelect2.SelectedVehicleName));
             }
+            await TransitionsCs.Current.Fade();
             GlobalCs.Current.CreateGame(players.ToArray(), FetchCheckedGameMode(), FetchCheckedArenaName());
+            QueueFree();
+            TransitionsCs.Current.FadeBack();
             GD.Print("Game created");
         }
     }
