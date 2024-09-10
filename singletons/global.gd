@@ -28,9 +28,6 @@ var current_player_count = 1
 
 var camera_reverses: bool = true
 
-var min_sound = -60.0
-var max_sound = 6.0
-
 var current_playlist: Array
 var current_playlist_index: int
 
@@ -111,7 +108,7 @@ func set_master_volume(volume) -> void:
 func get_master_volume():
 	var db = AudioServer.get_bus_volume_db(AudioServer.get_bus_index("Master"))
 	return resolve_db_volume_fraction(db)
-	
+
 ## Sets music volume. Volume should between 0.0 and 1.0.
 func set_music_volume(volume) -> void:
 	var resolved_db= resolve_volume_fraction_to_db(volume)
@@ -133,35 +130,22 @@ func get_sfx_volume():
 	return resolve_db_volume_fraction(db)
 
 func resolve_volume_fraction_to_db(volume):
-	if volume > 1.0:
-		volume = 1.0
-	elif volume < 0.0:
-		volume = 0.0
-	var sound_range = max_sound - min_sound
-	var resolved_sound = (volume * sound_range) + min_sound
-	return resolved_sound
+	return linear_to_db(volume)
 
 func resolve_db_volume_fraction(db):
-	var adjusted_db = db - min_sound
-	var sound_range = max_sound - min_sound
-	var volume = adjusted_db / sound_range
-	if volume > 1.0:
-		volume = 1.0
-	elif volume < 0.0:
-		volume = 0.0
-	return volume
+	return db_to_linear(db)
 
 func play_music(name: String) -> void:
 	var file = "res://assets/music/%s" % name
 	if ResourceLoader.exists(file):
 		print("Playing %s" % name)
-		var music = load(file) 
+		var music = load(file)
 		music.set_loop(false)
 		$music_player.stream = music
 		$music_player.play()
 	else:
 		print("Unable to play %s, file not found" % name)
-	
+
 func set_playlist(playlist: Array, random_start = false) -> void:
 	if playlist != null && playlist.size() > 0:
 		current_playlist = playlist
@@ -203,11 +187,11 @@ func create_game(player_count: int, game_mode: String, arena_name: String) -> vo
 	elif game_mode == MODE_HARVEST:
 		game_type = preload("res://game_rules/harvest.tscn")
 	else:
-		print("Unknown game mode' %s'" % [game_mode])		
+		print("Unknown game mode '%s'" % [game_mode])
 		get_tree().quit()
 	var game_instance = game_type.instantiate()
 	game_instance.player_count = player_count
-	
+
 	var arena
 	if arena_name == ARENA_CRASH:
 		arena = preload("res://arenas/crash.tscn")
@@ -216,7 +200,7 @@ func create_game(player_count: int, game_mode: String, arena_name: String) -> vo
 	else:
 		print("Unknown arena '%s'" % [arena_name])
 		get_tree().quit()
-	
+
 	game_instance.add_child(arena.instantiate())
 
 	var combine_template = preload("res://vehicles/combine.tscn")

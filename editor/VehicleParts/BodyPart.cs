@@ -12,6 +12,8 @@ public class BodyPart : VehiclePart
 
     public float BaseTorque { get; protected set; } = 2000.0f;
 
+    public ISoundPart SoundPart { get; set; } = null;
+
 
     private List<WheelAnchor> _wheelAnchors = new();
 
@@ -82,6 +84,7 @@ public class BodyPart : VehiclePart
             BaseRpm = 1000.0f,
             BaseTorque = 2000.0f,
             Mass = 800.0f,
+            SoundPart = new Engine1SoundPart()
         };
         combine.AddWheelAnchor(new Vector3(1.31f, 0.0f, 1.45f), true, false);
         combine.AddWheelAnchor(new Vector3(1.16f, 0.0f, -1.0f), false, true);

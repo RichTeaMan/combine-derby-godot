@@ -47,12 +47,13 @@ public partial class CdVehicle : VehicleBody3D
 
     private VehicleWheel3D[] SteeringWheels = Array.Empty<VehicleWheel3D>();
 
+    private ISoundPartInstance SoundPart = null;
+
     private Node3D CameraGimbal;
 
     private Camera3D FreeCamera;
 
     private bool rotating = false;
-
 
     private Vector2 prevMousePosition;
     private Vector2 nextMousePosition;
@@ -154,8 +155,10 @@ public partial class CdVehicle : VehicleBody3D
         ContactMonitor = true;
         MaxContactsReported = 4;
 
-        //$sound.play()
-        UnpackCollisions();
+        BodyShapeEntered += _onVehicleBodyShapeEntered;
+
+        UnpackBodyScene();
+        SoundPart?.StartEngineNoise();
     }
 
     public override void _UnhandledInput(InputEvent _inputEvent)
@@ -235,10 +238,10 @@ public partial class CdVehicle : VehicleBody3D
         // TODO
         // Global.update_speed(player_id, basis.tdotz(get_linear_velocity()))
 
-        //if acceleration != 0:
-        //	$sound.volume_db = accelerating_sound_db
-        //else:
-        //	$sound.volume_db = idle_sound_db
+        if (SoundPart != null)
+        {
+            SoundPart.Acceleration = acceleration;
+        }
 
         if (Rotation.Z > UPSIDE_DOWN_ANGLE || Rotation.Z < -UPSIDE_DOWN_ANGLE)
         {
@@ -281,20 +284,16 @@ public partial class CdVehicle : VehicleBody3D
         {
             //GD.Print($"combine collsion force {collisionForce.length_squared()}");
         }
-        //if (collision_force.length_squared() > 30000.0)
-        //	crash_sounds.play_big_sound()
-        //if (collision_force.length_squared() > 100.0)
-        //	crash_sounds.play_small_sound()
+        SoundPart?.PlayCollisionNoise(collisionForce);
     }
 
-
-    //public override void _on_vehicle_body_shape_entered(Rid _body_rid, Node body, int _body_shape_index,int _local_shape_index){
-
-    // integrate forces seem to miss some collision (usually static bodies, but not always)
-    // this seems to find the rest of them. big crashes are assumed
-    //crash_sounds.play_big_sound()
-    //Global.do_vehicle_body_shape_entered(player_id, body)
-    //}
+    public void _onVehicleBodyShapeEntered(Rid _body_rid, Node body, long _body_shape_index, long _local_shape_index)
+    {
+        // integrate forces seem to miss some collision (usually static bodies, but not always)
+        // this seems to find the rest of them. big crashes are assumed
+        SoundPart?.PlayLargeCollisionNoise();
+        //Global.do_vehicle_body_shape_entered(player_id, body)
+    }
 
     public void RebuildFromParts(Dictionary<string, VehiclePart> parts)
     {
@@ -303,13 +302,15 @@ public partial class CdVehicle : VehicleBody3D
         float mass = 0;
 
         BodyPart body = null;
+        SoundPart = null;
         if (Model.BodyId != null)
         {
             body = (BodyPart)parts[Model.BodyId];
             mass += body.Mass;
             var bodyScene = body.InstantiateScene();
+            SoundPart = body.SoundPart?.Instantiate();
             AddChild(bodyScene);
-            UnpackCollisions();
+            UnpackBodyScene();
 
             if (Model.WheelsId != null)
             {
@@ -348,7 +349,7 @@ public partial class CdVehicle : VehicleBody3D
         MaxTorque = body.BaseTorque;
     }
 
-    private void UnpackCollisions()
+    private void UnpackBodyScene()
     {
         if (!IsInsideTree())
         {
@@ -371,6 +372,11 @@ public partial class CdVehicle : VehicleBody3D
         else
         {
             GD.Print($"collisions node not found. {GetChild(0)?.Name}/collisions");
+        }
+
+        if (SoundPart != null)
+        {
+            SoundPart.AddSoundNode(this);
         }
     }
 
