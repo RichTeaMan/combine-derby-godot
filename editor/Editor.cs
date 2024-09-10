@@ -66,10 +66,11 @@ public partial class Editor : Node3D
         get { return _leaveEditorButtonEnabled; }
         set
         {
-            LeaveEditorButton.Visible = value;
             _leaveEditorButtonEnabled = value;
+            resetGui();
         }
     }
+
 
     public delegate void LeaveEditorRequestedHandler();
     public event LeaveEditorRequestedHandler LeaveEditorRequested;
@@ -407,6 +408,9 @@ public partial class Editor : Node3D
 
     private void resetGui()
     {
+        if (!IsInsideTree()) {
+            return;
+        }
         CanvasLayer.ChildrenRecursive()
             .Select(n => n as Control)
             .Where(n => n != null)
@@ -426,6 +430,8 @@ public partial class Editor : Node3D
         }
         TestVehicleButton.Visible = buildMode;
         BuildButtonButton.Visible = !buildMode;
+
+        LeaveEditorButton.Visible = buildMode && LeaveEditorButtonEnabled;
     }
 
     private void RebuildMaterialContainer()
