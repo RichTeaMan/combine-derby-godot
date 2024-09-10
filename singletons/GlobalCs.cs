@@ -19,6 +19,19 @@ public partial class GlobalCs : Node3D
     public const string MODE_POINTS = "points";
     public const string MODE_HARVEST = "harvest";
 
+    public bool IsMuted
+    {
+        get
+        {
+            return AudioServer.IsBusMute(AudioServer.GetBusIndex("Master"));
+        }
+        set
+        {
+            GD.Print($"Muting master bus: {value}");
+            AudioServer.SetBusMute(AudioServer.GetBusIndex("Master"), value);
+        }
+    }
+
     public void CreateGame(Player[] players, string gameMode, string arenaName)
     {
         int playerCount = players.Length;
@@ -47,7 +60,7 @@ public partial class GlobalCs : Node3D
         var instance = playerContainer.Instantiate();
         GD.Print("Adding game instance...");
         AddNodeToGlobalRoot(instance);
-        
+
         GD.Print($"Setting up game mode {gameMode}");
         PackedScene gameType;
         if (gameMode == MODE_POINTS)
@@ -102,7 +115,7 @@ public partial class GlobalCs : Node3D
         }
         GD.Print("Combines added");
         instance.AddChild(gameInstance);
-        
+
         //current_game_scene = instance;
         Global.Set("current_game_scene", instance);
         //current_player_count = player_count;

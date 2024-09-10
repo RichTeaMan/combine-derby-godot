@@ -1,8 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://bx324t71gmp2f"]
+[gd_scene load_steps=6 format=3 uid="uid://bx324t71gmp2f"]
 
 [ext_resource type="Theme" uid="uid://dnfyfchbmcxbe" path="res://themes/large_ui_theme.tres" id="1"]
-[ext_resource type="Script" path="res://ui/start_screen.gd" id="2"]
-[ext_resource type="Script" path="res://ui/sound_enabled_chb.gd" id="3"]
+[ext_resource type="Script" path="res://ui/StartScreen.cs" id="2"]
 [ext_resource type="Theme" uid="uid://crxug62ulgqui" path="res://themes/ui_theme.tres" id="4"]
 [ext_resource type="Texture2D" uid="uid://tpf3hfo480t3" path="res://assets/title.png" id="5"]
 [ext_resource type="Texture2D" uid="uid://bkepghhfiq5ih" path="res://assets/title_logo.png" id="6"]
@@ -32,6 +31,7 @@ custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
 
 [node name="button_play" type="Button" parent="MarginContainer/CenterContainer/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 theme = ExtResource("1")
 text = "Play"
@@ -42,6 +42,7 @@ custom_minimum_size = Vector2(0, 12)
 layout_mode = 2
 
 [node name="button_editor" type="Button" parent="MarginContainer/CenterContainer/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 theme = ExtResource("1")
 text = "Editor"
@@ -55,11 +56,11 @@ mouse_filter = 2
 layout_mode = 2
 mouse_filter = 2
 
-[node name="sound_enabled_chb" type="CheckBox" parent="MarginContainer2/HFlowContainer"]
+[node name="chb_sound_enabled" type="CheckBox" parent="MarginContainer2/HFlowContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 theme = ExtResource("1")
 text = "Sound Enabled"
-script = ExtResource("3")
 
 [node name="MarginContainer3" type="MarginContainer" parent="."]
 layout_mode = 0
@@ -71,6 +72,7 @@ offset_top = -38.0
 offset_bottom = 32.0
 
 [node name="github_link_button" type="LinkButton" parent="MarginContainer3"]
+unique_name_in_owner = true
 layout_mode = 2
 theme = ExtResource("4")
 text = "github.com"
@@ -120,8 +122,3 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 mouse_filter = 2
 texture = ExtResource("6")
-
-[connection signal="pressed" from="MarginContainer/CenterContainer/VBoxContainer/button_play" to="." method="_on_button_play_pressed"]
-[connection signal="pressed" from="MarginContainer/CenterContainer/VBoxContainer/button_editor" to="." method="_on_button_editor_pressed"]
-[connection signal="toggled" from="MarginContainer2/HFlowContainer/sound_enabled_chb" to="." method="_on_sound_enabled_chb_toggled"]
-[connection signal="pressed" from="MarginContainer3/github_link_button" to="." method="_on_github_link_button_pressed"]
