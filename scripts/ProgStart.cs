@@ -62,17 +62,7 @@ public partial class ProgStart : Node
         // no args, load start screen
         else
         {
-            var scene = GD.Load<PackedScene>("res://ui/start_screen.tscn");
-            if (scene != null)
-            {
-                var start = scene.Instantiate();
-                AddChild(start);
-            }
-            else
-            {
-                GD.PrintErr("Failed to load start.");
-                GetTree().Quit(1);
-            }
+            GlobalCs.Current.LoadStartScreen();
         }
     }
 

@@ -32,6 +32,13 @@ public partial class GlobalCs : Node3D
         }
     }
 
+    public void LoadStartScreen()
+    {
+        var scene = GD.Load<PackedScene>("res://ui/start_screen.tscn");
+        var start = scene.Instantiate<StartScreen>();
+        AddChild(start);
+    }
+
     public void CreateGame(Player[] players, string gameMode, string arenaName)
     {
         int playerCount = players.Length;

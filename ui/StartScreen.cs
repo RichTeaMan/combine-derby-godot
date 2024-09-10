@@ -24,7 +24,8 @@ public partial class StartScreen : Control
         chbSoundEnabled.Toggled += onSoundEnabledChbToggled;
     }
 
-    private void onSoundEnabledChbToggled(bool enabled){
+    private void onSoundEnabledChbToggled(bool enabled)
+    {
         GlobalCs.Current.IsMuted = !enabled;
     }
 
@@ -34,7 +35,17 @@ public partial class StartScreen : Control
 
         var editor = GD.Load<PackedScene>("res://editor/editor.tscn");
         var editorInstance = editor.Instantiate<Editor>();
+        editorInstance.LeaveEditorButtonEnabled = true;
         GlobalCs.Current.AddNodeToGlobalRoot(editorInstance);
+
+        editorInstance.LeaveEditorRequested += async () =>
+        {
+            await TransitionsCs.Current.Fade();
+            GlobalCs.Current.LoadStartScreen();
+            editorInstance.QueueFree();
+            TransitionsCs.Current.FadeBack();
+        };
+
         // await this ???
         TransitionsCs.Current.FadeBack();
         QueueFree();
