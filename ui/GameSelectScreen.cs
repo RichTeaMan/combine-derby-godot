@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 
 public partial class GameSelectScreen : Control
 {
@@ -46,11 +47,16 @@ public partial class GameSelectScreen : Control
         if (readyPlayers == players)
         {
             QueueFree();
-            var players = new Player[] {
-                new Player(1, vehicleSelect1.SelectedVehicleName),
-                new Player(2, vehicleSelect2.SelectedVehicleName)
-            };
-            GlobalCs.Current.CreateGame(players, FetchCheckedGameMode(), FetchCheckedArenaName());
+            var players = new List<Player>();
+            if (vehicleSelect1.PlayerJoined)
+            {
+                players.Add(new Player(1, vehicleSelect1.SelectedVehicleName));
+            }
+            if (vehicleSelect2.PlayerJoined)
+            {
+                players.Add(new Player(2, vehicleSelect2.SelectedVehicleName));
+            }
+            GlobalCs.Current.CreateGame(players.ToArray(), FetchCheckedGameMode(), FetchCheckedArenaName());
             GD.Print("Game created");
         }
     }
@@ -68,7 +74,7 @@ public partial class GameSelectScreen : Control
         return GlobalCs.ARENA_CRASH;
     }
 
-        private string FetchCheckedGameMode()
+    private string FetchCheckedGameMode()
     {
         if (buttonArena.ButtonPressed)
         {
