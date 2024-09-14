@@ -1,12 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://c7jmq6gd2q0i4"]
+[gd_scene load_steps=4 format=3 uid="uid://c7jmq6gd2q0i4"]
 
 [ext_resource type="Theme" uid="uid://crxug62ulgqui" path="res://themes/ui_theme.tres" id="2"]
 [ext_resource type="Theme" uid="uid://b5dkmxxjri631" path="res://themes/ui_bold_theme.tres" id="2_jq341"]
-[ext_resource type="Script" path="res://ui/pause_menu.gd" id="3"]
-[ext_resource type="Script" path="res://ui/checkbox_reverse_camera.gd" id="4"]
-[ext_resource type="Script" path="res://ui/master_volume_slider.gd" id="6"]
-[ext_resource type="Script" path="res://ui/sfx_volume_slider.gd" id="7"]
-[ext_resource type="Script" path="res://ui/music_volume_slider.gd" id="8"]
+[ext_resource type="Script" path="res://ui/PauseMenu.cs" id="3"]
 
 [node name="pause_menu" type="MarginContainer"]
 process_mode = 3
@@ -65,10 +61,10 @@ text = "[center]Options[/center]"
 layout_mode = 2
 
 [node name="checkbox_reverse_camera" type="CheckBox" parent="colour/margin/VBoxContainer/CenterContainer2/VBoxContainer/CenterContainer3"]
+unique_name_in_owner = true
 layout_mode = 2
 theme = ExtResource("2")
 text = "Camera3D never reverses"
-script = ExtResource("4")
 
 [node name="Panel" type="Panel" parent="colour/margin/VBoxContainer/CenterContainer2/VBoxContainer"]
 modulate = Color(1, 1, 1, 0)
@@ -97,12 +93,12 @@ bbcode_enabled = true
 text = "Volume    "
 
 [node name="master_volume_slider" type="HSlider" parent="colour/margin/VBoxContainer/CenterContainer2/VBoxContainer/volume_row"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(250, 40)
 layout_mode = 2
 max_value = 1.0
 step = 0.1
 ticks_on_borders = true
-script = ExtResource("6")
 
 [node name="music_volume_row" type="HBoxContainer" parent="colour/margin/VBoxContainer/CenterContainer2/VBoxContainer"]
 layout_mode = 2
@@ -115,12 +111,12 @@ bbcode_enabled = true
 text = "Music Volume    "
 
 [node name="music_volume_slider" type="HSlider" parent="colour/margin/VBoxContainer/CenterContainer2/VBoxContainer/music_volume_row"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(250, 40)
 layout_mode = 2
 max_value = 1.0
 step = 0.1
 ticks_on_borders = true
-script = ExtResource("8")
 
 [node name="sfx_volume_row" type="HBoxContainer" parent="colour/margin/VBoxContainer/CenterContainer2/VBoxContainer"]
 layout_mode = 2
@@ -133,12 +129,12 @@ bbcode_enabled = true
 text = "SFX Volume    "
 
 [node name="sfx_volume_slider" type="HSlider" parent="colour/margin/VBoxContainer/CenterContainer2/VBoxContainer/sfx_volume_row"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(250, 40)
 layout_mode = 2
 max_value = 1.0
 step = 0.1
 ticks_on_borders = true
-script = ExtResource("7")
 
 [node name="CenterContainer4" type="CenterContainer" parent="colour/margin/VBoxContainer/CenterContainer2/VBoxContainer"]
 layout_mode = 2
@@ -169,7 +165,6 @@ max_value = 1.0
 step = 0.1
 value = 0.1
 ticks_on_borders = true
-script = ExtResource("7")
 
 [node name="CenterContainer3" type="CenterContainer" parent="colour/margin/VBoxContainer"]
 layout_mode = 2
@@ -180,6 +175,7 @@ layout_mode = 2
 mouse_filter = 2
 
 [node name="button_restart" type="Button" parent="colour/margin/VBoxContainer/CenterContainer3/button_row"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 theme = ExtResource("2")
@@ -191,15 +187,8 @@ custom_minimum_size = Vector2(20, 20)
 layout_mode = 2
 
 [node name="button_quit" type="Button" parent="colour/margin/VBoxContainer/CenterContainer3/button_row" groups=["html5_disable"]]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 theme = ExtResource("2")
 text = "Quit"
-
-[connection signal="gui_input" from="colour/margin/VBoxContainer/CenterContainer2/VBoxContainer/CenterContainer3/checkbox_reverse_camera" to="colour/margin/VBoxContainer/CenterContainer2/VBoxContainer/CenterContainer3/checkbox_reverse_camera" method="_on_checkbox_reverse_camera_gui_input"]
-[connection signal="value_changed" from="colour/margin/VBoxContainer/CenterContainer2/VBoxContainer/volume_row/master_volume_slider" to="colour/margin/VBoxContainer/CenterContainer2/VBoxContainer/volume_row/master_volume_slider" method="_on_master_volume_slider_value_changed"]
-[connection signal="value_changed" from="colour/margin/VBoxContainer/CenterContainer2/VBoxContainer/music_volume_row/music_volume_slider" to="colour/margin/VBoxContainer/CenterContainer2/VBoxContainer/music_volume_row/music_volume_slider" method="_on_music_volume_slider_value_changed"]
-[connection signal="value_changed" from="colour/margin/VBoxContainer/CenterContainer2/VBoxContainer/sfx_volume_row/sfx_volume_slider" to="colour/margin/VBoxContainer/CenterContainer2/VBoxContainer/sfx_volume_row/sfx_volume_slider" method="_on_sfx_volume_slider_value_changed"]
-[connection signal="value_changed" from="colour/margin/VBoxContainer/CenterContainer2/VBoxContainer/scaling_row/gfx_scaling_slider" to="." method="_on_gfx_scaling_slider_value_changed"]
-[connection signal="pressed" from="colour/margin/VBoxContainer/CenterContainer3/button_row/button_restart" to="." method="_on_button_restart_pressed"]
-[connection signal="pressed" from="colour/margin/VBoxContainer/CenterContainer3/button_row/button_quit" to="." method="_on_button_quit_pressed"]

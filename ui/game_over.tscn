@@ -1,9 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://bx0f0rdp2kus3"]
+[gd_scene load_steps=4 format=3 uid="uid://bx0f0rdp2kus3"]
 
-[ext_resource type="Script" path="res://ui/game_over.gd" id="1"]
+[ext_resource type="Script" path="res://ui/GameOver.cs" id="1"]
 [ext_resource type="Theme" uid="uid://dnfyfchbmcxbe" path="res://themes/large_ui_theme.tres" id="3"]
 [ext_resource type="Theme" uid="uid://crxug62ulgqui" path="res://themes/ui_theme.tres" id="5"]
-[ext_resource type="Script" path="res://game_rules/points_label.gd" id="6"]
 
 [node name="game_over_container" type="CenterContainer"]
 custom_minimum_size = Vector2(300, 400)
@@ -40,7 +39,6 @@ custom_minimum_size = Vector2(150, 50)
 layout_mode = 2
 theme = ExtResource("5")
 text = "Points: 999"
-script = ExtResource("6")
 
 [node name="RichTextLabel" type="RichTextLabel" parent="Panel/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 50)
@@ -76,6 +74,7 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="resume_button" type="Button" parent="Panel/Panel2/MarginContainer2/VBoxContainer/CenterContainer"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
 theme = ExtResource("5")
@@ -89,10 +88,8 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="restart_button" type="Button" parent="Panel/Panel2/MarginContainer2/VBoxContainer/CenterContainer2"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
 theme = ExtResource("5")
 text = "Restart"
-
-[connection signal="pressed" from="Panel/Panel2/MarginContainer2/VBoxContainer/CenterContainer/resume_button" to="." method="_on_resume_button_pressed"]
-[connection signal="pressed" from="Panel/Panel2/MarginContainer2/VBoxContainer/CenterContainer2/restart_button" to="." method="_on_restart_button_pressed"]

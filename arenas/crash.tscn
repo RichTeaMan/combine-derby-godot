@@ -1,6 +1,6 @@
 [gd_scene load_steps=43 format=3 uid="uid://n1v0sy8omqan"]
 
-[ext_resource type="Script" path="res://scripts/arena.gd" id="1_fx05n"]
+[ext_resource type="Script" path="res://scripts/Arena.cs" id="1_fx05n"]
 [ext_resource type="Material" path="res://materials/mudCracked/mud.tres" id="2_fqnvk"]
 [ext_resource type="PackedScene" uid="uid://dhvbh373p7vkp" path="res://obstacles/cow.tscn" id="3_vckym"]
 [ext_resource type="PackedScene" uid="uid://budi3rhx2dsn6" path="res://obstacles/ramp.tscn" id="4_khcj2"]

@@ -1,6 +1,6 @@
 [gd_scene load_steps=12 format=3 uid="uid://c8v6b0371tehc"]
 
-[ext_resource type="Script" path="res://scripts/farm.gd" id="1_1beex"]
+[ext_resource type="Script" path="res://scripts/Arena.cs" id="1_1beex"]
 [ext_resource type="Material" path="res://materials/mudCracked/mud.tres" id="2_qt24b"]
 [ext_resource type="PackedScene" uid="uid://baqe8nacn46t5" path="res://vehicles/combine.tscn" id="3_v7s1t"]
 [ext_resource type="PackedScene" uid="uid://c62wobadxni15" path="res://obstacles/wheat_patch.tscn" id="5_oj8ty"]

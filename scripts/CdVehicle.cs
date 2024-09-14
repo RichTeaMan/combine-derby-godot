@@ -235,8 +235,7 @@ public partial class CdVehicle : VehicleBody3D
                 wheel.Steering = -SteeringAngle;
             }
         }
-        // TODO
-        // Global.update_speed(player_id, basis.tdotz(get_linear_velocity()))
+        GlobalCs.Current.UpdateSpeed(PlayerId, Basis.Tdotz(LinearVelocity));
 
         if (SoundPart != null)
         {

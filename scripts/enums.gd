@@ -1,3 +1,0 @@
-class_name Enums
-
-enum PART_TYPE { UNUSED, BODY, WHEELS, ENGINE, ATTACHMENTS }

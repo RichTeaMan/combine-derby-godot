@@ -19,7 +19,6 @@ config/icon="res://icon.png"
 [autoload]
 
 Global="*res://singletons/global.tscn"
-GlobalCs="*res://singletons/global_cs.tscn"
 BuildInfo="*res://singletons/build_info.tscn"
 Transitions="*res://singletons/transitions.tscn"
 TransitionsCs="*res://singletons/transitions_cs.tscn"

@@ -1,24 +1,20 @@
 [gd_scene load_steps=4 format=3 uid="uid://b8jy0mex4q7ot"]
 
 [ext_resource type="PackedScene" uid="uid://be2kqwxjuqn83" path="res://assets/hay-bale.glb" id="1"]
-[ext_resource type="Script" path="res://obstacles/hay_bale.gd" id="2"]
+[ext_resource type="Script" path="res://obstacles/HayBale.cs" id="1_rfenf"]
 
 [sub_resource type="CylinderShape3D" id="1"]
 height = 1.2
 radius = 0.75
 
-[node name="hay_bale" type="Node3D"]
-script = ExtResource("2")
-
-[node name="RigidBody3D" type="RigidBody3D" parent="."]
+[node name="hay_bale" type="RigidBody3D"]
 mass = 100.0
-max_contacts_reported = 4
 contact_monitor = true
+max_contacts_reported = 4
+script = ExtResource("1_rfenf")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
 shape = SubResource("1")
 
-[node name="hay-bale" parent="RigidBody3D" instance=ExtResource("1")]
-
-[connection signal="body_entered" from="RigidBody3D" to="." method="hay_body_entered"]
+[node name="hay-bale" parent="." instance=ExtResource("1")]

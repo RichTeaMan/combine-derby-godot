@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://cvt6v6ruwyq0r"]
 
-[ext_resource type="Script" path="res://game_rules/points.gd" id="1"]
+[ext_resource type="Script" path="res://game_rules/Points.cs" id="1"]
 [ext_resource type="Theme" uid="uid://dnfyfchbmcxbe" path="res://themes/large_ui_theme.tres" id="3"]
 
 [node name="points" type="Node3D"]
@@ -24,6 +24,5 @@ bbcode_enabled = true
 text = "00:00"
 
 [node name="Timer" type="Timer" parent="."]
+unique_name_in_owner = true
 autostart = true
-
-[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

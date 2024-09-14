@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://bk6nv57r1itkc"]
 
 [ext_resource type="Texture2D" uid="uid://buc1wj7f2onja" path="res://assets/particles/wheat.png" id="1"]
-[ext_resource type="Script" path="res://obstacles/hay_bale_explode.gd" id="2"]
+[ext_resource type="Script" path="res://obstacles/HayBaleExplode.cs" id="1_dh8yi"]
 [ext_resource type="AudioStream" uid="uid://y7v6migdt2c6" path="res://assets/sounds/hay1.ogg" id="3"]
 
 [sub_resource type="StandardMaterial3D" id="2"]
@@ -19,7 +19,7 @@ material = SubResource("2")
 size = Vector3(0.1, 0.1, 0)
 
 [node name="hay_bale_explode" type="Node3D"]
-script = ExtResource("2")
+script = ExtResource("1_dh8yi")
 
 [node name="CPUParticles3D" type="CPUParticles3D" parent="."]
 lifetime = 20.0

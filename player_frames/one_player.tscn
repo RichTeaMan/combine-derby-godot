@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://ctdqb6bhtk4mk"]
 
-[ext_resource type="Script" path="res://scripts/player_viewport.gd" id="1"]
+[ext_resource type="Script" path="res://player_frames/PlayerViewport.cs" id="1"]
 [ext_resource type="PackedScene" uid="uid://dykwb0gmw81n2" path="res://ui/player_hud.tscn" id="3"]
 
 [node name="one_player" type="Node"]
@@ -23,7 +23,7 @@ layout_mode = 2
 [node name="SubViewport" type="SubViewport" parent="HBoxContainer/viewport_1"]
 handle_input_locally = false
 audio_listener_enable_3d = true
-size = Vector2i(1920, 1080)
+size = Vector2i(480, 270)
 render_target_update_mode = 4
 script = ExtResource("1")
 player_id = 1

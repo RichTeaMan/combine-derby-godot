@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://dykwb0gmw81n2"]
 
-[ext_resource type="Script" path="res://ui/player_hud.gd" id="1"]
+[ext_resource type="Script" path="res://ui/PlayerHud.cs" id="1"]
 [ext_resource type="Theme" uid="uid://dnfyfchbmcxbe" path="res://themes/large_ui_theme.tres" id="3"]
 [ext_resource type="Theme" uid="uid://b5dkmxxjri631" path="res://themes/ui_bold_theme.tres" id="3_f4ltr"]
 
@@ -153,6 +153,7 @@ layout_mode = 2
 
 [node name="control_label" type="RichTextLabel" parent="top_banner/CenterContainer"]
 unique_name_in_owner = true
+self_modulate = Color(0, 0, 0, 0)
 custom_minimum_size = Vector2(600, 70)
 layout_mode = 2
 theme = ExtResource("3")
@@ -169,6 +170,7 @@ size_flags_horizontal = 2
 size_flags_vertical = 2
 
 [node name="game_info_label" type="RichTextLabel" parent="gui" groups=["points_ui"]]
+unique_name_in_owner = true
 clip_contents = false
 layout_mode = 2
 theme = ExtResource("3_f4ltr")
@@ -187,6 +189,7 @@ size_flags_horizontal = 2
 size_flags_vertical = 2
 
 [node name="speed_label" type="RichTextLabel" parent="gui2"]
+unique_name_in_owner = true
 clip_contents = false
 layout_mode = 2
 theme = ExtResource("3_f4ltr")
@@ -198,7 +201,8 @@ wait_time = 5.0
 one_shot = true
 autostart = true
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+[node name="animation_player" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
 libraries = {
 "": SubResource("AnimationLibrary_dhlqw")
 }

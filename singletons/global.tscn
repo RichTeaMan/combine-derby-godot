@@ -1,12 +1,11 @@
 [gd_scene load_steps=2 format=3 uid="uid://dmj1unbeq25y6"]
 
-[ext_resource type="Script" path="res://singletons/global.gd" id="1"]
+[ext_resource type="Script" path="res://singletons/GlobalCs.cs" id="1_kt0wd"]
 
 [node name="global" type="Node3D"]
 process_mode = 3
-script = ExtResource("1")
+script = ExtResource("1_kt0wd")
 
 [node name="music_player" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
 bus = &"music"
-
-[connection signal="finished" from="music_player" to="." method="_on_music_player_finished"]
